@@ -72,7 +72,7 @@ std.println("Done!")
 
 **Returns:** Nothing.
 
-**Errors:** [E11001](/language.ez/errors/E11001) if the argument is not a number.
+**Errors:** [E7005](/language.ez/errors/E7005) if the argument is not a number.
 
 ### `sleep_ms()`
 `(milliseconds int) -> void`
@@ -89,7 +89,7 @@ std.println("Done!")
 
 **Returns:** Nothing.
 
-**Errors:** [E11002](/language.ez/errors/E11002) if the argument is not an integer.
+**Errors:** [E7004](/language.ez/errors/E7004) if the argument is not an integer.
 
 ## Formatting
 
@@ -112,7 +112,7 @@ time.format(ts, "MMM DD, YYYY")       // "Dec 15, 2024"
 
 **Returns:** `string` - Formatted date string.
 
-**Errors:** [E11003](/language.ez/errors/E11003) if format is not a string, [E11004](/language.ez/errors/E11004) if timestamp is not an integer.
+**Errors:** [E7003](/language.ez/errors/E7003) if format is not a string, [E7004](/language.ez/errors/E7004) if timestamp is not an integer.
 
 ### Format Tokens
 
@@ -143,7 +143,7 @@ std.println(ts2)
 
 **Returns:** `int` - Unix timestamp.
 
-**Errors:** [E11005](/language.ez/errors/E11005) if parsing fails, [E11006](/language.ez/errors/E11006) if arguments are not strings.
+**Errors:** [E11001](/language.ez/errors/E11001) if parsing fails, [E7003](/language.ez/errors/E7003) if arguments are not strings.
 
 ## Creating Timestamps
 
@@ -164,7 +164,7 @@ temp ts2 int = time.make(2024, 12, 15, 14, 30, 0)
 
 **Returns:** `int` - Unix timestamp.
 
-**Errors:** [E11007](/language.ez/errors/E11007) if arguments are not integers.
+**Errors:** [E7004](/language.ez/errors/E7004) if arguments are not integers.
 
 ## Date Arithmetic
 
@@ -186,7 +186,7 @@ temp much_later int = time.add_minutes(today, 90)
 
 **Returns:** `int` - New timestamp.
 
-**Errors:** [E11008](/language.ez/errors/E11008) if timestamp is not an integer, [E11009](/language.ez/errors/E11009) if amount is not an integer.
+**Errors:** [E7004](/language.ez/errors/E7004) if arguments are not integers.
 
 ### `diff()`
 `(timestamp1 int, timestamp2 int) -> int`
@@ -205,7 +205,7 @@ std.println("Days in 2024:", diff_days)
 
 **Returns:** `int` - Difference in seconds.
 
-**Errors:** [E11010](/language.ez/errors/E11010) if arguments are not integers.
+**Errors:** [E7004](/language.ez/errors/E7004) if arguments are not integers.
 
 ## Date Components
 
@@ -261,7 +261,7 @@ std.println(time.is_leap_year(2023))  // false
 
 **Returns:** `bool` - true if leap year.
 
-**Errors:** [E11011](/language.ez/errors/E11011) if the argument is not an integer.
+**Errors:** [E7004](/language.ez/errors/E7004) if the argument is not an integer.
 
 ### `days_in_month()`
 `(year int, month int) -> int`
@@ -278,7 +278,7 @@ std.println(time.days_in_month(2024, 12)) // 31
 
 **Returns:** `int` - Number of days.
 
-**Errors:** [E11012](/language.ez/errors/E11012) if arguments are not integers.
+**Errors:** [E7004](/language.ez/errors/E7004) if arguments are not integers.
 
 ## Performance Timing
 
@@ -303,7 +303,7 @@ std.println("Operation took " + string(elapsed) + "ms")
 
 **Returns:** `int` - Milliseconds elapsed.
 
-**Errors:** [E11013](/language.ez/errors/E11013) if the argument is not an integer.
+**Errors:** [E7004](/language.ez/errors/E7004) if the argument is not an integer.
 
 ## Example Program
 

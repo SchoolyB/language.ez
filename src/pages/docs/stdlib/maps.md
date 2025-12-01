@@ -48,7 +48,7 @@ std.println(age)  // 25
 
 **Returns:** The value associated with the key.
 
-**Errors:** [E12006](/language.ez/errors/E12006) if the key is not found.
+**Errors:** [E12003](/language.ez/errors/E12003) if the key is not found.
 
 ### `set()`
 `(m map, key any, value any) -> void`
@@ -65,7 +65,7 @@ maps.set(ages, "Alice", 26)  // update existing
 
 **Returns:** Nothing (mutates map in place).
 
-**Errors:** [E12003](/language.ez/errors/E12003) if the map is immutable (const).
+**Errors:** [E12002](/language.ez/errors/E12002) if the map is immutable (const).
 
 ### `has()`
 `(m map, key any) -> bool`
@@ -114,7 +114,7 @@ std.println(names)  // {"Alice", "Bob"}
 
 **Returns:** `[any]` - Array of keys.
 
-**Errors:** [E12001](/language.ez/errors/E12001) if the argument is not a map.
+**Errors:** [E7007](/language.ez/errors/E7007) if the argument is not a map.
 
 ### `values()`
 `(m map) -> [any]`
@@ -246,7 +246,7 @@ temp arr [int] = {1, 2, 3}
 // maps.set(myMap, arr, "value")  // Error: array not hashable
 ```
 
-**Error:** [E12002](/language.ez/errors/E12002) if you try to use a non-hashable key.
+**Error:** [E12001](/language.ez/errors/E12001) if you try to use a non-hashable key.
 
 ## Example Program
 

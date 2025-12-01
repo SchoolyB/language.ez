@@ -69,7 +69,7 @@ math.avg(10, 20)   // 15.0
 
 **Returns:** `float` - The arithmetic mean.
 
-**Errors:** [E8012](/language.ez/errors/E8012) if called with no arguments.
+**Errors:** [E7001](/language.ez/errors/E7001) if called with no arguments.
 
 ### `floor()` / `ceil()` / `round()`
 `(n float) -> int`
@@ -152,7 +152,7 @@ math.log2(16)  // 4.0
 
 **Returns:** `float` - The base-2 logarithm.
 
-**Errors:** [E8003](/language.ez/errors/E8003) if the argument is not positive.
+**Errors:** [E8002](/language.ez/errors/E8002) if the argument is not positive.
 
 ### `log10()`
 `(n number) -> float`
@@ -168,7 +168,7 @@ math.log10(1000)  // 3.0
 
 **Returns:** `float` - The base-10 logarithm.
 
-**Errors:** [E8004](/language.ez/errors/E8004) if the argument is not positive.
+**Errors:** [E8002](/language.ez/errors/E8002) if the argument is not positive.
 
 ## Trigonometry
 
@@ -202,7 +202,7 @@ math.atan(1)   // 0.7853981... (PI/4)
 
 **Returns:** `float` - Angle in radians.
 
-**Errors:** [E8005](/language.ez/errors/E8005) asin if value outside [-1, 1], [E8006](/language.ez/errors/E8006) acos if value outside [-1, 1].
+**Errors:** [E8003](/language.ez/errors/E8003) if value is outside [-1, 1].
 
 ## Other Functions
 
@@ -221,7 +221,7 @@ math.factorial(10)  // 3628800
 
 **Returns:** `int` - n!
 
-**Errors:** [E8007](/language.ez/errors/E8007) for negative numbers, [E8008](/language.ez/errors/E8008) for values > 20.
+**Errors:** [E8004](/language.ez/errors/E8004) for negative numbers, [E8005](/language.ez/errors/E8005) for values > 20.
 
 ## Random Numbers
 
@@ -242,7 +242,7 @@ math.random(10, 20)   // 10-19
 
 **Returns:** `int` - A random integer.
 
-**Errors:** [E8009](/language.ez/errors/E8009) if max is not positive, [E8010](/language.ez/errors/E8010) if max <= min.
+**Errors:** [E8006](/language.ez/errors/E8006) if the range is invalid.
 
 ### `random_float()`
 `() -> float` or `(min float, max float) -> float`
