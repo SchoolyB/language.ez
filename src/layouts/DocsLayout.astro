@@ -41,22 +41,145 @@ const description = Astro.props.description || frontmatter?.description;
 </BaseLayout>
 
 <script>
-  function initCopyButtons() {
-    const codeBlocks = document.querySelectorAll('.docs-content pre');
+  // Comprehensive EZ syntax highlighter - same logic as CodeBlock component
+  function highlightEZ(code: string): string {
+    // All EZ keywords
+    const keywords = [
+      'temp', 'const', 'do', 'if', 'or', 'otherwise',
+      'for', 'for_each', 'as_long_as', 'loop', 'return',
+      'import', 'using', 'module', 'in', 'break', 'continue',
+      'struct', 'enum', 'priv'
+    ];
 
+    // All types including sized integers
+    const types = [
+      'int', 'float', 'string', 'bool', 'void', 'any', 'char', 'map',
+      'i8', 'u8', 'i16', 'u16', 'i32', 'u32', 'i64', 'u64', 'i128', 'u128', 'i256', 'u256'
+    ];
+
+    // Built-in functions
+    const builtins = ['println', 'print', 'len', 'append', 'range', 'typeof'];
+
+    // Type conversion functions
+    const typeConversions = ['int', 'float', 'string'];
+
+    let result = code;
+    const markers: { marker: string; replacement: string }[] = [];
+    let markerIndex = 0;
+
+    const createMarker = (content: string, className: string): string => {
+      const marker = `__EZ_MARKER_${markerIndex++}__`;
+      const escaped = content.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      markers.push({ marker, replacement: `<span class="${className}">${escaped}</span>` });
+      return marker;
+    };
+
+    // Extract multi-line comments first
+    result = result.replace(/(\/\*[\s\S]*?\*\/)/g, (match) => createMarker(match, 'ez-comment'));
+    // Extract single-line comments
+    result = result.replace(/(\/\/.*$)/gm, (match) => createMarker(match, 'ez-comment'));
+    // Extract strings (double quotes)
+    result = result.replace(/("(?:[^"\\]|\\.)*")/g, (match) => createMarker(match, 'ez-string'));
+    // Extract single-char strings (single quotes)
+    result = result.replace(/('(?:[^'\\]|\\.)')/g, (match) => createMarker(match, 'ez-string'));
+
+    // Extract import statements with @ - handle alias@module and @module patterns
+    // Pattern: alias@module (e.g., arr@arrays, m@math)
+    result = result.replace(/\b(\w+)(@)(\w+)\b/g, (match, alias, at, moduleName) => {
+      const aliasMarker = createMarker(alias, 'ez-module');
+      const atMarker = createMarker(at, 'ez-operator');
+      const moduleMarker = createMarker(moduleName, 'ez-module');
+      return aliasMarker + atMarker + moduleMarker;
+    });
+
+    // Pattern: @module (e.g., @std, @math, @arrays)
+    result = result.replace(/(@)(\w+)/g, (match, at, moduleName) => {
+      const atMarker = createMarker(at, 'ez-operator');
+      const moduleMarker = createMarker(moduleName, 'ez-module');
+      return atMarker + moduleMarker;
+    });
+
+    // Extract & operator in "import & use"
+    result = result.replace(/\b(import)\s+(&)\s+(use)\b/g, (match, imp, amp, use) => {
+      const impMarker = createMarker(imp, 'ez-keyword');
+      const ampMarker = createMarker(amp, 'ez-operator');
+      const useMarker = createMarker(use, 'ez-keyword');
+      return impMarker + ' ' + ampMarker + ' ' + useMarker;
+    });
+
+    // Escape remaining HTML
+    result = result.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+    // Booleans
+    result = result.replace(/\b(true|false)\b/g, '<span class="ez-boolean">$1</span>');
+
+    // Numbers
+    result = result.replace(/\b(\d+\.?\d*)\b/g, '<span class="ez-number">$1</span>');
+
+    // Keywords
+    keywords.forEach(kw => {
+      const regex = new RegExp(`\\b(${kw})\\b`, 'g');
+      result = result.replace(regex, '<span class="ez-keyword">$1</span>');
+    });
+
+    // Types (but not when used as function calls like int(), float(), string())
+    types.forEach(t => {
+      const regex = new RegExp(`\\b(${t})\\b(?!\\()`, 'g');
+      result = result.replace(regex, '<span class="ez-type">$1</span>');
+    });
+
+    // Type conversion functions when followed by (
+    typeConversions.forEach(fn => {
+      const regex = new RegExp(`\\b(${fn})(?=\\()`, 'g');
+      result = result.replace(regex, '<span class="ez-function">$1</span>');
+    });
+
+    // Builtins
+    builtins.forEach(fn => {
+      const regex = new RegExp(`\\b(${fn})(?=\\()`, 'g');
+      result = result.replace(regex, '<span class="ez-function">$1</span>');
+    });
+
+    // Restore markers
+    markers.forEach(({ marker, replacement }) => {
+      result = result.replace(marker, replacement);
+    });
+
+    return result;
+  }
+
+  function initDocsCodeBlocks() {
+    // Apply EZ highlighting to code blocks
+    // Skip known non-EZ languages (bash, shell, powershell, js, etc.)
+    const skipLanguages = ['bash', 'shell', 'sh', 'powershell', 'ps1', 'javascript', 'js', 'typescript', 'ts', 'json', 'html', 'css'];
+
+    const allCodeBlocks = document.querySelectorAll('.docs-content pre code');
+    allCodeBlocks.forEach((codeEl) => {
+      if (codeEl.getAttribute('data-ez-highlighted')) return;
+
+      // Check if this is a non-EZ language
+      const classList = Array.from(codeEl.classList);
+      const langClass = classList.find(c => c.startsWith('language-'));
+      const lang = langClass?.replace('language-', '') || '';
+
+      if (skipLanguages.includes(lang)) return;
+
+      // Apply EZ highlighting
+      const originalCode = codeEl.textContent || '';
+      codeEl.innerHTML = highlightEZ(originalCode);
+      codeEl.setAttribute('data-ez-highlighted', 'true');
+    });
+
+    // Add copy buttons to all code blocks
+    const codeBlocks = document.querySelectorAll('.docs-content pre');
     codeBlocks.forEach((pre) => {
-      // Skip if already wrapped
       if (pre.parentElement?.classList.contains('code-block-wrapper')) return;
 
-      // Create wrapper
       const wrapper = document.createElement('div');
       wrapper.className = 'code-block-wrapper';
-
-      // Wrap the pre element
       pre.parentNode?.insertBefore(wrapper, pre);
       wrapper.appendChild(pre);
 
-      // Create copy button
       const button = document.createElement('button');
       button.className = 'copy-button';
       button.textContent = 'Copy';
@@ -64,12 +187,10 @@ const description = Astro.props.description || frontmatter?.description;
 
       button.addEventListener('click', async () => {
         const code = pre.querySelector('code')?.textContent || pre.textContent || '';
-
         try {
           await navigator.clipboard.writeText(code);
           button.textContent = 'Copied!';
           button.classList.add('copied');
-
           setTimeout(() => {
             button.textContent = 'Copy';
             button.classList.remove('copied');
@@ -86,9 +207,6 @@ const description = Astro.props.description || frontmatter?.description;
     });
   }
 
-  // Run on initial load
-  initCopyButtons();
-
-  // Re-run after Astro page transitions
-  document.addEventListener('astro:after-swap', initCopyButtons);
+  initDocsCodeBlocks();
+  document.addEventListener('astro:after-swap', initDocsCodeBlocks);
 </script>
