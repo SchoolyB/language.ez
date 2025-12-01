@@ -7,6 +7,9 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
   site: 'https://schoolyb.github.io',
   base: '/language.ez/',
+  markdown: {
+    syntaxHighlight: false, // Disable Shiki - we handle EZ highlighting ourselves
+  },
   vite: {
     plugins: [tailwindcss()]
   }

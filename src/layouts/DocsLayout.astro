@@ -41,22 +41,97 @@ const description = Astro.props.description || frontmatter?.description;
 </BaseLayout>
 
 <script>
-  function initCopyButtons() {
-    const codeBlocks = document.querySelectorAll('.docs-content pre');
+  // EZ syntax highlighter - same logic as CodeBlock component
+  function highlightEZ(code: string): string {
+    const keywords = ['temp', 'const', 'do', 'if', 'or', 'otherwise', 'for', 'for_each', 'as_long_as', 'return', 'import', 'using', 'in', 'break', 'continue', 'struct', 'enum'];
+    const types = ['int', 'float', 'string', 'bool', 'void', 'any', 'char', 'map'];
+    const builtins = ['println', 'print', 'len', 'append', 'range', 'typeof'];
 
+    let result = code;
+    const markers: { marker: string; replacement: string }[] = [];
+    let markerIndex = 0;
+
+    const createMarker = (content: string, className: string): string => {
+      const marker = `__EZ_MARKER_${markerIndex++}__`;
+      const escaped = content.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      markers.push({ marker, replacement: `<span class="${className}">${escaped}</span>` });
+      return marker;
+    };
+
+    // Extract multi-line comments first
+    result = result.replace(/(\/\*[\s\S]*?\*\/)/g, (match) => createMarker(match, 'ez-comment'));
+    // Extract single-line comments
+    result = result.replace(/(\/\/.*$)/gm, (match) => createMarker(match, 'ez-comment'));
+    // Extract strings
+    result = result.replace(/("(?:[^"\\]|\\.)*")/g, (match) => createMarker(match, 'ez-string'));
+    // Extract single-char strings
+    result = result.replace(/('(?:[^'\\]|\\.)')/g, (match) => createMarker(match, 'ez-string'));
+    // Extract import paths (@std, @math, etc)
+    result = result.replace(/(@\w+)/g, (match) => createMarker(match, 'ez-string'));
+
+    // Escape remaining HTML
+    result = result.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    // Numbers
+    result = result.replace(/\b(\d+\.?\d*)\b/g, '<span class="ez-number">$1</span>');
+
+    // Keywords
+    keywords.forEach(kw => {
+      const regex = new RegExp(`\\b(${kw})\\b`, 'g');
+      result = result.replace(regex, '<span class="ez-keyword">$1</span>');
+    });
+
+    // Types
+    types.forEach(t => {
+      const regex = new RegExp(`\\b(${t})\\b`, 'g');
+      result = result.replace(regex, '<span class="ez-type">$1</span>');
+    });
+
+    // Builtins
+    builtins.forEach(fn => {
+      const regex = new RegExp(`\\b(${fn})(?=\\()`, 'g');
+      result = result.replace(regex, '<span class="ez-function">$1</span>');
+    });
+
+    // Restore markers
+    markers.forEach(({ marker, replacement }) => {
+      result = result.replace(marker, replacement);
+    });
+
+    return result;
+  }
+
+  function initDocsCodeBlocks() {
+    // Apply EZ highlighting to code blocks
+    // Skip known non-EZ languages (bash, shell, powershell, js, etc.)
+    const skipLanguages = ['bash', 'shell', 'sh', 'powershell', 'ps1', 'javascript', 'js', 'typescript', 'ts', 'json', 'html', 'css'];
+
+    const allCodeBlocks = document.querySelectorAll('.docs-content pre code');
+    allCodeBlocks.forEach((codeEl) => {
+      if (codeEl.getAttribute('data-ez-highlighted')) return;
+
+      // Check if this is a non-EZ language
+      const classList = Array.from(codeEl.classList);
+      const langClass = classList.find(c => c.startsWith('language-'));
+      const lang = langClass?.replace('language-', '') || '';
+
+      if (skipLanguages.includes(lang)) return;
+
+      // Apply EZ highlighting
+      const originalCode = codeEl.textContent || '';
+      codeEl.innerHTML = highlightEZ(originalCode);
+      codeEl.setAttribute('data-ez-highlighted', 'true');
+    });
+
+    // Add copy buttons to all code blocks
+    const codeBlocks = document.querySelectorAll('.docs-content pre');
     codeBlocks.forEach((pre) => {
-      // Skip if already wrapped
       if (pre.parentElement?.classList.contains('code-block-wrapper')) return;
 
-      // Create wrapper
       const wrapper = document.createElement('div');
       wrapper.className = 'code-block-wrapper';
-
-      // Wrap the pre element
       pre.parentNode?.insertBefore(wrapper, pre);
       wrapper.appendChild(pre);
 
-      // Create copy button
       const button = document.createElement('button');
       button.className = 'copy-button';
       button.textContent = 'Copy';
@@ -64,12 +139,10 @@ const description = Astro.props.description || frontmatter?.description;
 
       button.addEventListener('click', async () => {
         const code = pre.querySelector('code')?.textContent || pre.textContent || '';
-
         try {
           await navigator.clipboard.writeText(code);
           button.textContent = 'Copied!';
           button.classList.add('copied');
-
           setTimeout(() => {
             button.textContent = 'Copy';
             button.classList.remove('copied');
@@ -86,9 +159,6 @@ const description = Astro.props.description || frontmatter?.description;
     });
   }
 
-  // Run on initial load
-  initCopyButtons();
-
-  // Re-run after Astro page transitions
-  document.addEventListener('astro:after-swap', initCopyButtons);
+  initDocsCodeBlocks();
+  document.addEventListener('astro:after-swap', initDocsCodeBlocks);
 </script>
