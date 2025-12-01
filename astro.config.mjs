@@ -6,7 +6,7 @@ import tailwindcss from '@tailwindcss/vite';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://schoolyb.github.io',
-  base: '/language.ez',
+  base: '/language.ez/',
   vite: {
     plugins: [tailwindcss()]
   }
