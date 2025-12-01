@@ -3,6 +3,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 
+const base = import.meta.env.BASE_URL;
+
 const ways = [
   {
     title: 'Report Bugs',
@@ -114,7 +116,7 @@ const ways = [
 
         <div class="pt-4">
           <a
-            href="/ISSUE_TEMPLATE.md"
+            href={`${base}ISSUE_TEMPLATE.md`}
             class="inline-flex items-center gap-2 text-sm font-medium underline underline-offset-4 hover:opacity-70 transition-opacity"
           >
             View full issue template &rarr;

@@ -4,6 +4,8 @@ import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import errorsData from '../../data/errors.json';
 
+const base = import.meta.env.BASE_URL;
+
 // Group errors by category
 const errorsByCategory = errorsData.categories.map(category => {
   const categoryErrors = errorsData.errors.filter(e => e.category === category.id);
@@ -64,7 +66,7 @@ const totalErrors = errorsData.errors.length;
             <div class="flex flex-wrap gap-2">
               {category.errors.slice(0, 8).map(error => (
                 <a
-                  href={`/errors/${error.code}`}
+                  href={`${base}errors/${error.code}`}
                   class="text-xs px-2.5 py-1.5 bg-white dark:bg-black rounded border border-gray-200 dark:border-gray-800 hover:border-black dark:hover:border-white transition-colors font-mono text-black dark:text-white"
                 >
                   {error.code}
@@ -84,7 +86,7 @@ const totalErrors = errorsData.errors.length;
               <div class="flex flex-wrap gap-2">
                 {category.errors.slice(8).map(error => (
                   <a
-                    href={`/errors/${error.code}`}
+                    href={`${base}errors/${error.code}`}
                     class="text-xs px-2.5 py-1.5 bg-white dark:bg-black rounded border border-gray-200 dark:border-gray-800 hover:border-black dark:hover:border-white transition-colors font-mono text-black dark:text-white"
                   >
                     {error.code}
@@ -114,12 +116,12 @@ const totalErrors = errorsData.errors.length;
               {errorsData.errors.map(error => (
                 <tr class="hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors error-row" data-code={error.code.toLowerCase()} data-slug={error.slug} data-message={error.message.toLowerCase()}>
                   <td class="px-4 py-3">
-                    <a href={`/errors/${error.code}`} class="font-mono text-black dark:text-white hover:underline">
+                    <a href={`${base}errors/${error.code}`} class="font-mono text-black dark:text-white hover:underline">
                       {error.code}
                     </a>
                   </td>
                   <td class="px-4 py-3">
-                    <a href={`/errors/${error.code}`} class="hover:underline opacity-80 text-black dark:text-white">
+                    <a href={`${base}errors/${error.code}`} class="hover:underline opacity-80 text-black dark:text-white">
                       {error.slug}
                     </a>
                   </td>

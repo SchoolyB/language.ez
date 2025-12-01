@@ -10,38 +10,40 @@ interface NavSection {
   items: NavItem[];
 }
 
+const base = import.meta.env.BASE_URL;
+
 const navigation: NavSection[] = [
   {
     title: 'Getting Started',
     items: [
-      { href: '/docs/getting-started', label: 'Installation' },
-      { href: '/docs/getting-started/hello-world', label: 'Hello World' },
-      { href: '/docs/getting-started/repl', label: 'Using the REPL' },
+      { href: `${base}docs/getting-started`, label: 'Installation' },
+      { href: `${base}docs/getting-started/hello-world`, label: 'Hello World' },
+      { href: `${base}docs/getting-started/repl`, label: 'Using the REPL' },
     ],
   },
   {
     title: 'Language',
     items: [
-      { href: '/docs/language/keywords', label: 'Keywords' },
-      { href: '/docs/language/variables', label: 'Variables' },
-      { href: '/docs/language/functions', label: 'Functions' },
-      { href: '/docs/language/control-flow', label: 'Control Flow' },
-      { href: '/docs/language/types', label: 'Types' },
-      { href: '/docs/language/structs', label: 'Structs' },
-      { href: '/docs/language/enums', label: 'Enums' },
-      { href: '/docs/language/modules', label: 'Modules' },
+      { href: `${base}docs/language/keywords`, label: 'Keywords' },
+      { href: `${base}docs/language/variables`, label: 'Variables' },
+      { href: `${base}docs/language/functions`, label: 'Functions' },
+      { href: `${base}docs/language/control-flow`, label: 'Control Flow' },
+      { href: `${base}docs/language/types`, label: 'Types' },
+      { href: `${base}docs/language/structs`, label: 'Structs' },
+      { href: `${base}docs/language/enums`, label: 'Enums' },
+      { href: `${base}docs/language/modules`, label: 'Modules' },
     ],
   },
   {
     title: 'Standard Library',
     items: [
-      { href: '/docs/stdlib', label: 'Overview' },
-      { href: '/docs/stdlib/std', label: '@std' },
-      { href: '/docs/stdlib/math', label: '@math' },
-      { href: '/docs/stdlib/arrays', label: '@arrays' },
-      { href: '/docs/stdlib/strings', label: '@strings' },
-      { href: '/docs/stdlib/maps', label: '@maps' },
-      { href: '/docs/stdlib/time', label: '@time' },
+      { href: `${base}docs/stdlib`, label: 'Overview' },
+      { href: `${base}docs/stdlib/std`, label: '@std' },
+      { href: `${base}docs/stdlib/math`, label: '@math' },
+      { href: `${base}docs/stdlib/arrays`, label: '@arrays' },
+      { href: `${base}docs/stdlib/strings`, label: '@strings' },
+      { href: `${base}docs/stdlib/maps`, label: '@maps' },
+      { href: `${base}docs/stdlib/time`, label: '@time' },
     ],
   },
 ];
