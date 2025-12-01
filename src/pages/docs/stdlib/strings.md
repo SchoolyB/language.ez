@@ -88,7 +88,7 @@ strings.contains("hello world", "foo")    // false
 
 **Returns:** `bool` - true if found.
 
-**Errors:** [E10005](/language.ez/errors/E10005) if arguments are not strings.
+**Errors:** [E7003](/language.ez/errors/E7003) if arguments are not strings.
 
 ### `starts_with()`
 `(str string, prefix string) -> bool`
@@ -104,7 +104,7 @@ strings.starts_with("hello world", "world")  // false
 
 **Returns:** `bool` - true if starts with prefix.
 
-**Errors:** [E10006](/language.ez/errors/E10006) if arguments are not strings.
+**Errors:** [E7003](/language.ez/errors/E7003) if arguments are not strings.
 
 ### `ends_with()`
 `(str string, suffix string) -> bool`
@@ -120,7 +120,7 @@ strings.ends_with("hello world", "hello")  // false
 
 **Returns:** `bool` - true if ends with suffix.
 
-**Errors:** [E10007](/language.ez/errors/E10007) if arguments are not strings.
+**Errors:** [E7003](/language.ez/errors/E7003) if arguments are not strings.
 
 ### `index()`
 `(str string, substr string) -> int`
@@ -136,7 +136,7 @@ strings.index("hello world", "foo")    // -1
 
 **Returns:** `int` - Index or -1.
 
-**Errors:** [E10004](/language.ez/errors/E10004) if arguments are not strings.
+**Errors:** [E7003](/language.ez/errors/E7003) if arguments are not strings.
 
 ## Trimming
 
@@ -187,7 +187,7 @@ std.println(words)  // {"hello", "world"}
 
 **Returns:** `[string]` - Array of substrings.
 
-**Errors:** [E10001](/language.ez/errors/E10001) if arguments are not strings.
+**Errors:** [E7003](/language.ez/errors/E7003) if arguments are not strings.
 
 ### `join()`
 `(arr [string], separator string) -> string`
@@ -204,7 +204,7 @@ std.println(strings.join(parts, ""))   // "abc"
 
 **Returns:** `string` - Joined string.
 
-**Errors:** [E10002](/language.ez/errors/E10002) if the first argument is not an array.
+**Errors:** [E7002](/language.ez/errors/E7002) if the first argument is not an array.
 
 ## Replacing
 
@@ -222,7 +222,7 @@ strings.replace("aaa", "a", "b")  // "bbb"
 
 **Returns:** `string` - Modified string.
 
-**Errors:** [E10003](/language.ez/errors/E10003) if arguments are not strings.
+**Errors:** [E7003](/language.ez/errors/E7003) if arguments are not strings.
 
 ### `replace_first()`
 `(str string, old string, new string) -> string`

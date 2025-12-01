@@ -65,7 +65,7 @@ std.println(arr)    // {2, 3}
 
 **Returns:** The removed element.
 
-**Errors:** [E9002](/language.ez/errors/E9002) if the array is empty.
+**Errors:** [E9001](/language.ez/errors/E9001) if the array is empty.
 
 ### `unshift()`
 `(arr [any], value any) -> void`
@@ -97,7 +97,7 @@ std.println(arr)  // {1, 2, 3, 4}
 
 **Returns:** Nothing (mutates array in place).
 
-**Errors:** [E9003](/language.ez/errors/E9003) if the index is out of bounds.
+**Errors:** [E5003](/language.ez/errors/E5003) if the index is out of bounds.
 
 ### `remove_at()`
 `(arr [any], index int) -> void`
@@ -114,7 +114,7 @@ std.println(arr)  // {1, 3, 4}
 
 **Returns:** Nothing (mutates array in place).
 
-**Errors:** [E9006](/language.ez/errors/E9006) if the index is out of bounds.
+**Errors:** [E5003](/language.ez/errors/E5003) if the index is out of bounds.
 
 ## Accessing Elements
 
@@ -133,7 +133,7 @@ std.println(val)  // 20
 
 **Returns:** The element at the index.
 
-**Errors:** [E9004](/language.ez/errors/E9004) if the index is out of bounds.
+**Errors:** [E5003](/language.ez/errors/E5003) if the index is out of bounds.
 
 ### `set()`
 `(arr [any], index int, value any) -> void`
@@ -150,7 +150,7 @@ std.println(arr)  // {1, 20, 3}
 
 **Returns:** Nothing (mutates array in place).
 
-**Errors:** [E9005](/language.ez/errors/E9005) if the index is out of bounds.
+**Errors:** [E5003](/language.ez/errors/E5003) if the index is out of bounds.
 
 ### `first()` / `last()`
 `(arr [any]) -> any`
@@ -231,7 +231,7 @@ std.println(sub)  // {2, 3, 4}
 
 **Returns:** A new array with the slice.
 
-**Errors:** [E9016](/language.ez/errors/E9016) if indices are not integers.
+**Errors:** [E7004](/language.ez/errors/E7004) if indices are not integers.
 
 ### `concat()`
 `(arr1 [any], arr2 [any]) -> [any]`
@@ -249,7 +249,7 @@ std.println(c)  // {1, 2, 3, 4}
 
 **Returns:** A new concatenated array.
 
-**Errors:** [E9014](/language.ez/errors/E9014) if arguments are not arrays.
+**Errors:** [E7002](/language.ez/errors/E7002) if arguments are not arrays.
 
 ### `repeat()`
 `(value any, count int) -> [any]`
@@ -265,7 +265,7 @@ std.println(arr)  // {0, 0, 0, 0, 0}
 
 **Returns:** A new array.
 
-**Errors:** [E9017](/language.ez/errors/E9017) if count is not an integer.
+**Errors:** [E7004](/language.ez/errors/E7004) if count is not an integer.
 
 ## Numeric Arrays
 
@@ -283,7 +283,7 @@ std.println(arrays.sum(arr))  // 15
 
 **Returns:** The sum.
 
-**Errors:** [E9010](/language.ez/errors/E9010) if the array is not numeric.
+**Errors:** [E9002](/language.ez/errors/E9002) if the array is not numeric.
 
 ### `product()`
 `(arr [number]) -> number`
@@ -299,7 +299,7 @@ std.println(arrays.product(arr))  // 120
 
 **Returns:** The product.
 
-**Errors:** [E9011](/language.ez/errors/E9011) if the array is not numeric.
+**Errors:** [E9002](/language.ez/errors/E9002) if the array is not numeric.
 
 ### `min()` / `max()`
 `(arr [number]) -> number`
@@ -316,7 +316,7 @@ std.println(arrays.max(arr))  // 9
 
 **Returns:** The min or max value.
 
-**Errors:** [E9007](/language.ez/errors/E9007) min if array is empty, [E9008](/language.ez/errors/E9008) max if array is empty.
+**Errors:** [E9001](/language.ez/errors/E9001) if the array is empty.
 
 ### `avg()`
 `(arr [number]) -> float`
@@ -332,7 +332,7 @@ std.println(arrays.avg(arr))  // 6.0
 
 **Returns:** `float` - The average.
 
-**Errors:** [E9009](/language.ez/errors/E9009) if array is empty, [E9012](/language.ez/errors/E9012) if not numeric.
+**Errors:** [E9001](/language.ez/errors/E9001) if the array is empty, [E9002](/language.ez/errors/E9002) if not numeric.
 
 ## Utilities
 
@@ -354,7 +354,7 @@ std.println(odds)  // {1, 3, 5, 7, 9}
 
 **Returns:** A new array of integers.
 
-**Errors:** [E9013](/language.ez/errors/E9013) if step is zero.
+**Errors:** [E9003](/language.ez/errors/E9003) if step is zero.
 
 ### `join()`
 `(arr [any], separator string) -> string`
@@ -373,7 +373,7 @@ std.println(arrays.join(nums, ", "))  // "1, 2, 3"
 
 **Returns:** `string` - The joined string.
 
-**Errors:** [E9018](/language.ez/errors/E9018) if separator is not a string.
+**Errors:** [E7003](/language.ez/errors/E7003) if separator is not a string.
 
 ### `zip()`
 `(arr1 [any], arr2 [any]) -> [[any, any]]`
@@ -391,7 +391,7 @@ temp pairs = arrays.zip(names, ages)
 
 **Returns:** An array of pairs.
 
-**Errors:** [E9015](/language.ez/errors/E9015) if arguments are not arrays.
+**Errors:** [E7002](/language.ez/errors/E7002) if arguments are not arrays.
 
 ## Example Program
 
