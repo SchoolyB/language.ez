@@ -13,8 +13,8 @@ const currentPath = Astro.url.pathname;
   <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16">
       <!-- Logo -->
-      <a href="/" class="hover:opacity-70 transition-opacity">
-        <img src="/logo.jpeg" alt="EZ" class="h-8 w-8 rounded" />
+      <a href={import.meta.env.BASE_URL} class="hover:opacity-70 transition-opacity">
+        <img src={`${import.meta.env.BASE_URL}logo.jpeg`} alt="EZ" class="h-8 w-8 rounded" />
       </a>
 
       <!-- Right side: Desktop Navigation + Actions -->
