@@ -170,6 +170,32 @@ code:not(pre code) {
 .ez-operator { color: var(--ez-operator); }
 .ez-module { color: var(--ez-module); }
 
+/* Bash/Shell syntax highlighting */
+:root {
+  --bash-command: #4338ca;   /* dark indigo - commands */
+  --bash-flag: #0e7490;      /* dark cyan - flags */
+  --bash-string: #047857;    /* dark green - strings */
+  --bash-comment: #6b7280;   /* gray - comments */
+  --bash-variable: #7c3aed;  /* dark purple - variables */
+  --bash-path: #b45309;      /* dark amber - paths */
+}
+
+.dark {
+  --bash-command: #818cf8;   /* lighter indigo */
+  --bash-flag: #22d3ee;      /* lighter cyan */
+  --bash-string: #34d399;    /* lighter green */
+  --bash-comment: #6b7280;   /* gray */
+  --bash-variable: #a78bfa;  /* lighter purple */
+  --bash-path: #fbbf24;      /* lighter amber */
+}
+
+.bash-command { color: var(--bash-command); font-weight: 600; }
+.bash-flag { color: var(--bash-flag); }
+.bash-string { color: var(--bash-string); }
+.bash-comment { color: var(--bash-comment); font-style: italic; }
+.bash-variable { color: var(--bash-variable); }
+.bash-path { color: var(--bash-path); }
+
 /* Documentation prose styles */
 .docs-content {
   color: #000000;

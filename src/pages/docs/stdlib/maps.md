@@ -33,7 +33,8 @@ temp ages map = {
 
 ## Basic Operations
 
-### get
+### `get()`
+`(m map, key K) -> V`
 
 Retrieves a value by key.
 
@@ -49,7 +50,8 @@ std.println(age)  // 25
 
 **Errors:** [E12006](/language.ez/errors/E12006) if the key is not found.
 
-### set
+### `set()`
+`(m map, key K, value V) -> void`
 
 Sets a value for a key (adds or updates).
 
@@ -65,7 +67,8 @@ maps.set(ages, "Alice", 26)  // update existing
 
 **Errors:** [E12003](/language.ez/errors/E12003) if the map is immutable (const).
 
-### has
+### `has()`
+`(m map, key K) -> bool`
 
 Checks if a key exists in the map.
 
@@ -79,7 +82,8 @@ std.println(maps.has(ages, "Eve"))    // false
 
 **Returns:** `bool` - true if key exists.
 
-### delete
+### `delete()`
+`(m map, key K) -> void`
 
 Removes a key-value pair from the map.
 
@@ -95,7 +99,8 @@ std.println(maps.has(ages, "Alice"))  // false
 
 ## Inspection
 
-### keys
+### `keys()`
+`(m map) -> [any]`
 
 Returns an array of all keys in the map.
 
@@ -111,7 +116,8 @@ std.println(names)  // {"Alice", "Bob"}
 
 **Errors:** [E12001](/language.ez/errors/E12001) if the argument is not a map.
 
-### values
+### `values()`
+`(m map) -> [any]`
 
 Returns an array of all values in the map.
 
@@ -125,7 +131,8 @@ std.println(all_ages)  // {25, 30}
 
 **Returns:** `[any]` - Array of values.
 
-### size
+### `size()`
+`(m map) -> int`
 
 Returns the number of key-value pairs in the map.
 
@@ -138,7 +145,8 @@ std.println(maps.size(ages))  // 2
 
 **Returns:** `int` - Number of entries.
 
-### is_empty
+### `is_empty()`
+`(m map) -> bool`
 
 Checks if the map has no entries.
 
@@ -155,7 +163,8 @@ std.println(maps.is_empty(filled))  // false
 
 ## Transformation
 
-### merge
+### `merge()`
+`(m1 map, m2 map) -> map`
 
 Merges two maps. Values from the second map override the first.
 
@@ -170,7 +179,8 @@ temp result map = maps.merge(defaults, custom)
 
 **Returns:** A new merged map.
 
-### clear
+### `clear()`
+`(m map) -> void`
 
 Removes all key-value pairs from a map.
 
@@ -186,7 +196,8 @@ std.println(maps.size(ages))  // 0
 
 ## Safe Access
 
-### get_or
+### `get_or()`
+`(m map, key K, default V) -> V`
 
 Gets a value by key, returning a default if the key doesn't exist.
 
@@ -200,7 +211,8 @@ temp age2 int = maps.get_or(ages, "Bob", 0)    // 0 (default)
 
 **Returns:** The value or the default.
 
-### try_get
+### `try_get()`
+`(m map, key K) -> (V, bool)`
 
 Attempts to get a value, returning both the value and a success boolean.
 

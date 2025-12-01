@@ -24,7 +24,8 @@ math.TAU     // 6.283185307179586
 
 ## Basic Math Functions
 
-### abs
+### `abs()`
+`(n number) -> number`
 
 Returns the absolute value of a number.
 
@@ -38,7 +39,8 @@ math.abs(-3.14) // 3.14
 
 **Returns:** The absolute value.
 
-### min / max
+### `min()` / `max()`
+`(numbers ...number) -> number`
 
 Returns the minimum or maximum of two or more numbers.
 
@@ -53,7 +55,8 @@ math.max(1, 5, 3, 2)  // 5
 
 **Returns:** The smallest or largest value.
 
-### avg
+### `avg()`
+`(numbers ...number) -> float`
 
 Returns the average of one or more numbers.
 
@@ -68,7 +71,8 @@ math.avg(10, 20)   // 15.0
 
 **Errors:** [E8012](/language.ez/errors/E8012) if called with no arguments.
 
-### floor / ceil / round
+### `floor()` / `ceil()` / `round()`
+`(n float) -> int`
 
 Rounding functions.
 
@@ -85,7 +89,8 @@ math.round(3.4)  // 3
 
 ## Power and Roots
 
-### pow
+### `pow()`
+`(base number, exponent number) -> number`
 
 Returns base raised to the power of exponent.
 
@@ -99,7 +104,8 @@ math.pow(2.5, 2)  // 6.25
 
 **Returns:** The result of base^exponent.
 
-### sqrt
+### `sqrt()`
+`(n number) -> float`
 
 Returns the square root of a number.
 
@@ -116,7 +122,8 @@ math.sqrt(2)    // 1.4142135623730951
 
 ## Logarithms
 
-### log
+### `log()`
+`(n number) -> float`
 
 Returns the natural logarithm (base e) of a number.
 
@@ -131,7 +138,8 @@ math.log(10)       // 2.302585...
 
 **Errors:** [E8002](/language.ez/errors/E8002) if the argument is not positive.
 
-### log2
+### `log2()`
+`(n number) -> float`
 
 Returns the base-2 logarithm of a number.
 
@@ -146,7 +154,8 @@ math.log2(16)  // 4.0
 
 **Errors:** [E8003](/language.ez/errors/E8003) if the argument is not positive.
 
-### log10
+### `log10()`
+`(n number) -> float`
 
 Returns the base-10 logarithm of a number.
 
@@ -163,7 +172,8 @@ math.log10(1000)  // 3.0
 
 ## Trigonometry
 
-### sin / cos / tan
+### `sin()` / `cos()` / `tan()`
+`(angle float) -> float`
 
 Trigonometric functions (arguments in radians).
 
@@ -177,7 +187,8 @@ math.sin(math.PI / 2)  // 1.0
 
 **Returns:** `float` - The trigonometric value.
 
-### asin / acos / atan
+### `asin()` / `acos()` / `atan()`
+`(value float) -> float`
 
 Inverse trigonometric functions (return radians).
 
@@ -195,7 +206,8 @@ math.atan(1)   // 0.7853981... (PI/4)
 
 ## Other Functions
 
-### factorial
+### `factorial()`
+`(n int) -> int`
 
 Returns the factorial of a non-negative integer.
 
@@ -213,7 +225,8 @@ math.factorial(10)  // 3628800
 
 ## Random Numbers
 
-### random
+### `random()`
+`(max int) -> int` or `(min int, max int) -> int`
 
 Returns a random integer.
 
@@ -231,7 +244,8 @@ math.random(10, 20)   // 10-19
 
 **Errors:** [E8009](/language.ez/errors/E8009) if max is not positive, [E8010](/language.ez/errors/E8010) if max <= min.
 
-### random_float
+### `random_float()`
+`() -> float` or `(min float, max float) -> float`
 
 Returns a random floating-point number.
 

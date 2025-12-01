@@ -41,6 +41,65 @@ const description = Astro.props.description || frontmatter?.description;
 </BaseLayout>
 
 <script>
+  // Bash/Shell syntax highlighter
+  function highlightBash(code: string): string {
+    // Common shell commands
+    const commands = [
+      'cd', 'ls', 'mv', 'cp', 'rm', 'mkdir', 'rmdir', 'touch', 'cat', 'echo',
+      'grep', 'find', 'sed', 'awk', 'tar', 'gzip', 'gunzip', 'zip', 'unzip',
+      'chmod', 'chown', 'sudo', 'su', 'apt', 'apt-get', 'yum', 'brew', 'npm',
+      'git', 'make', 'curl', 'wget', 'ssh', 'scp', 'man', 'which', 'whereis',
+      'export', 'source', 'alias', 'unalias', 'set', 'unset', 'env',
+      'ez', 'go', 'node', 'python', 'pip', 'cargo', 'rustc'
+    ];
+
+    let result = code;
+    const markers: { marker: string; replacement: string }[] = [];
+    let markerIndex = 0;
+
+    const createMarker = (content: string, className: string): string => {
+      const marker = `__BASH_MARKER_${markerIndex++}__`;
+      const escaped = content.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      markers.push({ marker, replacement: `<span class="${className}">${escaped}</span>` });
+      return marker;
+    };
+
+    // Extract comments first
+    result = result.replace(/(#.*$)/gm, (match) => createMarker(match, 'bash-comment'));
+
+    // Extract double-quoted strings
+    result = result.replace(/("(?:[^"\\]|\\.)*")/g, (match) => createMarker(match, 'bash-string'));
+
+    // Extract single-quoted strings
+    result = result.replace(/('(?:[^'\\]|\\.)*')/g, (match) => createMarker(match, 'bash-string'));
+
+    // Extract variables ${VAR} and $VAR
+    result = result.replace(/(\$\{[^}]+\}|\$[A-Za-z_][A-Za-z0-9_]*)/g, (match) => createMarker(match, 'bash-variable'));
+
+    // Escape remaining HTML
+    result = result.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+    // Highlight flags (--flag, -f) - must come before commands
+    result = result.replace(/(--?[A-Za-z][A-Za-z0-9-]*)/g, '<span class="bash-flag">$1</span>');
+
+    // Highlight commands at start of line or after && || | ;
+    commands.forEach(cmd => {
+      // At start of line
+      const startRegex = new RegExp(`^(${cmd})\\b`, 'gm');
+      result = result.replace(startRegex, '<span class="bash-command">$1</span>');
+      // After operators
+      const afterOpRegex = new RegExp(`(&&|\\|\\||\\||;)\\s*(${cmd})\\b`, 'g');
+      result = result.replace(afterOpRegex, '$1 <span class="bash-command">$2</span>');
+    });
+
+    // Restore markers
+    markers.forEach(({ marker, replacement }) => {
+      result = result.replace(marker, replacement);
+    });
+
+    return result;
+  }
+
   // Comprehensive EZ syntax highlighter - same logic as CodeBlock component
   function highlightEZ(code: string): string {
     // All EZ keywords
@@ -149,25 +208,33 @@ const description = Astro.props.description || frontmatter?.description;
   }
 
   function initDocsCodeBlocks() {
-    // Apply EZ highlighting to code blocks
-    // Skip known non-EZ languages (bash, shell, powershell, js, etc.)
-    const skipLanguages = ['bash', 'shell', 'sh', 'powershell', 'ps1', 'javascript', 'js', 'typescript', 'ts', 'json', 'html', 'css'];
+    // Apply syntax highlighting to code blocks
+    const bashLanguages = ['bash', 'shell', 'sh', 'powershell', 'ps1'];
+    const skipLanguages = ['javascript', 'js', 'typescript', 'ts', 'json', 'html', 'css'];
 
     const allCodeBlocks = document.querySelectorAll('.docs-content pre code');
     allCodeBlocks.forEach((codeEl) => {
-      if (codeEl.getAttribute('data-ez-highlighted')) return;
+      if (codeEl.getAttribute('data-highlighted')) return;
 
-      // Check if this is a non-EZ language
+      // Check language
       const classList = Array.from(codeEl.classList);
       const langClass = classList.find(c => c.startsWith('language-'));
       const lang = langClass?.replace('language-', '') || '';
 
-      if (skipLanguages.includes(lang)) return;
-
-      // Apply EZ highlighting
       const originalCode = codeEl.textContent || '';
-      codeEl.innerHTML = highlightEZ(originalCode);
-      codeEl.setAttribute('data-ez-highlighted', 'true');
+
+      if (bashLanguages.includes(lang)) {
+        // Apply bash highlighting
+        codeEl.innerHTML = highlightBash(originalCode);
+        codeEl.setAttribute('data-highlighted', 'bash');
+      } else if (skipLanguages.includes(lang)) {
+        // Skip these languages entirely
+        return;
+      } else {
+        // Apply EZ highlighting (default)
+        codeEl.innerHTML = highlightEZ(originalCode);
+        codeEl.setAttribute('data-highlighted', 'ez');
+      }
     });
 
     // Add copy buttons to all code blocks

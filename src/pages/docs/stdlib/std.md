@@ -17,7 +17,8 @@ import @std
 
 ## Functions
 
-### println
+### `println()`
+`(values ...any) -> void`
 
 Prints one or more values to stdout, followed by a newline.
 
@@ -31,7 +32,8 @@ std.println("x =", x, "y =", y)
 
 **Returns:** Nothing.
 
-### print
+### `print()`
+`(values ...any) -> void`
 
 Prints one or more values to stdout without a trailing newline.
 
@@ -45,7 +47,8 @@ std.println("Hello, " + name)
 
 **Returns:** Nothing.
 
-### typeof
+### `typeof()`
+`(value any) -> string`
 
 Returns the type of a value as a string.
 
@@ -65,7 +68,8 @@ std.println(std.typeof(arr))  // "array"
 
 These functions are available globally without importing any module.
 
-### len
+### `len()`
+`(value any) -> int`
 
 Returns the length of an array or string.
 
@@ -81,7 +85,8 @@ std.println(len(str))  // 5
 
 **Returns:** `int` - The number of elements or characters.
 
-### string
+### `string()`
+`(value any) -> string`
 
 Converts a value to its string representation.
 
@@ -97,7 +102,8 @@ std.println(string(pi))  // "3.14159"
 
 **Returns:** `string` - The string representation.
 
-### int
+### `int()`
+`(value any) -> int`
 
 Converts a value to an integer.
 
@@ -115,7 +121,8 @@ temp rounded int = int(pi)  // 3
 
 **Errors:** [E3005](/language.ez/errors/E3005) if the string cannot be parsed as an integer.
 
-### float
+### `float()`
+`(value any) -> float`
 
 Converts a value to a floating-point number.
 
