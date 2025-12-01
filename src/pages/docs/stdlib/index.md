@@ -40,21 +40,15 @@ math.sqrt(16.0)      // 4.0
 std.println("Hi")    // prints "Hi"
 ```
 
-This prefix tells EZ which module the function comes from. It's called a **namespace** — it keeps things organized and prevents name collisions.
+The `math.` and `std.` prefixes tell EZ which module each function comes from. This prevents confusion when two modules have functions with the same name.
 
 ## Import Options
 
-EZ gives you a few ways to import modules depending on your preference.
-
-### Import Multiple Modules
-
-Import several modules on one line:
+Import multiple modules on one line or separate lines:
 
 ```ez
 import @std, @math, @arrays
 ```
-
-Or on separate lines — both work the same:
 
 ```ez
 import @std
@@ -62,9 +56,12 @@ import @math
 import @arrays
 ```
 
-### Give a Module a Shorter Name (Aliasing)
+<details>
+<summary><strong>Advanced Import Styles</strong></summary>
 
-If you find `strings` too long to type, give it a nickname:
+### Aliasing (Shorter Names)
+
+Give a module a nickname:
 
 ```ez
 import s@strings
@@ -76,11 +73,9 @@ do main() {
 }
 ```
 
-The format is `alias@module` — your chosen name, then `@`, then the module.
+### Using (Drop the Prefix)
 
-### Skip the Prefix with `using`
-
-If you're using a module a lot, you can drop the prefix inside a block:
+Skip the module prefix inside a block:
 
 ```ez
 import @std
@@ -90,38 +85,26 @@ do main() {
     using std
     using math
 
-    println("No prefix needed!")   // instead of std.println()
-    temp x float = sqrt(16.0)      // instead of math.sqrt()
+    println("No prefix needed!")
+    temp x float = sqrt(16.0)
 }
 ```
 
-The `using` keyword makes all functions from that module available without a prefix — but only inside that block.
+### Import & Use Combined
 
-### Import and Use Together
-
-Shorthand for importing and immediately using everywhere:
+Shorthand for importing and using everywhere:
 
 ```ez
 import & use @std
 
 do main() {
-    println("Direct access!")  // no std. prefix needed
+    println("Direct access!")
 }
 ```
 
-## Which Style Should I Use?
+</details>
 
-For beginners, stick with the basic style:
-
-```ez
-import @std
-
-do main() {
-    std.println("Hello!")
-}
-```
-
-The prefix makes it clear where each function comes from, which helps when learning. Once you're comfortable, experiment with `using` or aliases if you prefer shorter code.
+For beginners, stick with the basic `import @std` + `std.println()` style. The prefix makes it clear where each function comes from.
 
 See the [Modules](/language.ez/docs/language/modules) page for more details on the module system.
 

@@ -17,7 +17,8 @@ import @time
 
 ## Current Time
 
-### now
+### `now()`
+`() -> int`
 
 Returns the current Unix timestamp in seconds.
 
@@ -28,7 +29,8 @@ std.println(timestamp)  // e.g., 1701234567
 
 **Returns:** `int` - Unix timestamp in seconds.
 
-### now_ms
+### `now_ms()`
+`() -> int`
 
 Returns the current Unix timestamp in milliseconds.
 
@@ -39,7 +41,8 @@ std.println(timestamp_ms)  // e.g., 1701234567890
 
 **Returns:** `int` - Unix timestamp in milliseconds.
 
-### tick
+### `tick()`
+`() -> int`
 
 Returns a high-precision tick count for measuring elapsed time.
 
@@ -54,7 +57,8 @@ std.println("Took " + string(elapsed) + "ms")
 
 ## Sleeping
 
-### sleep
+### `sleep()`
+`(seconds number) -> void`
 
 Pauses execution for a specified number of seconds.
 
@@ -70,7 +74,8 @@ std.println("Done!")
 
 **Errors:** [E11001](/language.ez/errors/E11001) if the argument is not a number.
 
-### sleep_ms
+### `sleep_ms()`
+`(milliseconds int) -> void`
 
 Pauses execution for a specified number of milliseconds.
 
@@ -88,7 +93,8 @@ std.println("Done!")
 
 ## Formatting
 
-### format
+### `format()`
+`(timestamp int, format string) -> string`
 
 Formats a timestamp as a human-readable string.
 
@@ -120,7 +126,8 @@ time.format(ts, "MMM DD, YYYY")       // "Dec 15, 2024"
 
 ## Parsing
 
-### parse
+### `parse()`
+`(date_string string, format string) -> int`
 
 Parses a date string into a Unix timestamp.
 
@@ -140,7 +147,8 @@ std.println(ts2)
 
 ## Creating Timestamps
 
-### make
+### `make()`
+`(year int, month int, day int, hour? int, minute? int, second? int) -> int`
 
 Creates a timestamp from year, month, day, and optionally hour, minute, second.
 
@@ -160,7 +168,8 @@ temp ts2 int = time.make(2024, 12, 15, 14, 30, 0)
 
 ## Date Arithmetic
 
-### add_days / add_hours / add_minutes / add_seconds
+### `add_days()` / `add_hours()` / `add_minutes()` / `add_seconds()`
+`(timestamp int, amount int) -> int`
 
 Adds time to a timestamp and returns a new timestamp.
 
@@ -179,7 +188,8 @@ temp much_later int = time.add_minutes(today, 90)
 
 **Errors:** [E11008](/language.ez/errors/E11008) if timestamp is not an integer, [E11009](/language.ez/errors/E11009) if amount is not an integer.
 
-### diff
+### `diff()`
+`(timestamp1 int, timestamp2 int) -> int`
 
 Returns the difference between two timestamps in seconds.
 
@@ -199,7 +209,8 @@ std.println("Days in 2024:", diff_days)
 
 ## Date Components
 
-### year / month / day / hour / minute / second
+### `year()` / `month()` / `day()` / `hour()` / `minute()` / `second()`
+`(timestamp int) -> int`
 
 Extracts components from a timestamp.
 
@@ -217,7 +228,8 @@ std.println("Second:", time.second(ts))
 
 **Returns:** `int` - The component value.
 
-### weekday
+### `weekday()`
+`(timestamp int) -> int`
 
 Returns the day of the week (0 = Sunday, 6 = Saturday).
 
@@ -235,7 +247,8 @@ std.println("Today is:", days[day])
 
 ## Calendar Utilities
 
-### is_leap_year
+### `is_leap_year()`
+`(year int) -> bool`
 
 Checks if a year is a leap year.
 
@@ -250,7 +263,8 @@ std.println(time.is_leap_year(2023))  // false
 
 **Errors:** [E11011](/language.ez/errors/E11011) if the argument is not an integer.
 
-### days_in_month
+### `days_in_month()`
+`(year int, month int) -> int`
 
 Returns the number of days in a given month.
 
@@ -268,7 +282,8 @@ std.println(time.days_in_month(2024, 12)) // 31
 
 ## Performance Timing
 
-### elapsed_ms
+### `elapsed_ms()`
+`(start_tick int) -> int`
 
 Returns milliseconds elapsed since a tick value.
 

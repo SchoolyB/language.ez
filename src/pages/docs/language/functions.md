@@ -13,6 +13,8 @@ Functions in EZ are declared with the `do` keyword. They support typed parameter
 Use `do` to declare a function:
 
 ```ez
+import @std
+
 do greet() {
     std.println("Hello!")
 }
@@ -27,6 +29,8 @@ do main() {
 Parameters require type annotations:
 
 ```ez
+import @std
+
 do greet(name string) {
     std.println("Hello, ${name}!")
 }
@@ -46,6 +50,8 @@ do main() {
 Parameters of the same type can share a type annotation:
 
 ```ez
+import @std
+
 // x, y, and z all share the int type
 do sum(x, y, z int) -> int {
     return x + y + z
@@ -67,6 +73,8 @@ do main() {
 Use `->` to specify a return type:
 
 ```ez
+import @std
+
 do add(x, y int) -> int {
     return x + y
 }
@@ -97,6 +105,8 @@ do main() {
 Functions can return multiple values:
 
 ```ez
+import @std
+
 do divmod(dividend, divisor int) -> (int, int) {
     temp quotient int = dividend / divisor
     temp remainder int = dividend % divisor
@@ -127,6 +137,8 @@ do main() {
 ## Array Parameters
 
 ```ez
+import @std
+
 do sum(numbers [int]) -> int {
     temp total int = 0
     for_each n in numbers {
@@ -157,6 +169,9 @@ do main() {
 ## Struct Parameters
 
 ```ez
+import @std
+import @math
+
 const Point struct {
     x int
     y int
@@ -213,6 +228,8 @@ do validate(age int) -> bool {
 Functions without a return type don't return a value:
 
 ```ez
+import @std
+
 do printHeader(title string) {
     std.println("===================")
     std.println(title)
@@ -229,6 +246,8 @@ do logError(message string) {
 Functions can call themselves:
 
 ```ez
+import @std
+
 do factorial(n int) -> int {
     if n <= 1 {
         return 1

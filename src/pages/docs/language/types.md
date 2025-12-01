@@ -276,6 +276,8 @@ temp x int = 10
 // temp x = 10  // Error! Missing type
 ```
 
+**Why require explicit types?** It makes code clearer and easier to read. You always know exactly what type a variable is without having to guess or trace through the code.
+
 ## Example Program
 
 ```ez

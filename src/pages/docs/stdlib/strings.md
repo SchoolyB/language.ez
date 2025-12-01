@@ -16,7 +16,8 @@ import @strings
 
 ## Case Conversion
 
-### upper
+### `upper()`
+`(str string) -> string`
 
 Converts a string to uppercase.
 
@@ -29,7 +30,8 @@ strings.upper("Hello World")  // "HELLO WORLD"
 
 **Returns:** `string` - Uppercase version.
 
-### lower
+### `lower()`
+`(str string) -> string`
 
 Converts a string to lowercase.
 
@@ -42,7 +44,8 @@ strings.lower("Hello World")  // "hello world"
 
 **Returns:** `string` - Lowercase version.
 
-### capitalize
+### `capitalize()`
+`(str string) -> string`
 
 Capitalizes the first character of a string.
 
@@ -55,7 +58,8 @@ strings.capitalize("hello world")  // "Hello world"
 
 **Returns:** `string` - Capitalized string.
 
-### title
+### `title()`
+`(str string) -> string`
 
 Capitalizes the first character of each word.
 
@@ -70,7 +74,8 @@ strings.title("the quick brown fox")  // "The Quick Brown Fox"
 
 ## Searching
 
-### contains
+### `contains()`
+`(str string, substr string) -> bool`
 
 Checks if a string contains a substring.
 
@@ -85,7 +90,8 @@ strings.contains("hello world", "foo")    // false
 
 **Errors:** [E10005](/language.ez/errors/E10005) if arguments are not strings.
 
-### starts_with
+### `starts_with()`
+`(str string, prefix string) -> bool`
 
 Checks if a string starts with a prefix.
 
@@ -100,7 +106,8 @@ strings.starts_with("hello world", "world")  // false
 
 **Errors:** [E10006](/language.ez/errors/E10006) if arguments are not strings.
 
-### ends_with
+### `ends_with()`
+`(str string, suffix string) -> bool`
 
 Checks if a string ends with a suffix.
 
@@ -115,7 +122,8 @@ strings.ends_with("hello world", "hello")  // false
 
 **Errors:** [E10007](/language.ez/errors/E10007) if arguments are not strings.
 
-### index
+### `index()`
+`(str string, substr string) -> int`
 
 Returns the index of the first occurrence of a substring, or -1 if not found.
 
@@ -132,7 +140,8 @@ strings.index("hello world", "foo")    // -1
 
 ## Trimming
 
-### trim
+### `trim()`
+`(str string) -> string`
 
 Removes whitespace from both ends of a string.
 
@@ -145,7 +154,8 @@ strings.trim("\n\thello\n")  // "hello"
 
 **Returns:** `string` - Trimmed string.
 
-### trim_left / trim_right
+### `trim_left()` / `trim_right()`
+`(str string) -> string`
 
 Removes whitespace from the left or right side only.
 
@@ -160,7 +170,8 @@ strings.trim_right("  hello  ")  // "  hello"
 
 ## Splitting and Joining
 
-### split
+### `split()`
+`(str string, separator string) -> [string]`
 
 Splits a string into an array of substrings.
 
@@ -178,7 +189,8 @@ std.println(words)  // {"hello", "world"}
 
 **Errors:** [E10001](/language.ez/errors/E10001) if arguments are not strings.
 
-### join
+### `join()`
+`(arr [string], separator string) -> string`
 
 Joins an array of strings with a separator.
 
@@ -196,7 +208,8 @@ std.println(strings.join(parts, ""))   // "abc"
 
 ## Replacing
 
-### replace
+### `replace()`
+`(str string, old string, new string) -> string`
 
 Replaces all occurrences of a substring with another string.
 
@@ -211,7 +224,8 @@ strings.replace("aaa", "a", "b")  // "bbb"
 
 **Errors:** [E10003](/language.ez/errors/E10003) if arguments are not strings.
 
-### replace_first
+### `replace_first()`
+`(str string, old string, new string) -> string`
 
 Replaces only the first occurrence of a substring.
 
@@ -225,20 +239,22 @@ strings.replace_first("aaa", "a", "b")  // "baa"
 
 ## Substrings
 
-### substring
+### `substring()`
+`(str string, start int, end int) -> string`
 
-Returns a portion of a string from start index to end index.
+Returns a portion of a string from start index to end index. The end index is exclusive (not included), just like `range()`.
 
 ```ez
-strings.substring("hello world", 0, 5)   // "hello"
-strings.substring("hello world", 6, 11)  // "world"
+strings.substring("hello world", 0, 5)   // "hello" (chars 0-4)
+strings.substring("hello world", 6, 11)  // "world" (chars 6-10)
 ```
 
-**Parameters:** `str`, `start`, `end`.
+**Parameters:** `str`, `start`, `end` (end is exclusive).
 
 **Returns:** `string` - The substring.
 
-### char_at
+### `char_at()`
+`(str string, index int) -> string`
 
 Returns the character at a specific index.
 
@@ -253,7 +269,8 @@ strings.char_at("hello", 4)  // "o"
 
 ## Padding
 
-### pad_left / pad_right
+### `pad_left()` / `pad_right()`
+`(str string, length int, pad_char string) -> string`
 
 Pads a string to a minimum length.
 
@@ -266,7 +283,8 @@ strings.pad_right("hi", 5, ".")  // "hi..."
 
 **Returns:** `string` - Padded string.
 
-### repeat
+### `repeat()`
+`(str string, count int) -> string`
 
 Repeats a string n times.
 
@@ -281,7 +299,8 @@ strings.repeat("-", 10)  // "----------"
 
 ## Conversion
 
-### chars
+### `chars()`
+`(str string) -> [string]`
 
 Splits a string into an array of individual characters.
 
@@ -294,7 +313,8 @@ std.println(chars)  // {"h", "e", "l", "l", "o"}
 
 **Returns:** `[string]` - Array of characters.
 
-### reverse
+### `reverse()`
+`(str string) -> string`
 
 Reverses a string.
 
