@@ -135,7 +135,7 @@ Special commands (not EZ code):
 
 ## Viewing Variables
 
-See all defined variables:
+See all defined variables with the `:vars` command. Commands starting with `:` are special REPL commands (not EZ code):
 
 ```
 ez> temp x int = 10

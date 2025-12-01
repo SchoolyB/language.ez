@@ -242,14 +242,14 @@ strings.replace_first("aaa", "a", "b")  // "baa"
 ### `substring()`
 `(str string, start int, end int) -> string`
 
-Returns a portion of a string from start index to end index.
+Returns a portion of a string from start index to end index. The end index is exclusive (not included), just like `range()`.
 
 ```ez
-strings.substring("hello world", 0, 5)   // "hello"
-strings.substring("hello world", 6, 11)  // "world"
+strings.substring("hello world", 0, 5)   // "hello" (chars 0-4)
+strings.substring("hello world", 6, 11)  // "world" (chars 6-10)
 ```
 
-**Parameters:** `str`, `start`, `end`.
+**Parameters:** `str`, `start`, `end` (end is exclusive).
 
 **Returns:** `string` - The substring.
 

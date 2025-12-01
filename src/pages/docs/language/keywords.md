@@ -28,7 +28,7 @@ temp count int = 0
 count = 10  // allowed
 ```
 
-**Why "temp"?** It stands for "temporary." Variables hold temporary values that may change as your program runs. It's clearer than `let` or `var` for beginners.
+**Why "temp"?** It stands for "temporary." Use `temp` for values that will change during your program's execution, like counters, user input, or calculated results.
 
 ### const
 
@@ -45,7 +45,7 @@ const Person struct {
 }
 ```
 
-**Why "const"?** It's short for "constant" — a value that stays constant throughout your program.
+**Why "const"?** It's short for "constant." Use `const` for values that should never change, like configuration settings, mathematical constants (PI), or type definitions.
 
 ## Functions
 
@@ -63,7 +63,7 @@ do add(a, b int) -> int {
 }
 ```
 
-**Why "do"?** Functions *do* things. It's shorter and friendlier than `function`, `func`, or `fn`. When you read `do greet()`, you read "do greet" — which makes sense.
+**Why "do"?** Functions *do* things. Reads naturally: "do greet" means "do the greet action."
 
 ### return
 
@@ -108,7 +108,7 @@ if score >= 90 {
 }
 ```
 
-**Why "or"?** You're saying "if this, *or* if that, *or* if that other thing." It reads more naturally than `else if`.
+**Why "or"?** Reads naturally: "if this, *or* that, *or* that."
 
 ### otherwise
 
@@ -122,7 +122,7 @@ if score >= 60 {
 }
 ```
 
-**Why "otherwise"?** It reads like English: "if the score is 60 or higher, pass; *otherwise*, fail."
+**Why "otherwise"?** Reads like English: "if passing, celebrate; *otherwise*, study more."
 
 ### for
 
@@ -146,7 +146,7 @@ for_each name in names {
 }
 ```
 
-**Why "for_each"?** It's explicit about what you're doing — looping over *each* item. Other languages use `for...of` or `for...in` which can be confusing.
+**Why "for_each"?** Explicit about looping over *each* item in a collection.
 
 ### as_long_as
 
@@ -161,7 +161,7 @@ as_long_as count < 5 {
 }
 ```
 
-**Why "as_long_as"?** It reads naturally: "keep going *as long as* count is less than 5."
+**Why "as_long_as"?** Reads naturally: "keep going *as long as* this is true."
 
 ### loop
 

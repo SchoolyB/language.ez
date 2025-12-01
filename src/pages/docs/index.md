@@ -24,7 +24,7 @@ do main() {
 3. Run it:
 
 ```bash
-ez run hello.ez
+ez hello.ez
 ```
 
 ## What's Next?

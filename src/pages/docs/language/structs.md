@@ -233,6 +233,7 @@ const defaults Config = Config{debug: false, timeout: 30}
 
 ```ez
 import @std
+import @arrays
 
 const Product struct {
     name string

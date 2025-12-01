@@ -71,15 +71,17 @@ do main() {
 
 Override specific values while keeping auto-increment:
 
+The `skip` value tells EZ how much to increment between values (default is 1). This is useful for error codes, HTTP statuses, or any sequence with gaps:
+
 ```ez
 @(int, skip, 10)
 const HttpStatus enum {
     OK = 200
-    CREATED         // 210
+    CREATED         // 210 (200 + 10)
     BAD_REQUEST = 400
-    UNAUTHORIZED    // 410
+    UNAUTHORIZED    // 410 (400 + 10)
     NOT_FOUND = 404
-    SERVER_ERROR    // 414
+    SERVER_ERROR    // 414 (404 + 10)
 }
 ```
 

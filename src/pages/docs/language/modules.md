@@ -6,7 +6,9 @@ description: 'Imports and the module system in EZ.'
 
 # Modules
 
-EZ uses a simple module system for organizing code and importing functionality. Standard library modules are prefixed with `@`.
+A module is a file or collection of code that you can import into your program. Modules help organize code into reusable pieces — instead of writing everything from scratch, you can import existing functionality.
+
+EZ's standard library modules are prefixed with `@` (like `@std`, `@math`, `@arrays`).
 
 ## Importing Modules
 
@@ -211,180 +213,57 @@ time.format(ts, "YYYY-MM-DD")
 
 ## Project Structure
 
-EZ is flexible about how you organize your code. You can use a single file for quick scripts, multiple files in a folder for medium projects, or a nested directory structure for larger applications.
+### Single File
 
-### Single File (Standalone)
-
-For quick scripts or simple programs, one file is all you need:
-
-```
-my-script.ez
-```
+For scripts and simple programs, one file is all you need:
 
 ```ez
 import @std
 
 do main() {
-    std.println("Hello from a single file!")
+    std.println("Hello!")
 }
 ```
 
-Run it directly:
+Run with `ez myfile.ez`.
 
-```bash
-ez run my-script.ez
-```
+### Multiple Files
 
-No extra setup required. This is perfect for learning, experimenting, or writing small utilities.
-
-### Multiple Files (Same Directory)
-
-When your code grows, split it into multiple files in the same folder:
+Split larger projects into files. Files you want to import need a `module` declaration:
 
 ```
 my-project/
 ├── main.ez
-├── models.ez
 └── utils.ez
-```
-
-Each file that's meant to be imported needs a `module` declaration at the top:
-
-**models.ez**
-```ez
-module models
-
-const Task struct {
-    id int
-    title string
-    done bool
-}
-
-do create_task(id int, title string) -> Task {
-    return Task{id: id, title: title, done: false}
-}
 ```
 
 **utils.ez**
 ```ez
 module utils
 
-import @std
-
-do print_header(text string) {
-    std.println("=== ${text} ===")
+do greet(name string) {
+    std.println("Hello, ${name}!")
 }
 ```
 
 **main.ez**
 ```ez
 import @std
-import "./models"
 import "./utils"
 
 do main() {
-    utils.print_header("Task Manager")
-
-    temp task models.Task = models.create_task(1, "Learn EZ")
-    std.println("Created: ${task.title}")
+    utils.greet("World")
 }
 ```
 
 Key points:
-- Use `module <name>` at the top of files you want to import
-- Import local files with `"./<filename>"` (no `.ez` extension)
-- Access items with the module prefix: `models.Task`, `utils.print_header()`
+- Add `module <name>` at the top of files you want to import
+- Import with `"./<filename>"` (no `.ez` extension)
+- Access with the module prefix: `utils.greet()`
 
-### Nested Directories (Larger Projects)
+### Nested Directories
 
-For bigger projects, organize code into directories. A directory can act as a single module when all files inside share the same `module` declaration:
-
-```
-my-app/
-├── main/
-│   └── main.ez
-└── src/
-    └── server/
-        ├── server.ez
-        ├── types.ez
-        └── routes.ez
-```
-
-All files in `server/` declare themselves as part of the same module:
-
-**src/server/types.ez**
-```ez
-module server
-
-const Request struct {
-    method string
-    path string
-}
-
-const Response struct {
-    status int
-    body string
-}
-```
-
-**src/server/routes.ez**
-```ez
-module server
-
-import @std
-
-do handle_home(req Request) -> Response {
-    std.println("Handling: ${req.method} ${req.path}")
-    return Response{status: 200, body: "Welcome!"}
-}
-```
-
-**src/server/server.ez**
-```ez
-module server
-
-import @std
-
-do start(port int) {
-    std.println("Server running on port ${port}")
-}
-
-do process(method string, path string) -> Response {
-    temp req Request = Request{method: method, path: path}
-    return handle_home(req)
-}
-```
-
-Notice that files in the same module can use each other's types and functions directly — no imports needed between them.
-
-**main/main.ez**
-```ez
-import @std
-import "../src/server"
-
-do main() {
-    server.start(8080)
-
-    temp resp server.Response = server.process("GET", "/")
-    std.println("Response: ${resp.body}")
-}
-```
-
-Key points:
-- Import a directory with `"../path/to/folder"`
-- All files in the directory must have the same `module <name>` declaration
-- Files in the same module share everything automatically
-- From outside, access with the module prefix: `server.Response`, `server.start()`
-
-## Choosing a Structure
-
-| Project Size | Structure | When to Use |
-|--------------|-----------|-------------|
-| Small | Single file | Scripts, experiments, learning |
-| Medium | Multiple files | Apps with a few hundred lines, clear separation of concerns |
-| Large | Nested directories | Multi-component apps, team projects, reusable libraries |
-
-Start simple. You can always reorganize later as your project grows.
+For larger projects, a directory can act as a single module when all files inside share the same `module` declaration. Import the directory path and all its files are available through one namespace.
 
 ## Module Declaration
 
