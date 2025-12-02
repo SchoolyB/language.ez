@@ -165,6 +165,76 @@ temp smallBuffer [byte, 16] = {0, 16}      // 16 zero-initialized bytes
 
 See [@bytes](/language.ez/docs/stdlib/bytes) for byte manipulation functions.
 
+## Multi-dimensional Arrays
+
+EZ supports multi-dimensional arrays (matrices) through nested array syntax.
+
+> **Note:** Fixed-size multi-dimensional arrays are not currently supported. Use `temp` for all multi-dimensional array declarations.
+
+### Syntax
+
+```ez
+[[type]]    // 2D array (matrix)
+[[[type]]]  // 3D array
+```
+
+EZ supports any number of dimensions (tested up to 10D).
+
+### Declaration
+
+```ez
+// 2D array (3x2 matrix)
+temp matrix [[int]] = {{1, 2}, {3, 4}, {5, 6}}
+
+// 2D string array
+temp grid [[string]] = {{"a", "b", "c"}, {"d", "e", "f"}}
+
+// 3D array
+temp cube [[[int]]] = {{{1, 2}, {3, 4}}, {{5, 6}, {7, 8}}}
+
+// Empty 2D array
+temp empty [[int]] = {}
+```
+
+### Accessing Elements
+
+```ez
+temp matrix [[int]] = {{1, 2, 3}, {4, 5, 6}}
+
+temp row [int] = matrix[0]       // {1, 2, 3}
+temp value int = matrix[1][2]    // 6
+matrix[0][1] = 99                // modify element
+```
+
+### Iteration
+
+```ez
+temp matrix [[int]] = {{1, 2}, {3, 4}, {5, 6}}
+
+// Iterate over rows
+for_each row in matrix {
+    std.println(row)
+}
+
+// Iterate over all elements
+for_each row in matrix {
+    for_each value in row {
+        std.println(value)
+    }
+}
+```
+
+### Jagged Arrays
+
+Inner arrays can have different lengths:
+
+```ez
+temp jagged [[int]] = {{1, 2, 3}, {4, 5}, {6}}
+// jagged[0] has 3 elements
+// jagged[1] has 2 elements
+// jagged[2] has 1 element
+```
+
 ## Maps
 
 Key-value pairs:
