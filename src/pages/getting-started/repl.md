@@ -1,5 +1,5 @@
 ---
-layout: '../../../layouts/DocsLayout.astro'
+layout: '../../layouts/GettingStartedLayout.astro'
 title: 'Using the REPL'
 description: 'Interactive programming with the EZ REPL.'
 ---

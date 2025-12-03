@@ -229,6 +229,8 @@ const defaults Config = Config{debug: false, timeout: 30}
 // defaults.timeout = 60  // Error! Cannot modify const
 ```
 
+> **Important:** When a struct instance is declared with `const`, all of its fields are protected from modification. This includes nested struct fields. Attempting to modify any field on a `const` struct will produce a compile-time error.
+
 ## Example Program
 
 ```ez
@@ -246,7 +248,7 @@ const Cart struct {
     discount float
 }
 
-do addToCart(cart Cart, product Product) {
+do addToCart(&cart Cart, product Product) {
     arrays.append(cart.items, product)
 }
 

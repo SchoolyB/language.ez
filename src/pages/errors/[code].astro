@@ -85,7 +85,7 @@ const nextError = currentIndex < errorsData.errors.length - 1 ? errorsData.error
         <!-- Example message -->
         <section>
           <h2 class="text-xl font-semibold mb-3 text-black dark:text-white">Example error message</h2>
-          <div class="bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg p-4 font-mono text-sm">
+          <div class="bg-[#f5f5f5] dark:bg-[#1a1a1a] border border-[#e5e5e5] dark:border-[#333333] rounded-lg p-4 font-mono text-sm">
             <span class:list={[
               'font-semibold',
               isWarning ? 'text-yellow-600 dark:text-yellow-400' : 'text-red-600 dark:text-red-400'
@@ -101,14 +101,14 @@ const nextError = currentIndex < errorsData.errors.length - 1 ? errorsData.error
           <section>
             <h2 class="text-xl font-semibold mb-3 text-black dark:text-white">Suppressing this warning</h2>
             <p class="opacity-80 mb-3">This warning can be suppressed using:</p>
-            <code class="bg-gray-100 dark:bg-gray-900 px-3 py-1.5 rounded border border-gray-200 dark:border-gray-800 font-mono text-sm">
+            <code class="bg-[#f5f5f5] dark:bg-[#1a1a1a] px-3 py-1.5 rounded border border-[#e5e5e5] dark:border-[#333333] font-mono text-sm">
               {error.suppressible}
             </code>
           </section>
         )}
 
         <!-- How to fix -->
-        <section class="border-t border-gray-200 dark:border-gray-800 pt-8">
+        <section class="border-t border-[#e5e5e5] dark:border-[#333333] pt-8">
           <h2 class="text-xl font-semibold mb-3 text-black dark:text-white">How to fix</h2>
           {error.howToFix ? (
             <p class="opacity-80">{error.howToFix}</p>
@@ -120,7 +120,7 @@ const nextError = currentIndex < errorsData.errors.length - 1 ? errorsData.error
         </section>
 
         <!-- Related errors -->
-        <section class="border-t border-gray-200 dark:border-gray-800 pt-8">
+        <section class="border-t border-[#e5e5e5] dark:border-[#333333] pt-8">
           <h2 class="text-xl font-semibold mb-3 text-black dark:text-white">Related errors</h2>
           {error.relatedErrors && error.relatedErrors.length > 0 ? (
             <div class="flex flex-wrap gap-2">
@@ -129,13 +129,13 @@ const nextError = currentIndex < errorsData.errors.length - 1 ? errorsData.error
                 return relatedError ? (
                   <a
                     href={`${base}errors/${relatedCode}`}
-                    class="inline-flex items-center gap-2 px-3 py-1.5 bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg hover:border-gray-400 dark:hover:border-gray-600 transition-colors"
+                    class="inline-flex items-center gap-2 px-3 py-1.5 bg-[#f5f5f5] dark:bg-[#1a1a1a] border border-[#e5e5e5] dark:border-[#333333] rounded-lg hover:border-black dark:hover:border-white transition-colors"
                   >
                     <span class="font-mono text-sm font-medium">{relatedCode}</span>
                     <span class="text-sm opacity-60">- {relatedError.slug}</span>
                   </a>
                 ) : (
-                  <span class="inline-flex items-center px-3 py-1.5 bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-lg font-mono text-sm">
+                  <span class="inline-flex items-center px-3 py-1.5 bg-[#f5f5f5] dark:bg-[#1a1a1a] border border-[#e5e5e5] dark:border-[#333333] rounded-lg font-mono text-sm">
                     {relatedCode}
                   </span>
                 );
@@ -148,7 +148,7 @@ const nextError = currentIndex < errorsData.errors.length - 1 ? errorsData.error
       </div>
 
       <!-- Navigation -->
-      <nav class="mt-12 pt-8 border-t border-gray-200 dark:border-gray-800">
+      <nav class="mt-12 pt-8 border-t border-[#e5e5e5] dark:border-[#333333]">
         <div class="flex justify-between">
           {prevError ? (
             <a

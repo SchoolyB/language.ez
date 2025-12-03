@@ -17,15 +17,19 @@ import @math
 ## Constants
 
 ```ez
-math.PI      // 3.141592653589793
-math.E       // 2.718281828459045
-math.PHI     // 1.618033988749895
-math.SQRT2   // 1.4142135623730951
-math.LN2     // 0.6931471805599453
-math.LN10    // 2.302585092994046
-math.TAU     // 6.283185307179586
-math.INF     // +Inf
-math.NEG_INF // -Inf
+import @std, @math
+
+do show_constants() {
+    std.println(math.PI)       // 3.141592653589793
+    std.println(math.E)        // 2.718281828459045
+    std.println(math.PHI)      // 1.618033988749895
+    std.println(math.SQRT2)    // 1.4142135623730951
+    std.println(math.LN2)      // 0.6931471805599453
+    std.println(math.LN10)     // 2.302585092994046
+    std.println(math.TAU)      // 6.283185307179586
+    std.println(math.INF)      // +Inf
+    std.println(math.NEG_INF)  // -Inf
+}
 ```
 
 ## Basic Math Functions
@@ -36,9 +40,13 @@ math.NEG_INF // -Inf
 Returns the absolute value of a number.
 
 ```ez
-math.abs(-5)    // 5
-math.abs(5)     // 5
-math.abs(-3.14) // 3.14
+import @std, @math
+
+do absolute_value() {
+    std.println(math.abs(-5))     // 5
+    std.println(math.abs(5))      // 5
+    std.println(math.abs(-3.14))  // 3.14
+}
 ```
 
 **Parameters:** `n` - A number (int or float).
@@ -51,10 +59,14 @@ math.abs(-3.14) // 3.14
 Returns the minimum or maximum of two or more numbers.
 
 ```ez
-math.min(3, 7)        // 3
-math.max(3, 7)        // 7
-math.min(1, 5, 3, 2)  // 1
-math.max(1, 5, 3, 2)  // 5
+import @std, @math
+
+do min_max_demo() {
+    std.println(math.min(3, 7))        // 3
+    std.println(math.max(3, 7))        // 7
+    std.println(math.min(1, 5, 3, 2))  // 1
+    std.println(math.max(1, 5, 3, 2))  // 5
+}
 ```
 
 **Parameters:** Two or more numbers.
@@ -67,8 +79,12 @@ math.max(1, 5, 3, 2)  // 5
 Returns the average of one or more numbers.
 
 ```ez
-math.avg(2, 4, 6)  // 4.0
-math.avg(10, 20)   // 15.0
+import @std, @math
+
+do average_demo() {
+    std.println(math.avg(2, 4, 6))  // 4.0
+    std.println(math.avg(10, 20))   // 15.0
+}
 ```
 
 **Parameters:** One or more numbers.
@@ -83,10 +99,14 @@ math.avg(10, 20)   // 15.0
 Rounding functions.
 
 ```ez
-math.floor(3.7)  // 3
-math.ceil(3.2)   // 4
-math.round(3.5)  // 4
-math.round(3.4)  // 3
+import @std, @math
+
+do rounding_demo() {
+    std.println(math.floor(3.7))  // 3
+    std.println(math.ceil(3.2))   // 4
+    std.println(math.round(3.5))  // 4
+    std.println(math.round(3.4))  // 3
+}
 ```
 
 **Parameters:** `n` - A float.
@@ -101,9 +121,13 @@ math.round(3.4)  // 3
 Returns base raised to the power of exponent.
 
 ```ez
-math.pow(2, 8)    // 256
-math.pow(10, 3)   // 1000
-math.pow(2.5, 2)  // 6.25
+import @std, @math
+
+do power_demo() {
+    std.println(math.pow(2, 8))    // 256
+    std.println(math.pow(10, 3))   // 1000
+    std.println(math.pow(2.5, 2))  // 6.25
+}
 ```
 
 **Parameters:** `base`, `exponent` - Numbers.
@@ -116,8 +140,12 @@ math.pow(2.5, 2)  // 6.25
 Returns the square root of a number.
 
 ```ez
-math.sqrt(16)   // 4.0
-math.sqrt(2)    // 1.4142135623730951
+import @std, @math
+
+do square_root_demo() {
+    std.println(math.sqrt(16))  // 4.0
+    std.println(math.sqrt(2))   // 1.4142135623730951
+}
 ```
 
 **Parameters:** `n` - A non-negative number.
@@ -134,8 +162,12 @@ math.sqrt(2)    // 1.4142135623730951
 Returns the natural logarithm (base e) of a number.
 
 ```ez
-math.log(math.E)   // 1.0
-math.log(10)       // 2.302585...
+import @std, @math
+
+do natural_log_demo() {
+    std.println(math.log(math.E))  // 1.0
+    std.println(math.log(10))      // 2.302585...
+}
 ```
 
 **Parameters:** `n` - A positive number.
@@ -150,8 +182,12 @@ math.log(10)       // 2.302585...
 Returns the base-2 logarithm of a number.
 
 ```ez
-math.log2(8)   // 3.0
-math.log2(16)  // 4.0
+import @std, @math
+
+do log2_demo() {
+    std.println(math.log2(8))   // 3.0
+    std.println(math.log2(16))  // 4.0
+}
 ```
 
 **Parameters:** `n` - A positive number.
@@ -166,8 +202,12 @@ math.log2(16)  // 4.0
 Returns the base-10 logarithm of a number.
 
 ```ez
-math.log10(100)   // 2.0
-math.log10(1000)  // 3.0
+import @std, @math
+
+do log10_demo() {
+    std.println(math.log10(100))   // 2.0
+    std.println(math.log10(1000))  // 3.0
+}
 ```
 
 **Parameters:** `n` - A positive number.
@@ -184,9 +224,13 @@ math.log10(1000)  // 3.0
 Trigonometric functions (arguments in radians).
 
 ```ez
-math.sin(0)            // 0.0
-math.cos(0)            // 1.0
-math.sin(math.PI / 2)  // 1.0
+import @std, @math
+
+do trig_demo() {
+    std.println(math.sin(0))            // 0.0
+    std.println(math.cos(0))            // 1.0
+    std.println(math.sin(math.PI / 2))  // 1.0
+}
 ```
 
 **Parameters:** `angle` - Angle in radians.
@@ -199,9 +243,13 @@ math.sin(math.PI / 2)  // 1.0
 Inverse trigonometric functions (return radians).
 
 ```ez
-math.asin(1)   // 1.5707963... (PI/2)
-math.acos(0)   // 1.5707963... (PI/2)
-math.atan(1)   // 0.7853981... (PI/4)
+import @std, @math
+
+do inverse_trig_demo() {
+    std.println(math.asin(1))  // 1.5707963... (PI/2)
+    std.println(math.acos(0))  // 1.5707963... (PI/2)
+    std.println(math.atan(1))  // 0.7853981... (PI/4)
+}
 ```
 
 **Parameters:** `value` - A number (asin/acos require [-1, 1]).
@@ -218,9 +266,13 @@ math.atan(1)   // 0.7853981... (PI/4)
 Returns the factorial of a non-negative integer.
 
 ```ez
-math.factorial(5)   // 120
-math.factorial(0)   // 1
-math.factorial(10)  // 3628800
+import @std, @math
+
+do factorial_demo() {
+    std.println(math.factorial(5))   // 120
+    std.println(math.factorial(0))   // 1
+    std.println(math.factorial(10))  // 3628800
+}
 ```
 
 **Parameters:** `n` - A non-negative integer (0-20).
@@ -237,11 +289,15 @@ math.factorial(10)  // 3628800
 Returns a random integer.
 
 ```ez
-// Random int from 0 to max-1
-math.random(100)      // 0-99
+import @std, @math
 
-// Random int from min to max-1
-math.random(10, 20)   // 10-19
+do random_int_demo() {
+    // Random int from 0 to max-1
+    std.println(math.random(100))     // 0-99
+
+    // Random int from min to max-1
+    std.println(math.random(10, 20))  // 10-19
+}
 ```
 
 **Parameters:** `max` or `min, max` - Integer bounds.
@@ -256,11 +312,15 @@ math.random(10, 20)   // 10-19
 Returns a random floating-point number.
 
 ```ez
-// Random float from 0.0 to 1.0
-math.random_float()
+import @std, @math
 
-// Random float from min to max
-math.random_float(0.0, 100.0)
+do random_float_demo() {
+    // Random float from 0.0 to 1.0
+    std.println(math.random_float())
+
+    // Random float from min to max
+    std.println(math.random_float(0.0, 100.0))
+}
 ```
 
 **Parameters:** None or `min, max` - Float bounds.

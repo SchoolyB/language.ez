@@ -45,6 +45,56 @@ do main() {
 }
 ```
 
+## Mutable Parameters
+
+By default, function parameters are **read-only**. Use the `&` prefix to declare a parameter as mutable, allowing the function to modify it.
+
+```ez
+import @std
+
+// & means "I will modify this parameter"
+do birthday(&p Person) {
+    p.age = p.age + 1  // OK - parameter is mutable
+}
+
+// No symbol means "read-only"
+do get_name(p Person) -> string {
+    // p.age = 100  // ERROR: cannot modify read-only parameter
+    return p.name
+}
+
+do main() {
+    temp person Person = Person{name: "Alice", age: 30}
+    birthday(person)
+    std.println(person.age)  // 31
+}
+```
+
+### Rules
+
+| Parameter Declaration | Can modify inside function? |
+|-----------------------|----------------------------|
+| `p Person`            | No (read-only)             |
+| `&p Person`           | Yes (mutable)              |
+
+| Caller Variable | To `p Person`  | To `&p Person` |
+|-----------------|----------------|----------------|
+| `temp`          | OK (read-only) | OK (writable)  |
+| `const`         | OK (read-only) | ERROR          |
+
+Passing a `const` variable to a mutable parameter will produce an error:
+
+```ez
+const config Config = Config{debug: true}
+// update_config(config)  // ERROR: cannot pass immutable variable to mutable parameter
+```
+
+**Related Errors:**
+- [E5015](/language.ez/errors/E5015): cannot modify read-only parameter
+- [E5016](/language.ez/errors/E5016): cannot pass immutable variable to mutable parameter
+
+> **Note:** The `&` mutable parameter syntax applies to user-defined functions only. Standard library functions that modify data (like `arrays.append()`) require the variable to be declared with `temp`, not `const`.
+
 ## Type Sharing
 
 Parameters of the same type can share a type annotation:

@@ -55,7 +55,7 @@ const ways = [
           <h2 class="text-2xl font-bold mb-6">Ways to Contribute</h2>
           <div class="grid sm:grid-cols-2 gap-4">
             {ways.map(way => (
-              <div class="p-5 border border-gray-200 dark:border-gray-800 rounded-lg">
+              <div class="p-5 border border-[#e5e5e5] dark:border-[#333333] rounded-lg">
                 <h3 class="font-semibold mb-2">{way.title}</h3>
                 <p class="text-sm opacity-70">{way.description}</p>
               </div>
@@ -75,14 +75,14 @@ const ways = [
               <h3 class="font-semibold mb-3">Issue Title Format</h3>
               <p class="text-sm opacity-70 mb-3">All issue titles must use one of these prefixes:</p>
               <div class="overflow-x-auto">
-                <table class="w-full text-sm border border-gray-200 dark:border-gray-800 rounded-lg">
+                <table class="w-full text-sm border border-[#e5e5e5] dark:border-[#333333] rounded-lg">
                   <thead class="bg-[#f5f5f5] dark:bg-[#1a1a1a]">
                     <tr>
                       <th class="px-4 py-2 text-left font-medium">Prefix</th>
                       <th class="px-4 py-2 text-left font-medium">When to Use</th>
                     </tr>
                   </thead>
-                  <tbody class="divide-y divide-gray-200 dark:divide-gray-800">
+                  <tbody class="divide-y divide-[#e5e5e5] dark:divide-[#333333]">
                     <tr><td class="px-4 py-2"><code>Bug:</code></td><td class="px-4 py-2 opacity-70">Something is broken or produces incorrect results</td></tr>
                     <tr><td class="px-4 py-2"><code>Feature:</code></td><td class="px-4 py-2 opacity-70">New functionality or enhancement</td></tr>
                     <tr><td class="px-4 py-2"><code>Documentation:</code></td><td class="px-4 py-2 opacity-70">Docs improvements or additions</td></tr>
@@ -147,7 +147,7 @@ const ways = [
               <div class="flex-shrink-0 w-8 h-8 rounded-full bg-black dark:bg-white text-white dark:text-black flex items-center justify-center text-sm font-bold">2</div>
               <div>
                 <h3 class="font-semibold">Create a Branch</h3>
-                <p class="text-sm opacity-70">Create a branch with a descriptive name: <code class="text-xs px-1.5 py-0.5 bg-gray-100 dark:bg-gray-900 rounded">fix/parser-struct-literal</code> or <code class="text-xs px-1.5 py-0.5 bg-gray-100 dark:bg-gray-900 rounded">feature/sets-module</code></p>
+                <p class="text-sm opacity-70">Create a branch with a descriptive name: <code class="text-xs px-1.5 py-0.5 bg-[#f5f5f5] dark:bg-[#1a1a1a] rounded">fix/parser-struct-literal</code> or <code class="text-xs px-1.5 py-0.5 bg-[#f5f5f5] dark:bg-[#1a1a1a] rounded">feature/sets-module</code></p>
               </div>
             </div>
 
@@ -203,15 +203,15 @@ const ways = [
             <div class="mb-8">
               <h3 class="font-semibold mb-3">Available Modules</h3>
               <div class="flex flex-wrap gap-3">
-                <a href={`${base}docs/stdlib/std`} class="text-base font-semibold px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-lg hover:bg-[#f5f5f5] dark:hover:bg-[#1a1a1a] transition-colors">@std</a>
-                <a href={`${base}docs/stdlib/math`} class="text-base font-semibold px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-lg hover:bg-[#f5f5f5] dark:hover:bg-[#1a1a1a] transition-colors">@math</a>
-                <a href={`${base}docs/stdlib/strings`} class="text-base font-semibold px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-lg hover:bg-[#f5f5f5] dark:hover:bg-[#1a1a1a] transition-colors">@strings</a>
-                <a href={`${base}docs/stdlib/arrays`} class="text-base font-semibold px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-lg hover:bg-[#f5f5f5] dark:hover:bg-[#1a1a1a] transition-colors">@arrays</a>
-                <a href={`${base}docs/stdlib/maps`} class="text-base font-semibold px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-lg hover:bg-[#f5f5f5] dark:hover:bg-[#1a1a1a] transition-colors">@maps</a>
-                <a href={`${base}docs/stdlib/time`} class="text-base font-semibold px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-lg hover:bg-[#f5f5f5] dark:hover:bg-[#1a1a1a] transition-colors">@time</a>
-                <a href={`${base}docs/stdlib/bytes`} class="text-base font-semibold px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-lg hover:bg-[#f5f5f5] dark:hover:bg-[#1a1a1a] transition-colors">@bytes</a>
-                <a href={`${base}docs/stdlib/io`} class="text-base font-semibold px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-lg hover:bg-[#f5f5f5] dark:hover:bg-[#1a1a1a] transition-colors">@io</a>
-                <a href={`${base}docs/stdlib/os`} class="text-base font-semibold px-3 py-1.5 border border-gray-300 dark:border-gray-700 rounded-lg hover:bg-[#f5f5f5] dark:hover:bg-[#1a1a1a] transition-colors">@os</a>
+                <a href={`${base}docs/stdlib/std`} class="text-base font-semibold px-3 py-1.5 border border-[#e5e5e5] dark:border-[#333333] rounded-lg hover:bg-[#f5f5f5] dark:hover:bg-[#1a1a1a] transition-colors">@std</a>
+                <a href={`${base}docs/stdlib/math`} class="text-base font-semibold px-3 py-1.5 border border-[#e5e5e5] dark:border-[#333333] rounded-lg hover:bg-[#f5f5f5] dark:hover:bg-[#1a1a1a] transition-colors">@math</a>
+                <a href={`${base}docs/stdlib/strings`} class="text-base font-semibold px-3 py-1.5 border border-[#e5e5e5] dark:border-[#333333] rounded-lg hover:bg-[#f5f5f5] dark:hover:bg-[#1a1a1a] transition-colors">@strings</a>
+                <a href={`${base}docs/stdlib/arrays`} class="text-base font-semibold px-3 py-1.5 border border-[#e5e5e5] dark:border-[#333333] rounded-lg hover:bg-[#f5f5f5] dark:hover:bg-[#1a1a1a] transition-colors">@arrays</a>
+                <a href={`${base}docs/stdlib/maps`} class="text-base font-semibold px-3 py-1.5 border border-[#e5e5e5] dark:border-[#333333] rounded-lg hover:bg-[#f5f5f5] dark:hover:bg-[#1a1a1a] transition-colors">@maps</a>
+                <a href={`${base}docs/stdlib/time`} class="text-base font-semibold px-3 py-1.5 border border-[#e5e5e5] dark:border-[#333333] rounded-lg hover:bg-[#f5f5f5] dark:hover:bg-[#1a1a1a] transition-colors">@time</a>
+                <a href={`${base}docs/stdlib/bytes`} class="text-base font-semibold px-3 py-1.5 border border-[#e5e5e5] dark:border-[#333333] rounded-lg hover:bg-[#f5f5f5] dark:hover:bg-[#1a1a1a] transition-colors">@bytes</a>
+                <a href={`${base}docs/stdlib/io`} class="text-base font-semibold px-3 py-1.5 border border-[#e5e5e5] dark:border-[#333333] rounded-lg hover:bg-[#f5f5f5] dark:hover:bg-[#1a1a1a] transition-colors">@io</a>
+                <a href={`${base}docs/stdlib/os`} class="text-base font-semibold px-3 py-1.5 border border-[#e5e5e5] dark:border-[#333333] rounded-lg hover:bg-[#f5f5f5] dark:hover:bg-[#1a1a1a] transition-colors">@os</a>
               </div>
             </div>
 
@@ -232,7 +232,7 @@ const ways = [
                 Have an idea for an entirely new stdlib module? You can propose one. Open a feature issue with:
               </p>
               <ul class="text-sm space-y-2 opacity-70">
-                <li><strong>Module name</strong> &mdash; What would it be called? (e.g., <code class="text-xs px-1.5 py-0.5 bg-gray-100 dark:bg-gray-900 rounded">@sets</code>, <code class="text-xs px-1.5 py-0.5 bg-gray-100 dark:bg-gray-900 rounded">@json</code>, <code class="text-xs px-1.5 py-0.5 bg-gray-100 dark:bg-gray-900 rounded">@fs</code>)</li>
+                <li><strong>Module name</strong> &mdash; What would it be called? (e.g., <code class="text-xs px-1.5 py-0.5 bg-[#f5f5f5] dark:bg-[#1a1a1a] rounded">@sets</code>, <code class="text-xs px-1.5 py-0.5 bg-[#f5f5f5] dark:bg-[#1a1a1a] rounded">@json</code>, <code class="text-xs px-1.5 py-0.5 bg-[#f5f5f5] dark:bg-[#1a1a1a] rounded">@fs</code>)</li>
                 <li><strong>Purpose</strong> &mdash; What problem does it solve?</li>
                 <li><strong>Proposed API</strong> &mdash; List the functions, constants, and types it would include</li>
                 <li><strong>Example usage</strong> &mdash; Show how it would be used in EZ code</li>
@@ -245,7 +245,7 @@ const ways = [
         </section>
 
         <!-- Get Started -->
-        <section id="get-started" class="border-t border-gray-200 dark:border-gray-800 pt-12">
+        <section id="get-started" class="border-t border-[#e5e5e5] dark:border-[#333333] pt-12">
           <div class="text-center">
             <h2 class="text-2xl font-bold mb-4">Ready to Contribute?</h2>
             <p class="opacity-70 mb-6">Check out open issues or start a discussion.</p>

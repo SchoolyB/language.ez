@@ -349,6 +349,19 @@ temp c char = 'A'
 temp b4 byte = byte(c)  // 65 (ASCII value)
 ```
 
+### char()
+
+Converts an integer (ASCII/Unicode code point) to a character.
+
+```ez
+temp x int = 65
+temp y char = char(x)  // 'A' (ASCII value 65)
+println(y)             // Output: A
+
+temp emoji int = 128512
+temp face char = char(emoji)  // Unicode smiley
+```
+
 ## typeof()
 
 Get the type of a value at runtime:

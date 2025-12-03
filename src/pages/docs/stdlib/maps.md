@@ -39,9 +39,13 @@ temp ages map = {
 Retrieves a value by key.
 
 ```ez
-temp ages map = {{"Alice", 25}, {"Bob", 30}}
-temp age int = maps.get(ages, "Alice")
-std.println(age)  // 25
+import @std, @maps
+
+do get_from_map() {
+    temp ages map = {{"Alice", 25}, {"Bob", 30}}
+    temp age int = maps.get(ages, "Alice")
+    std.println(age)  // 25
+}
 ```
 
 **Parameters:** `m` - The map, `key` - The key.
@@ -56,9 +60,13 @@ std.println(age)  // 25
 Sets a value for a key (adds or updates).
 
 ```ez
-temp ages map = {{"Alice", 25}}
-maps.set(ages, "Bob", 30)
-maps.set(ages, "Alice", 26)  // update existing
+import @maps
+
+do set_in_map() {
+    temp ages map = {{"Alice", 25}}
+    maps.set(ages, "Bob", 30)
+    maps.set(ages, "Alice", 26)  // update existing
+}
 ```
 
 **Parameters:** `m`, `key`, `value`.
@@ -73,9 +81,13 @@ maps.set(ages, "Alice", 26)  // update existing
 Checks if a key exists in the map.
 
 ```ez
-temp ages map = {{"Alice", 25}, {"Bob", 30}}
-std.println(maps.has(ages, "Alice"))  // true
-std.println(maps.has(ages, "Eve"))    // false
+import @std, @maps
+
+do check_key_exists() {
+    temp ages map = {{"Alice", 25}, {"Bob", 30}}
+    std.println(maps.has(ages, "Alice"))  // true
+    std.println(maps.has(ages, "Eve"))    // false
+}
 ```
 
 **Parameters:** `m`, `key`.
@@ -88,9 +100,13 @@ std.println(maps.has(ages, "Eve"))    // false
 Removes a key-value pair from the map.
 
 ```ez
-temp ages map = {{"Alice", 25}, {"Bob", 30}}
-maps.delete(ages, "Alice")
-std.println(maps.has(ages, "Alice"))  // false
+import @std, @maps
+
+do delete_from_map() {
+    temp ages map = {{"Alice", 25}, {"Bob", 30}}
+    maps.delete(ages, "Alice")
+    std.println(maps.has(ages, "Alice"))  // false
+}
 ```
 
 **Parameters:** `m`, `key`.
@@ -105,9 +121,13 @@ std.println(maps.has(ages, "Alice"))  // false
 Returns an array of all keys in the map.
 
 ```ez
-temp ages map = {{"Alice", 25}, {"Bob", 30}}
-temp names [string] = maps.keys(ages)
-std.println(names)  // {"Alice", "Bob"}
+import @std, @maps
+
+do get_map_keys() {
+    temp ages map = {{"Alice", 25}, {"Bob", 30}}
+    temp names [string] = maps.keys(ages)
+    std.println(names)  // {"Alice", "Bob"}
+}
 ```
 
 **Parameters:** `m` - The map.
@@ -122,9 +142,13 @@ std.println(names)  // {"Alice", "Bob"}
 Returns an array of all values in the map.
 
 ```ez
-temp ages map = {{"Alice", 25}, {"Bob", 30}}
-temp all_ages [int] = maps.values(ages)
-std.println(all_ages)  // {25, 30}
+import @std, @maps
+
+do get_map_values() {
+    temp ages map = {{"Alice", 25}, {"Bob", 30}}
+    temp all_ages [int] = maps.values(ages)
+    std.println(all_ages)  // {25, 30}
+}
 ```
 
 **Parameters:** `m` - The map.
@@ -137,8 +161,12 @@ std.println(all_ages)  // {25, 30}
 Returns the number of key-value pairs in the map.
 
 ```ez
-temp ages map = {{"Alice", 25}, {"Bob", 30}}
-std.println(maps.size(ages))  // 2
+import @std, @maps
+
+do get_map_size() {
+    temp ages map = {{"Alice", 25}, {"Bob", 30}}
+    std.println(maps.size(ages))  // 2
+}
 ```
 
 **Parameters:** `m` - The map.
@@ -151,10 +179,14 @@ std.println(maps.size(ages))  // 2
 Checks if the map has no entries.
 
 ```ez
-temp empty map = {}
-temp filled map = {{"a", 1}}
-std.println(maps.is_empty(empty))   // true
-std.println(maps.is_empty(filled))  // false
+import @std, @maps
+
+do check_map_empty() {
+    temp empty map = {}
+    temp filled map = {{"a", 1}}
+    std.println(maps.is_empty(empty))   // true
+    std.println(maps.is_empty(filled))  // false
+}
 ```
 
 **Parameters:** `m` - The map.
@@ -169,10 +201,14 @@ std.println(maps.is_empty(filled))  // false
 Merges two maps. Values from the second map override the first.
 
 ```ez
-temp defaults map = {{"color", "blue"}, {"size", "medium"}}
-temp custom map = {{"color", "red"}}
-temp result map = maps.merge(defaults, custom)
-// result: {{"color", "red"}, {"size", "medium"}}
+import @maps
+
+do merge_maps() {
+    temp defaults map = {{"color", "blue"}, {"size", "medium"}}
+    temp custom map = {{"color", "red"}}
+    temp result map = maps.merge(defaults, custom)
+    // result: {{"color", "red"}, {"size", "medium"}}
+}
 ```
 
 **Parameters:** `m1`, `m2` - Two maps.
@@ -185,9 +221,13 @@ temp result map = maps.merge(defaults, custom)
 Removes all key-value pairs from a map.
 
 ```ez
-temp ages map = {{"Alice", 25}, {"Bob", 30}}
-maps.clear(ages)
-std.println(maps.size(ages))  // 0
+import @std, @maps
+
+do clear_map() {
+    temp ages map = {{"Alice", 25}, {"Bob", 30}}
+    maps.clear(ages)
+    std.println(maps.size(ages))  // 0
+}
 ```
 
 **Parameters:** `m` - The map.
@@ -202,9 +242,13 @@ std.println(maps.size(ages))  // 0
 Gets a value by key, returning a default if the key doesn't exist.
 
 ```ez
-temp ages map = {{"Alice", 25}}
-temp age1 int = maps.get_or(ages, "Alice", 0)  // 25
-temp age2 int = maps.get_or(ages, "Bob", 0)    // 0 (default)
+import @maps
+
+do get_with_default() {
+    temp ages map = {{"Alice", 25}}
+    temp age1 int = maps.get_or(ages, "Alice", 0)  // 25
+    temp age2 int = maps.get_or(ages, "Bob", 0)    // 0 (default)
+}
 ```
 
 **Parameters:** `m`, `key`, `default`.
@@ -217,10 +261,14 @@ temp age2 int = maps.get_or(ages, "Bob", 0)    // 0 (default)
 Attempts to get a value, returning both the value and a success boolean.
 
 ```ez
-temp ages map = {{"Alice", 25}}
-temp value, ok = maps.try_get(ages, "Alice")
-if ok {
-    std.println("Found:", value)
+import @std, @maps
+
+do try_get_from_map() {
+    temp ages map = {{"Alice", 25}}
+    temp value, ok = maps.try_get(ages, "Alice")
+    if ok {
+        std.println("Found:", value)
+    }
 }
 ```
 

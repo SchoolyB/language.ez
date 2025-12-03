@@ -1,5 +1,5 @@
 ---
-layout: '../../../layouts/DocsLayout.astro'
+layout: '../../layouts/GettingStartedLayout.astro'
 title: 'Uninstall'
 description: 'Remove EZ from your system.'
 ---

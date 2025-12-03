@@ -1,46 +1,59 @@
 ---
 const base = import.meta.env.BASE_URL;
 const navItems = [
+  { href: base || '/', label: 'Home', exact: true },
+  { href: `${base}downloads`, label: 'Downloads' },
+  { href: `${base}getting-started`, label: 'Installation' },
   { href: `${base}docs`, label: 'Docs' },
   { href: `${base}examples`, label: 'Examples' },
   { href: `${base}errors`, label: 'Errors' },
+  { href: `${base}changelog`, label: 'Changelog' },
   { href: `${base}contribute`, label: 'Contribute' },
+  { href: `${base}faq`, label: 'FAQ' },
 ];
 
 const currentPath = Astro.url.pathname;
+
+function isActive(item: typeof navItems[0]) {
+  if (item.exact) {
+    return currentPath === item.href || currentPath === item.href.replace(/\/$/, '');
+  }
+  return currentPath.startsWith(item.href);
+}
 ---
 
 <header class="sticky top-0 z-50 bg-white/95 dark:bg-black/95 backdrop-blur-sm">
   <nav class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-between h-16">
+    <div class="flex items-center h-16">
       <!-- Logo -->
-      <a href={import.meta.env.BASE_URL} class="hover:opacity-70 transition-opacity">
+      <a href={import.meta.env.BASE_URL} class="hover:opacity-70 transition-opacity flex-shrink-0">
         <img src={`${import.meta.env.BASE_URL}logo.jpeg`} alt="EZ" class="h-8 w-8 rounded" />
       </a>
 
-      <!-- Right side: Desktop Navigation + Actions -->
-      <div class="flex items-center gap-2">
-        <!-- Desktop Navigation -->
-        <div class="hidden md:flex items-center gap-8 mr-4">
-          {navItems.map(item => (
-            <a
-              href={item.href}
-              class:list={[
-                'text-sm font-medium transition-opacity text-black dark:text-white',
-                currentPath.startsWith(item.href)
-                  ? 'opacity-100 underline underline-offset-4'
-                  : 'opacity-60 hover:opacity-100'
-              ]}
-            >
-              {item.label}
-            </a>
-          ))}
-        </div>
+      <!-- Desktop Navigation (centered) -->
+      <div class="hidden md:flex items-center justify-center gap-8 flex-1">
+        {navItems.map(item => (
+          <a
+            href={item.href}
+            class:list={[
+              'text-sm font-medium transition-opacity text-black dark:text-white',
+              isActive(item)
+                ? 'opacity-100 underline underline-offset-4'
+                : 'opacity-60 hover:opacity-100'
+            ]}
+          >
+            {item.label}
+          </a>
+        ))}
+      </div>
+
+      <!-- Right side: Actions -->
+      <div class="flex items-center gap-2 ml-auto md:ml-0">
         <!-- Theme Toggle -->
         <button
           id="theme-toggle"
           type="button"
-          class="p-2 rounded-lg border border-transparent hover:border-gray-300 dark:hover:border-gray-700 transition-colors text-black dark:text-white"
+          class="p-2 rounded-lg border border-transparent hover:border-[#e5e5e5] dark:hover:border-[#333333] transition-colors text-black dark:text-white"
           aria-label="Toggle dark mode"
         >
           <!-- Sun icon (shown in dark mode) -->
@@ -58,7 +71,7 @@ const currentPath = Astro.url.pathname;
           href="https://github.com/SchoolyB/EZ"
           target="_blank"
           rel="noopener noreferrer"
-          class="p-2 rounded-lg border border-transparent hover:border-gray-300 dark:hover:border-gray-700 transition-colors text-black dark:text-white"
+          class="p-2 rounded-lg border border-transparent hover:border-[#e5e5e5] dark:hover:border-[#333333] transition-colors text-black dark:text-white"
           aria-label="GitHub repository"
         >
           <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -70,7 +83,7 @@ const currentPath = Astro.url.pathname;
         <button
           id="mobile-menu-btn"
           type="button"
-          class="md:hidden p-2 rounded-lg border border-transparent hover:border-gray-300 dark:hover:border-gray-700 transition-colors text-black dark:text-white"
+          class="md:hidden p-2 rounded-lg border border-transparent hover:border-[#e5e5e5] dark:hover:border-[#333333] transition-colors text-black dark:text-white"
           aria-label="Open menu"
         >
           <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -88,9 +101,9 @@ const currentPath = Astro.url.pathname;
             href={item.href}
             class:list={[
               'px-3 py-2 rounded-lg text-sm font-medium transition-colors text-black dark:text-white',
-              currentPath.startsWith(item.href)
-                ? 'bg-gray-100 dark:bg-gray-900'
-                : 'opacity-60 hover:opacity-100 hover:bg-gray-100 dark:hover:bg-gray-900'
+              isActive(item)
+                ? 'bg-[#f5f5f5] dark:bg-[#1a1a1a]'
+                : 'opacity-60 hover:opacity-100 hover:bg-[#f5f5f5] dark:hover:bg-[#1a1a1a]'
             ]}
           >
             {item.label}

@@ -23,7 +23,15 @@ const totalErrors = errorsData.errors.length;
   <Header />
 
   <main class="flex-1 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <h1 class="text-3xl font-bold mb-4 text-black dark:text-white">Error Reference</h1>
+    <div class="flex items-center justify-between mb-4">
+      <h1 class="text-3xl font-bold text-black dark:text-white">Error Reference</h1>
+      <button
+        id="toggle-all-categories"
+        class="text-sm px-3 py-1.5 rounded border border-[#e5e5e5] dark:border-[#333333] hover:bg-[#f5f5f5] dark:hover:bg-[#1a1a1a] transition-colors text-black dark:text-white"
+      >
+        Expand All
+      </button>
+    </div>
     <p class="opacity-70 mb-8 text-black dark:text-white">
       EZ has <span class="text-xl font-bold opacity-100">{totalErrors}</span> error and warning codes to help you understand exactly what went wrong and how to fix it.
     </p>
@@ -35,7 +43,7 @@ const totalErrors = errorsData.errors.length;
           type="search"
           id="error-search"
           placeholder="Search errors... (e.g., E1004, unclosed string)"
-          class="w-full px-4 py-3 pl-10 border border-gray-200 dark:border-gray-800 rounded-lg bg-white dark:bg-black text-black dark:text-white focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white"
+          class="w-full px-4 py-3 pl-10 border border-[#e5e5e5] dark:border-[#333333] rounded-lg bg-white dark:bg-black text-black dark:text-white focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white"
         />
         <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 opacity-40" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -67,7 +75,7 @@ const totalErrors = errorsData.errors.length;
               {category.errors.slice(0, 8).map(error => (
                 <a
                   href={`${base}errors/${error.code}`}
-                  class="text-xs px-2.5 py-1.5 bg-white dark:bg-black rounded border border-gray-200 dark:border-gray-800 hover:border-black dark:hover:border-white transition-colors font-mono text-black dark:text-white"
+                  class="text-xs px-2.5 py-1.5 bg-white dark:bg-black rounded border border-[#e5e5e5] dark:border-[#333333] hover:border-black dark:hover:border-white transition-colors font-mono text-black dark:text-white"
                 >
                   {error.code}
                 </a>
@@ -87,7 +95,7 @@ const totalErrors = errorsData.errors.length;
                 {category.errors.slice(8).map(error => (
                   <a
                     href={`${base}errors/${error.code}`}
-                    class="text-xs px-2.5 py-1.5 bg-white dark:bg-black rounded border border-gray-200 dark:border-gray-800 hover:border-black dark:hover:border-white transition-colors font-mono text-black dark:text-white"
+                    class="text-xs px-2.5 py-1.5 bg-white dark:bg-black rounded border border-[#e5e5e5] dark:border-[#333333] hover:border-black dark:hover:border-white transition-colors font-mono text-black dark:text-white"
                   >
                     {error.code}
                   </a>
@@ -105,7 +113,7 @@ const totalErrors = errorsData.errors.length;
         <h2 class="text-2xl font-bold text-black dark:text-white">All Error Codes ({totalErrors})</h2>
         <button
           id="show-all-errors-btn"
-          class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-black dark:text-white bg-white dark:bg-black border border-gray-300 dark:border-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-900 transition-colors"
+          class="flex items-center gap-2 px-4 py-2 text-sm font-medium text-black dark:text-white bg-white dark:bg-black border border-[#e5e5e5] dark:border-[#333333] rounded-lg hover:bg-[#f5f5f5] dark:hover:bg-[#1a1a1a] transition-colors"
         >
           <span id="expand-icon">▶</span>
           <span id="expand-text">Show all</span>
@@ -148,7 +156,7 @@ const totalErrors = errorsData.errors.length;
         <div class="px-4 py-3 bg-[#f5f5f5] dark:bg-[#1a1a1a] border-t border-[#e5e5e5] dark:border-[#333333] text-center">
           <button
             id="hide-errors-btn"
-            class="flex items-center gap-2 mx-auto px-4 py-2 text-sm font-medium text-black dark:text-white bg-white dark:bg-black border border-gray-300 dark:border-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-900 transition-colors"
+            class="flex items-center gap-2 mx-auto px-4 py-2 text-sm font-medium text-black dark:text-white bg-white dark:bg-black border border-[#e5e5e5] dark:border-[#333333] rounded-lg hover:bg-[#f5f5f5] dark:hover:bg-[#1a1a1a] transition-colors"
           >
             <span>▲</span>
             <span>Hide all</span>
@@ -206,16 +214,70 @@ const totalErrors = errorsData.errors.length;
     allErrorsSection?.scrollIntoView({ behavior: 'smooth' });
   });
 
+  // Toggle all categories button
+  const toggleAllCategoriesBtn = document.getElementById('toggle-all-categories');
+  let allCategoriesExpanded = false;
+
+  function updateToggleAllButton() {
+    const expandedSections = document.querySelectorAll('[id^="expanded-"]:not(.hidden)');
+    const totalExpandable = document.querySelectorAll('[id^="expanded-"]').length;
+
+    if (toggleAllCategoriesBtn) {
+      if (expandedSections.length === totalExpandable && totalExpandable > 0) {
+        toggleAllCategoriesBtn.textContent = 'Collapse All';
+        allCategoriesExpanded = true;
+      } else if (expandedSections.length === 0) {
+        toggleAllCategoriesBtn.textContent = 'Expand All';
+        allCategoriesExpanded = false;
+      } else {
+        toggleAllCategoriesBtn.textContent = 'Collapse All';
+        allCategoriesExpanded = true;
+      }
+    }
+  }
+
+  toggleAllCategoriesBtn?.addEventListener('click', () => {
+    allCategoriesExpanded = !allCategoriesExpanded;
+
+    document.querySelectorAll('[id^="expanded-"]').forEach(section => {
+      if (allCategoriesExpanded) {
+        section.classList.remove('hidden');
+      } else {
+        section.classList.add('hidden');
+      }
+    });
+
+    document.querySelectorAll('.show-all-btn').forEach(btn => {
+      const category = (btn as HTMLButtonElement).dataset.category;
+      const expanded = document.getElementById(`expanded-${category}`);
+      if (expanded) {
+        const originalCount = btn.getAttribute('data-original-text');
+        btn.textContent = expanded.classList.contains('hidden')
+          ? originalCount || btn.textContent
+          : 'Show less';
+      }
+    });
+
+    updateToggleAllButton();
+  });
+
   // Category expand buttons
   document.querySelectorAll('.show-all-btn').forEach(btn => {
+    // Store original text
+    if (!btn.getAttribute('data-original-text')) {
+      btn.setAttribute('data-original-text', btn.textContent || '');
+    }
+
     btn.addEventListener('click', () => {
       const category = (btn as HTMLButtonElement).dataset.category;
       const expanded = document.getElementById(`expanded-${category}`);
       if (expanded) {
         expanded.classList.toggle('hidden');
+        const originalText = btn.getAttribute('data-original-text') || btn.textContent;
         btn.textContent = expanded.classList.contains('hidden')
-          ? btn.textContent
+          ? originalText
           : 'Show less';
+        updateToggleAllButton();
       }
     });
   });

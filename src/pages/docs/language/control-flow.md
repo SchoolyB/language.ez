@@ -10,6 +10,9 @@ EZ provides clear, readable control flow constructs for conditionals and loops.
 The keywords are designed to be intuitive: `if`/`or`/`otherwise` for branching,
 `for`/`for_each` for iteration, and `as_long_as`/`loop` for conditional and infinite loops.
 
+> **Note:** Parentheses around conditions are optional in EZ.
+> `if x > 5 {}` and `if (x > 5) {}` are both valid. The same applies to `for` and `as_long_as`.
+
 ## Conditionals
 
 ### if / or / otherwise
@@ -17,6 +20,8 @@ The keywords are designed to be intuitive: `if`/`or`/`otherwise` for branching,
 EZ uses `if`, `or` (instead of else if), and `otherwise` (instead of else) for conditional branching.
 
 ```ez
+import @std
+
 temp x int = 15
 
 if x > 20 {
@@ -35,6 +40,8 @@ if x > 20 {
 A simple condition without alternatives:
 
 ```ez
+import @std
+
 temp age int = 21
 
 if age >= 18 {
@@ -47,6 +54,8 @@ if age >= 18 {
 Combine conditions with `&&` (and), `||` (or), and `!` (not):
 
 ```ez
+import @std
+
 temp a int = 10
 temp b int = 20
 temp isValid bool = true
@@ -80,6 +89,8 @@ Use `for` with `range()` to iterate over a sequence of numbers.
 The end value is **exclusive** (like Python and Go).
 
 ```ez
+import @std
+
 // Single argument: range(end) - iterates 0 to end-1
 for i in range(5) {
     std.printf("${i} ")  // 0 1 2 3 4
@@ -112,6 +123,8 @@ for i in range(10, 0, -2) {
 Use `for_each` to iterate over arrays and strings directly.
 
 ```ez
+import @std
+
 // Iterate over an array
 temp numbers [int] = {1, 2, 3, 4, 5}
 temp sum int = 0
@@ -147,6 +160,8 @@ EZ uses `as_long_as` instead of `while` for condition-based loops.
 The loop continues as long as the condition is true.
 
 ```ez
+import @std
+
 temp count int = 0
 as_long_as count < 5 {
     std.println(count)
@@ -169,6 +184,8 @@ std.println(total)  // 100
 Use `loop` for infinite loops. Always include a `break` condition to exit.
 
 ```ez
+import @std
+
 temp count int = 0
 loop {
     count += 1
@@ -188,6 +205,8 @@ loop {
 Exit a loop early:
 
 ```ez
+import @std
+
 // Find first even number
 temp numbers [int] = {1, 3, 5, 4, 7, 9}
 for_each num in numbers {
@@ -211,6 +230,8 @@ for i in range(0, 100) {
 Skip to the next iteration:
 
 ```ez
+import @std
+
 // Sum only even numbers
 temp sum int = 0
 for i in range(0, 10) {
@@ -236,6 +257,8 @@ for_each name in names {
 Loops can be nested for multi-dimensional iteration:
 
 ```ez
+import @std
+
 // Multiplication table
 for i in range(1, 4) {
     for j in range(1, 4) {
@@ -267,6 +290,8 @@ for i in range(0, 3) {
 Check if a value exists in an array:
 
 ```ez
+import @std
+
 temp numbers [int] = {1, 2, 3, 4, 5}
 
 if 3 in numbers {

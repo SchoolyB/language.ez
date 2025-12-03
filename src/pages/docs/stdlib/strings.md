@@ -22,8 +22,12 @@ import @strings
 Converts a string to uppercase.
 
 ```ez
-strings.upper("hello")  // "HELLO"
-strings.upper("Hello World")  // "HELLO WORLD"
+import @std, @strings
+
+do uppercase_demo() {
+    std.println(strings.upper("hello"))  // "HELLO"
+    std.println(strings.upper("Hello World"))  // "HELLO WORLD"
+}
 ```
 
 **Parameters:** `str` - The string.
@@ -36,8 +40,12 @@ strings.upper("Hello World")  // "HELLO WORLD"
 Converts a string to lowercase.
 
 ```ez
-strings.lower("HELLO")  // "hello"
-strings.lower("Hello World")  // "hello world"
+import @std, @strings
+
+do lowercase_demo() {
+    std.println(strings.lower("HELLO"))  // "hello"
+    std.println(strings.lower("Hello World"))  // "hello world"
+}
 ```
 
 **Parameters:** `str` - The string.
@@ -50,8 +58,12 @@ strings.lower("Hello World")  // "hello world"
 Capitalizes the first character of a string.
 
 ```ez
-strings.capitalize("hello")  // "Hello"
-strings.capitalize("hello world")  // "Hello world"
+import @std, @strings
+
+do capitalize_demo() {
+    std.println(strings.capitalize("hello"))  // "Hello"
+    std.println(strings.capitalize("hello world"))  // "Hello world"
+}
 ```
 
 **Parameters:** `str` - The string.
@@ -64,8 +76,12 @@ strings.capitalize("hello world")  // "Hello world"
 Capitalizes the first character of each word.
 
 ```ez
-strings.title("hello world")  // "Hello World"
-strings.title("the quick brown fox")  // "The Quick Brown Fox"
+import @std, @strings
+
+do title_case_demo() {
+    std.println(strings.title("hello world"))  // "Hello World"
+    std.println(strings.title("the quick brown fox"))  // "The Quick Brown Fox"
+}
 ```
 
 **Parameters:** `str` - The string.
@@ -80,8 +96,12 @@ strings.title("the quick brown fox")  // "The Quick Brown Fox"
 Checks if a string contains a substring.
 
 ```ez
-strings.contains("hello world", "world")  // true
-strings.contains("hello world", "foo")    // false
+import @std, @strings
+
+do check_contains() {
+    std.println(strings.contains("hello world", "world"))  // true
+    std.println(strings.contains("hello world", "foo"))    // false
+}
 ```
 
 **Parameters:** `str`, `substr`.
@@ -96,8 +116,12 @@ strings.contains("hello world", "foo")    // false
 Checks if a string starts with a prefix.
 
 ```ez
-strings.starts_with("hello world", "hello")  // true
-strings.starts_with("hello world", "world")  // false
+import @std, @strings
+
+do check_prefix() {
+    std.println(strings.starts_with("hello world", "hello"))  // true
+    std.println(strings.starts_with("hello world", "world"))  // false
+}
 ```
 
 **Parameters:** `str`, `prefix`.
@@ -112,8 +136,12 @@ strings.starts_with("hello world", "world")  // false
 Checks if a string ends with a suffix.
 
 ```ez
-strings.ends_with("hello world", "world")  // true
-strings.ends_with("hello world", "hello")  // false
+import @std, @strings
+
+do check_suffix() {
+    std.println(strings.ends_with("hello world", "world"))  // true
+    std.println(strings.ends_with("hello world", "hello"))  // false
+}
 ```
 
 **Parameters:** `str`, `suffix`.
@@ -128,8 +156,12 @@ strings.ends_with("hello world", "hello")  // false
 Returns the index of the first occurrence of a substring, or -1 if not found.
 
 ```ez
-strings.index("hello world", "world")  // 6
-strings.index("hello world", "foo")    // -1
+import @std, @strings
+
+do find_index() {
+    std.println(strings.index("hello world", "world"))  // 6
+    std.println(strings.index("hello world", "foo"))    // -1
+}
 ```
 
 **Parameters:** `str`, `substr`.
@@ -146,8 +178,12 @@ strings.index("hello world", "foo")    // -1
 Removes whitespace from both ends of a string.
 
 ```ez
-strings.trim("  hello  ")  // "hello"
-strings.trim("\n\thello\n")  // "hello"
+import @std, @strings
+
+do trim_whitespace() {
+    std.println(strings.trim("  hello  "))  // "hello"
+    std.println(strings.trim("\n\thello\n"))  // "hello"
+}
 ```
 
 **Parameters:** `str` - The string.
@@ -160,8 +196,12 @@ strings.trim("\n\thello\n")  // "hello"
 Removes whitespace from the left or right side only.
 
 ```ez
-strings.trim_left("  hello  ")   // "hello  "
-strings.trim_right("  hello  ")  // "  hello"
+import @std, @strings
+
+do trim_sides() {
+    std.println(strings.trim_left("  hello  "))   // "hello  "
+    std.println(strings.trim_right("  hello  "))  // "  hello"
+}
 ```
 
 **Parameters:** `str` - The string.
@@ -176,11 +216,15 @@ strings.trim_right("  hello  ")  // "  hello"
 Splits a string into an array of substrings.
 
 ```ez
-temp parts [string] = strings.split("a,b,c", ",")
-std.println(parts)  // {"a", "b", "c"}
+import @std, @strings
 
-temp words [string] = strings.split("hello world", " ")
-std.println(words)  // {"hello", "world"}
+do split_string() {
+    temp parts [string] = strings.split("a,b,c", ",")
+    std.println(parts)  // {"a", "b", "c"}
+
+    temp words [string] = strings.split("hello world", " ")
+    std.println(words)  // {"hello", "world"}
+}
 ```
 
 **Parameters:** `str`, `separator`.
@@ -195,9 +239,13 @@ std.println(words)  // {"hello", "world"}
 Joins an array of strings with a separator.
 
 ```ez
-temp parts [string] = {"a", "b", "c"}
-std.println(strings.join(parts, "-"))  // "a-b-c"
-std.println(strings.join(parts, ""))   // "abc"
+import @std, @strings
+
+do join_strings() {
+    temp parts [string] = {"a", "b", "c"}
+    std.println(strings.join(parts, "-"))  // "a-b-c"
+    std.println(strings.join(parts, ""))   // "abc"
+}
 ```
 
 **Parameters:** `arr`, `separator`.
@@ -214,8 +262,12 @@ std.println(strings.join(parts, ""))   // "abc"
 Replaces all occurrences of a substring with another string.
 
 ```ez
-strings.replace("hello world", "world", "EZ")  // "hello EZ"
-strings.replace("aaa", "a", "b")  // "bbb"
+import @std, @strings
+
+do replace_all() {
+    std.println(strings.replace("hello world", "world", "EZ"))  // "hello EZ"
+    std.println(strings.replace("aaa", "a", "b"))  // "bbb"
+}
 ```
 
 **Parameters:** `str`, `old`, `new`.
@@ -230,7 +282,11 @@ strings.replace("aaa", "a", "b")  // "bbb"
 Replaces only the first occurrence of a substring.
 
 ```ez
-strings.replace_first("aaa", "a", "b")  // "baa"
+import @std, @strings
+
+do replace_once() {
+    std.println(strings.replace_first("aaa", "a", "b"))  // "baa"
+}
 ```
 
 **Parameters:** `str`, `old`, `new`.
@@ -245,8 +301,12 @@ strings.replace_first("aaa", "a", "b")  // "baa"
 Returns a portion of a string from start index to end index. The end index is exclusive (not included), just like `range()`.
 
 ```ez
-strings.substring("hello world", 0, 5)   // "hello" (chars 0-4)
-strings.substring("hello world", 6, 11)  // "world" (chars 6-10)
+import @std, @strings
+
+do get_substring() {
+    std.println(strings.substring("hello world", 0, 5))   // "hello" (chars 0-4)
+    std.println(strings.substring("hello world", 6, 11))  // "world" (chars 6-10)
+}
 ```
 
 **Parameters:** `str`, `start`, `end` (end is exclusive).
@@ -259,8 +319,12 @@ strings.substring("hello world", 6, 11)  // "world" (chars 6-10)
 Returns the character at a specific index.
 
 ```ez
-strings.char_at("hello", 0)  // "h"
-strings.char_at("hello", 4)  // "o"
+import @std, @strings
+
+do get_char() {
+    std.println(strings.char_at("hello", 0))  // "h"
+    std.println(strings.char_at("hello", 4))  // "o"
+}
 ```
 
 **Parameters:** `str`, `index`.
@@ -275,8 +339,12 @@ strings.char_at("hello", 4)  // "o"
 Pads a string to a minimum length.
 
 ```ez
-strings.pad_left("42", 5, "0")   // "00042"
-strings.pad_right("hi", 5, ".")  // "hi..."
+import @std, @strings
+
+do pad_strings() {
+    std.println(strings.pad_left("42", 5, "0"))   // "00042"
+    std.println(strings.pad_right("hi", 5, "."))  // "hi..."
+}
 ```
 
 **Parameters:** `str`, `length`, `pad_char`.
@@ -289,8 +357,12 @@ strings.pad_right("hi", 5, ".")  // "hi..."
 Repeats a string n times.
 
 ```ez
-strings.repeat("ab", 3)  // "ababab"
-strings.repeat("-", 10)  // "----------"
+import @std, @strings
+
+do repeat_string() {
+    std.println(strings.repeat("ab", 3))  // "ababab"
+    std.println(strings.repeat("-", 10))  // "----------"
+}
 ```
 
 **Parameters:** `str`, `count`.
@@ -305,8 +377,12 @@ strings.repeat("-", 10)  // "----------"
 Splits a string into an array of individual characters.
 
 ```ez
-temp chars [string] = strings.chars("hello")
-std.println(chars)  // {"h", "e", "l", "l", "o"}
+import @std, @strings
+
+do split_to_chars() {
+    temp chars [string] = strings.chars("hello")
+    std.println(chars)  // {"h", "e", "l", "l", "o"}
+}
 ```
 
 **Parameters:** `str` - The string.
@@ -319,8 +395,12 @@ std.println(chars)  // {"h", "e", "l", "l", "o"}
 Reverses a string.
 
 ```ez
-strings.reverse("hello")  // "olleh"
-strings.reverse("12345")  // "54321"
+import @std, @strings
+
+do reverse_string() {
+    std.println(strings.reverse("hello"))  // "olleh"
+    std.println(strings.reverse("12345"))  // "54321"
+}
 ```
 
 **Parameters:** `str` - The string.

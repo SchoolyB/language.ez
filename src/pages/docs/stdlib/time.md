@@ -23,8 +23,12 @@ import @time
 Returns the current Unix timestamp in seconds.
 
 ```ez
-temp timestamp int = time.now()
-std.println(timestamp)  // e.g., 1701234567
+import @std, @time
+
+do get_current_time() {
+    temp timestamp int = time.now()
+    std.println(timestamp)  // e.g., 1701234567
+}
 ```
 
 **Returns:** `int` - Unix timestamp in seconds.
@@ -35,8 +39,12 @@ std.println(timestamp)  // e.g., 1701234567
 Returns the current Unix timestamp in milliseconds.
 
 ```ez
-temp timestamp_ms int = time.now_ms()
-std.println(timestamp_ms)  // e.g., 1701234567890
+import @std, @time
+
+do get_time_milliseconds() {
+    temp timestamp_ms int = time.now_ms()
+    std.println(timestamp_ms)  // e.g., 1701234567890
+}
 ```
 
 **Returns:** `int` - Unix timestamp in milliseconds.
@@ -47,10 +55,14 @@ std.println(timestamp_ms)  // e.g., 1701234567890
 Returns a high-precision tick count for measuring elapsed time.
 
 ```ez
-temp start int = time.tick()
-// ... do some work ...
-temp elapsed int = time.elapsed_ms(start)
-std.println("Took " + string(elapsed) + "ms")
+import @std, @time
+
+do measure_elapsed_time() {
+    temp start int = time.tick()
+    // ... do some work ...
+    temp elapsed int = time.elapsed_ms(start)
+    std.println("Took " + string(elapsed) + "ms")
+}
 ```
 
 **Returns:** `int` - Tick value for use with elapsed_ms.
@@ -63,9 +75,13 @@ std.println("Took " + string(elapsed) + "ms")
 Pauses execution for a specified number of seconds.
 
 ```ez
-std.println("Starting...")
-time.sleep(2)  // Wait 2 seconds
-std.println("Done!")
+import @std, @time
+
+do sleep_demo() {
+    std.println("Starting...")
+    time.sleep(2)  // Wait 2 seconds
+    std.println("Done!")
+}
 ```
 
 **Parameters:** `seconds` - Number of seconds to sleep.
@@ -80,9 +96,13 @@ std.println("Done!")
 Pauses execution for a specified number of milliseconds.
 
 ```ez
-std.println("Starting...")
-time.sleep_ms(500)  // Wait 500 milliseconds
-std.println("Done!")
+import @std, @time
+
+do sleep_ms_demo() {
+    std.println("Starting...")
+    time.sleep_ms(500)  // Wait 500 milliseconds
+    std.println("Done!")
+}
 ```
 
 **Parameters:** `milliseconds` - Number of milliseconds to sleep.
@@ -99,13 +119,17 @@ std.println("Done!")
 Formats a timestamp as a human-readable string.
 
 ```ez
-temp ts int = time.now()
+import @std, @time
 
-// Common formats
-time.format(ts, "YYYY-MM-DD")         // "2024-12-15"
-time.format(ts, "HH:mm:ss")           // "14:30:45"
-time.format(ts, "YYYY-MM-DD HH:mm")   // "2024-12-15 14:30"
-time.format(ts, "MMM DD, YYYY")       // "Dec 15, 2024"
+do format_time() {
+    temp ts int = time.now()
+
+    // Common formats
+    std.println(time.format(ts, "YYYY-MM-DD"))        // "2024-12-15"
+    std.println(time.format(ts, "HH:mm:ss"))          // "14:30:45"
+    std.println(time.format(ts, "YYYY-MM-DD HH:mm")) // "2024-12-15 14:30"
+    std.println(time.format(ts, "MMM DD, YYYY"))     // "Dec 15, 2024"
+}
 ```
 
 **Parameters:** `timestamp`, `format`.
@@ -132,11 +156,15 @@ time.format(ts, "MMM DD, YYYY")       // "Dec 15, 2024"
 Parses a date string into a Unix timestamp.
 
 ```ez
-temp ts int = time.parse("2024-12-15", "YYYY-MM-DD")
-std.println(ts)
+import @std, @time
 
-temp ts2 int = time.parse("Dec 15, 2024", "MMM DD, YYYY")
-std.println(ts2)
+do parse_date() {
+    temp ts int = time.parse("2024-12-15", "YYYY-MM-DD")
+    std.println(ts)
+
+    temp ts2 int = time.parse("Dec 15, 2024", "MMM DD, YYYY")
+    std.println(ts2)
+}
 ```
 
 **Parameters:** `date_string`, `format`.
@@ -153,11 +181,15 @@ std.println(ts2)
 Creates a timestamp from year, month, day, and optionally hour, minute, second.
 
 ```ez
-// Date only (midnight)
-temp ts int = time.make(2024, 12, 15)
+import @time
 
-// Date and time
-temp ts2 int = time.make(2024, 12, 15, 14, 30, 0)
+do create_timestamp() {
+    // Date only (midnight)
+    temp ts int = time.make(2024, 12, 15)
+
+    // Date and time
+    temp ts2 int = time.make(2024, 12, 15, 14, 30, 0)
+}
 ```
 
 **Parameters:** `year`, `month`, `day`, [`hour`, `minute`, `second`].
@@ -174,12 +206,16 @@ temp ts2 int = time.make(2024, 12, 15, 14, 30, 0)
 Adds time to a timestamp and returns a new timestamp.
 
 ```ez
-temp today int = time.now()
-temp tomorrow int = time.add_days(today, 1)
-temp yesterday int = time.add_days(today, -1)
+import @time
 
-temp later int = time.add_hours(today, 5)
-temp much_later int = time.add_minutes(today, 90)
+do add_time() {
+    temp today int = time.now()
+    temp tomorrow int = time.add_days(today, 1)
+    temp yesterday int = time.add_days(today, -1)
+
+    temp later int = time.add_hours(today, 5)
+    temp much_later int = time.add_minutes(today, 90)
+}
 ```
 
 **Parameters:** `timestamp`, `amount`.
@@ -194,11 +230,15 @@ temp much_later int = time.add_minutes(today, 90)
 Returns the difference between two timestamps in seconds.
 
 ```ez
-temp start int = time.make(2024, 1, 1)
-temp end int = time.make(2024, 12, 31)
-temp diff_seconds int = time.diff(end, start)
-temp diff_days int = diff_seconds / 86400
-std.println("Days in 2024:", diff_days)
+import @std, @time
+
+do time_difference() {
+    temp start int = time.make(2024, 1, 1)
+    temp end int = time.make(2024, 12, 31)
+    temp diff_seconds int = time.diff(end, start)
+    temp diff_days int = diff_seconds / 86400
+    std.println("Days in 2024:", diff_days)
+}
 ```
 
 **Parameters:** `timestamp1`, `timestamp2`.
@@ -215,13 +255,17 @@ std.println("Days in 2024:", diff_days)
 Extracts components from a timestamp.
 
 ```ez
-temp ts int = time.now()
-std.println("Year:", time.year(ts))
-std.println("Month:", time.month(ts))
-std.println("Day:", time.day(ts))
-std.println("Hour:", time.hour(ts))
-std.println("Minute:", time.minute(ts))
-std.println("Second:", time.second(ts))
+import @std, @time
+
+do extract_date_parts() {
+    temp ts int = time.now()
+    std.println("Year:", time.year(ts))
+    std.println("Month:", time.month(ts))
+    std.println("Day:", time.day(ts))
+    std.println("Hour:", time.hour(ts))
+    std.println("Minute:", time.minute(ts))
+    std.println("Second:", time.second(ts))
+}
 ```
 
 **Parameters:** `timestamp`.
@@ -234,11 +278,15 @@ std.println("Second:", time.second(ts))
 Returns the day of the week (0 = Sunday, 6 = Saturday).
 
 ```ez
-temp ts int = time.now()
-temp day int = time.weekday(ts)
+import @std, @time
 
-temp days [string] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"}
-std.println("Today is:", days[day])
+do get_weekday() {
+    temp ts int = time.now()
+    temp day int = time.weekday(ts)
+
+    temp days [string] = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"}
+    std.println("Today is:", days[day])
+}
 ```
 
 **Parameters:** `timestamp`.
@@ -253,8 +301,12 @@ std.println("Today is:", days[day])
 Checks if a year is a leap year.
 
 ```ez
-std.println(time.is_leap_year(2024))  // true
-std.println(time.is_leap_year(2023))  // false
+import @std, @time
+
+do check_leap_year() {
+    std.println(time.is_leap_year(2024))  // true
+    std.println(time.is_leap_year(2023))  // false
+}
 ```
 
 **Parameters:** `year` - The year to check.
@@ -269,9 +321,13 @@ std.println(time.is_leap_year(2023))  // false
 Returns the number of days in a given month.
 
 ```ez
-std.println(time.days_in_month(2024, 2))  // 29 (leap year)
-std.println(time.days_in_month(2023, 2))  // 28
-std.println(time.days_in_month(2024, 12)) // 31
+import @std, @time
+
+do get_days_in_month() {
+    std.println(time.days_in_month(2024, 2))  // 29 (leap year)
+    std.println(time.days_in_month(2023, 2))  // 28
+    std.println(time.days_in_month(2024, 12)) // 31
+}
 ```
 
 **Parameters:** `year`, `month`.
@@ -288,15 +344,19 @@ std.println(time.days_in_month(2024, 12)) // 31
 Returns milliseconds elapsed since a tick value.
 
 ```ez
-temp start int = time.tick()
+import @std, @time
 
-// Do some work
-for i in range(0, 1000000) {
-    temp x int = i * 2
+do benchmark_operation() {
+    temp start int = time.tick()
+
+    // Do some work
+    for i in range(0, 1000000) {
+        temp x int = i * 2
+    }
+
+    temp elapsed int = time.elapsed_ms(start)
+    std.println("Operation took " + string(elapsed) + "ms")
 }
-
-temp elapsed int = time.elapsed_ms(start)
-std.println("Operation took " + string(elapsed) + "ms")
 ```
 
 **Parameters:** `start_tick` - A tick value from time.tick().

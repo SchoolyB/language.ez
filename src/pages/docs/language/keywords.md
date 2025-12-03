@@ -13,7 +13,7 @@ EZ uses plain English keywords designed to be readable and beginner-friendly. If
     type="search"
     id="keyword-filter"
     placeholder="Filter keywords..."
-    class="w-full px-4 py-2 border border-gray-200 dark:border-gray-800 rounded-lg bg-white dark:bg-black focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white"
+    class="w-full px-4 py-2 border border-[#e5e5e5] dark:border-[#333333] rounded-lg bg-white dark:bg-black focus:outline-none focus:ring-2 focus:ring-black dark:focus:ring-white"
   />
 </div>
 
@@ -91,6 +91,8 @@ do validate(n int) -> bool {
 Starts a conditional block. Executes code only if the condition is true.
 
 ```ez
+import @std
+
 if score >= 90 {
     std.println("A grade!")
 }
@@ -101,6 +103,8 @@ if score >= 90 {
 Adds an alternative condition — like `else if` in other languages.
 
 ```ez
+import @std
+
 if score >= 90 {
     std.println("A")
 } or score >= 80 {
@@ -117,6 +121,8 @@ if score >= 90 {
 The fallback case — like `else` in other languages.
 
 ```ez
+import @std
+
 if score >= 60 {
     std.println("Pass")
 } otherwise {
@@ -131,6 +137,8 @@ if score >= 60 {
 Numeric loop that iterates over a range.
 
 ```ez
+import @std
+
 for i in range(0, 5) {
     std.println(i)  // 0, 1, 2, 3, 4
 }
@@ -141,6 +149,8 @@ for i in range(0, 5) {
 Iterates over each item in a collection.
 
 ```ez
+import @std
+
 temp names [string] = {"Alice", "Bob", "Charlie"}
 
 for_each name in names {
@@ -155,6 +165,8 @@ for_each name in names {
 Loops while a condition is true — like `while` in other languages.
 
 ```ez
+import @std
+
 temp count int = 0
 
 as_long_as count < 5 {
@@ -185,6 +197,8 @@ loop {
 Immediately exits the current loop.
 
 ```ez
+import @std
+
 for i in range(0, 100) {
     if i == 5 {
         break  // stop at 5
@@ -198,6 +212,8 @@ for i in range(0, 100) {
 Skips to the next iteration of the loop.
 
 ```ez
+import @std
+
 for i in range(0, 10) {
     if i % 2 == 0 {
         continue  // skip even numbers
@@ -211,6 +227,8 @@ for i in range(0, 10) {
 Used with `for` to iterate over a range, or to check if a value exists in a collection.
 
 ```ez
+import @std
+
 // In a for loop
 for i in range(0, 10) {
     std.println(i)
@@ -369,88 +387,6 @@ Boolean false value.
 ```ez
 temp isValid bool = true
 temp hasError bool = false
-```
-
-## Built-in Functions
-
-These aren't keywords, but they're built into the language and always available.
-
-### len()
-
-Returns the length of a string, array, or map.
-
-```ez
-temp name string = "Hello"
-std.println(len(name))  // 5
-
-temp nums [int] = {1, 2, 3}
-std.println(len(nums))  // 3
-```
-
-### range()
-
-Generates a sequence of numbers for `for` loops.
-
-```ez
-// range(start, end) - end is exclusive
-for i in range(0, 5) {
-    std.println(i)  // 0, 1, 2, 3, 4
-}
-
-// range(start, end, step)
-for i in range(0, 10, 2) {
-    std.println(i)  // 0, 2, 4, 6, 8
-}
-```
-
-### typeof()
-
-Returns the type of a value as a string.
-
-```ez
-temp x int = 42
-std.println(typeof(x))  // "int"
-
-temp arr [string] = {"a", "b"}
-std.println(typeof(arr))  // "array"
-```
-
-## Type Conversion Functions
-
-### int()
-
-Converts a value to an integer.
-
-```ez
-temp s string = "42"
-temp n int = int(s)  // 42
-
-temp f float = 3.9
-temp i int = int(f)  // 3 (truncates)
-```
-
-### float()
-
-Converts a value to a float.
-
-```ez
-temp n int = 42
-temp f float = float(n)  // 42.0
-
-temp s string = "3.14"
-temp pi float = float(s)  // 3.14
-```
-
-### string()
-
-Converts a value to a string.
-
-```ez
-temp n int = 42
-temp s string = string(n)  // "42"
-
-temp b bool = true
-temp bs string = string(b)  // "true"
 ```
 
 ## Quick Reference Table

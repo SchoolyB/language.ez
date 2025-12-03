@@ -23,9 +23,13 @@ import @io
 Reads the entire contents of a file as a string.
 
 ```ez
-temp content, err = io.read_file("config.txt")
-if err != nil {
-    println("Error: ", err.message)
+import @std, @io
+
+do read_text_file() {
+    temp content, err = io.read_file("config.txt")
+    if err != nil {
+        std.println("Error: ", err.message)
+    }
 }
 ```
 
@@ -43,7 +47,11 @@ if err != nil {
 Reads the entire contents of a file as a byte array.
 
 ```ez
-temp data, err = io.read_bytes("image.png")
+import @io
+
+do read_binary_file() {
+    temp data, err = io.read_bytes("image.png")
+}
 ```
 
 **Parameters:** `path` - Path to the file to read.
@@ -60,9 +68,13 @@ temp data, err = io.read_bytes("image.png")
 Reads a file and returns its content as an array of lines.
 
 ```ez
-temp lines, err = io.read_lines("data.txt")
-for line in lines {
-    println(line)
+import @std, @io
+
+do read_file_lines() {
+    temp lines, err = io.read_lines("data.txt")
+    for line in lines {
+        std.println(line)
+    }
 }
 ```
 
@@ -82,8 +94,12 @@ for line in lines {
 Writes content to a file atomically (creates or overwrites).
 
 ```ez
-temp ok, err = io.write_file("output.txt", "Hello World")
-temp ok, err = io.write_file("script.sh", "#!/bin/bash", 0755)
+import @io
+
+do write_text_file() {
+    temp ok, err = io.write_file("output.txt", "Hello World")
+    temp ok2, err2 = io.write_file("script.sh", "#!/bin/bash", 0755)
+}
 ```
 
 **Parameters:**
@@ -103,8 +119,12 @@ temp ok, err = io.write_file("script.sh", "#!/bin/bash", 0755)
 Writes bytes to a file atomically (creates or overwrites).
 
 ```ez
-temp data [byte] = bytes.from_string("binary content")
-temp ok bool, err Error = io.write_bytes("data.bin", data)
+import @io, @bytes
+
+do write_binary_file() {
+    temp data [byte] = bytes.from_string("binary content")
+    temp ok bool, err Error = io.write_bytes("data.bin", data)
+}
 ```
 
 **Parameters:**
@@ -124,7 +144,11 @@ temp ok bool, err Error = io.write_bytes("data.bin", data)
 Appends content to a file (creates if doesn't exist).
 
 ```ez
-temp ok, err = io.append_file("log.txt", "New log entry\n")
+import @io
+
+do append_to_file() {
+    temp ok, err = io.append_file("log.txt", "New log entry\n")
+}
 ```
 
 **Parameters:**
@@ -144,7 +168,11 @@ temp ok, err = io.append_file("log.txt", "New log entry\n")
 Appends a line to a file (automatically adds newline).
 
 ```ez
-temp ok, err = io.append_line("log.txt", "Log entry")
+import @io
+
+do append_log_line() {
+    temp ok, err = io.append_line("log.txt", "Log entry")
+}
 ```
 
 **Parameters:**
@@ -166,8 +194,12 @@ temp ok, err = io.append_line("log.txt", "Log entry")
 Checks if a path exists (file or directory).
 
 ```ez
-if io.exists("config.txt") {
-    println("Config found")
+import @std, @io
+
+do check_file_exists() {
+    if io.exists("config.txt") {
+        std.println("Config found")
+    }
 }
 ```
 
@@ -183,8 +215,12 @@ if io.exists("config.txt") {
 Checks if a path is a regular file.
 
 ```ez
-if io.is_file("data.txt") {
-    temp content, _ = io.read_file("data.txt")
+import @io
+
+do check_is_file() {
+    if io.is_file("data.txt") {
+        temp content, _ = io.read_file("data.txt")
+    }
 }
 ```
 
@@ -200,8 +236,12 @@ if io.is_file("data.txt") {
 Checks if a path is a directory.
 
 ```ez
-if io.is_dir("src") {
-    temp files, _ = io.read_dir("src")
+import @io
+
+do check_is_directory() {
+    if io.is_dir("src") {
+        temp files, _ = io.read_dir("src")
+    }
 }
 ```
 
@@ -219,7 +259,11 @@ if io.is_dir("src") {
 Removes a file (not directories).
 
 ```ez
-temp ok, err = io.remove("temp.txt")
+import @io
+
+do remove_file() {
+    temp ok, err = io.remove("temp.txt")
+}
 ```
 
 **Parameters:** `path` - Path to the file to remove.
@@ -236,7 +280,11 @@ temp ok, err = io.remove("temp.txt")
 Removes an empty directory.
 
 ```ez
-temp ok, err = io.remove_dir("empty_folder")
+import @io
+
+do remove_empty_dir() {
+    temp ok, err = io.remove_dir("empty_folder")
+}
 ```
 
 **Parameters:** `path` - Path to the directory to remove.
@@ -253,7 +301,11 @@ temp ok, err = io.remove_dir("empty_folder")
 Recursively removes a file or directory. **Use with caution!**
 
 ```ez
-temp ok, err = io.remove_all("build_output")
+import @io
+
+do remove_recursively() {
+    temp ok, err = io.remove_all("build_output")
+}
 ```
 
 **Parameters:** `path` - Path to remove recursively.
@@ -270,8 +322,12 @@ temp ok, err = io.remove_all("build_output")
 Renames or moves a file or directory.
 
 ```ez
-temp ok, err = io.rename("old.txt", "new.txt")
-temp ok, err = io.rename("file.txt", "subdir/file.txt")
+import @io
+
+do rename_file() {
+    temp ok, err = io.rename("old.txt", "new.txt")
+    temp ok2, err2 = io.rename("file.txt", "subdir/file.txt")
+}
 ```
 
 **Parameters:**
@@ -290,7 +346,11 @@ temp ok, err = io.rename("file.txt", "subdir/file.txt")
 Copies a file (not directories).
 
 ```ez
-temp ok, err = io.copy("original.txt", "backup.txt")
+import @io
+
+do copy_file() {
+    temp ok, err = io.copy("original.txt", "backup.txt")
+}
 ```
 
 **Parameters:**
@@ -312,8 +372,12 @@ temp ok, err = io.copy("original.txt", "backup.txt")
 Creates a directory (parent must exist).
 
 ```ez
-temp ok, err = io.mkdir("new_folder")
-temp ok, err = io.mkdir("private", 0700)
+import @io
+
+do make_directory() {
+    temp ok, err = io.mkdir("new_folder")
+    temp ok2, err2 = io.mkdir("private", 0700)
+}
 ```
 
 **Parameters:**
@@ -332,7 +396,11 @@ temp ok, err = io.mkdir("private", 0700)
 Creates a directory and all parent directories as needed.
 
 ```ez
-temp ok, err = io.mkdir_all("path/to/nested/folder")
+import @io
+
+do make_nested_dirs() {
+    temp ok, err = io.mkdir_all("path/to/nested/folder")
+}
 ```
 
 **Parameters:**
@@ -351,9 +419,13 @@ temp ok, err = io.mkdir_all("path/to/nested/folder")
 Lists the contents of a directory.
 
 ```ez
-temp entries, err = io.read_dir("src")
-for entry in entries {
-    println(entry)
+import @std, @io
+
+do list_directory() {
+    temp entries, err = io.read_dir("src")
+    for entry in entries {
+        std.println(entry)
+    }
 }
 ```
 
@@ -373,8 +445,12 @@ for entry in entries {
 Returns the size of a file in bytes.
 
 ```ez
-temp size, err = io.file_size("data.bin")
-println("File is ", size, " bytes")
+import @std, @io
+
+do get_file_size() {
+    temp size, err = io.file_size("data.bin")
+    std.println("File is ", size, " bytes")
+}
 ```
 
 **Parameters:** `path` - Path to the file.
@@ -391,7 +467,11 @@ println("File is ", size, " bytes")
 Returns the modification time as a Unix timestamp.
 
 ```ez
-temp mtime, err = io.file_mod_time("file.txt")
+import @io
+
+do get_mod_time() {
+    temp mtime, err = io.file_mod_time("file.txt")
+}
 ```
 
 **Parameters:** `path` - Path to the file.
@@ -410,8 +490,12 @@ temp mtime, err = io.file_mod_time("file.txt")
 Joins path components using the OS-specific separator.
 
 ```ez
-temp path string = io.path_join("home", "user", "file.txt")
-// "home/user/file.txt" on Unix
+import @io
+
+do join_paths() {
+    temp path string = io.path_join("home", "user", "file.txt")
+    // "home/user/file.txt" on Unix
+}
 ```
 
 **Parameters:** `parts` - One or more path components.
@@ -428,7 +512,11 @@ temp path string = io.path_join("home", "user", "file.txt")
 Returns the last element of a path (filename or directory name).
 
 ```ez
-temp name string = io.path_base("/home/user/file.txt")  // "file.txt"
+import @io
+
+do get_base_name() {
+    temp name string = io.path_base("/home/user/file.txt")  // "file.txt"
+}
 ```
 
 **Parameters:** `path` - A file path.
@@ -445,7 +533,11 @@ temp name string = io.path_base("/home/user/file.txt")  // "file.txt"
 Returns the directory portion of a path.
 
 ```ez
-temp dir string = io.path_dir("/home/user/file.txt")  // "/home/user"
+import @io
+
+do get_directory_path() {
+    temp dir string = io.path_dir("/home/user/file.txt")  // "/home/user"
+}
 ```
 
 **Parameters:** `path` - A file path.
@@ -462,7 +554,11 @@ temp dir string = io.path_dir("/home/user/file.txt")  // "/home/user"
 Returns the file extension (including the dot).
 
 ```ez
-temp ext string = io.path_ext("document.pdf")  // ".pdf"
+import @io
+
+do get_file_extension() {
+    temp ext string = io.path_ext("document.pdf")  // ".pdf"
+}
 ```
 
 **Parameters:** `path` - A file path.
@@ -479,7 +575,11 @@ temp ext string = io.path_ext("document.pdf")  // ".pdf"
 Returns the absolute path.
 
 ```ez
-temp abs, err = io.path_abs("./file.txt")
+import @io
+
+do get_absolute_path() {
+    temp abs, err = io.path_abs("./file.txt")
+}
 ```
 
 **Parameters:** `path` - A relative or absolute path.
@@ -496,7 +596,11 @@ temp abs, err = io.path_abs("./file.txt")
 Cleans a path (removes redundant separators, . and ..).
 
 ```ez
-temp clean string = io.path_clean("a/b/../c/./d")  // "a/c/d"
+import @io
+
+do clean_path() {
+    temp clean string = io.path_clean("a/b/../c/./d")  // "a/c/d"
+}
 ```
 
 **Parameters:** `path` - Path to clean.
@@ -513,7 +617,11 @@ temp clean string = io.path_clean("a/b/../c/./d")  // "a/c/d"
 Returns the OS-specific path separator.
 
 ```ez
-temp sep string = io.path_separator()
+import @io
+
+do get_path_separator() {
+    temp sep string = io.path_separator()
+}
 ```
 
 **Returns:** "/" on Unix, "\\" on Windows.
@@ -526,8 +634,12 @@ temp sep string = io.path_separator()
 Expands ~ to home directory and cleans the path.
 
 ```ez
-temp path string = io.expand_path("~/Documents")
-// "/home/user/Documents" on Unix
+import @io
+
+do expand_home_path() {
+    temp path string = io.expand_path("~/Documents")
+    // "/home/user/Documents" on Unix
+}
 ```
 
 **Parameters:** `path` - Path possibly containing ~.
@@ -546,7 +658,11 @@ temp path string = io.expand_path("~/Documents")
 Open a file for reading only.
 
 ```ez
-temp handle, err = io.open("file.txt", io.READ_ONLY)
+import @io
+
+do open_read_only() {
+    temp handle, err = io.open("file.txt", io.READ_ONLY)
+}
 ```
 
 ---
@@ -557,7 +673,11 @@ temp handle, err = io.open("file.txt", io.READ_ONLY)
 Open a file for writing only.
 
 ```ez
-temp handle, err = io.open("file.txt", io.WRITE_ONLY)
+import @io
+
+do open_write_only() {
+    temp handle, err = io.open("file.txt", io.WRITE_ONLY)
+}
 ```
 
 ---
@@ -568,7 +688,11 @@ temp handle, err = io.open("file.txt", io.WRITE_ONLY)
 Open a file for reading and writing.
 
 ```ez
-temp handle, err = io.open("file.txt", io.READ_WRITE)
+import @io
+
+do open_read_write() {
+    temp handle, err = io.open("file.txt", io.READ_WRITE)
+}
 ```
 
 ---
@@ -579,7 +703,11 @@ temp handle, err = io.open("file.txt", io.READ_WRITE)
 Open a file in append mode (writes go to end of file).
 
 ```ez
-temp handle, err = io.open("log.txt", io.WRITE_ONLY | io.APPEND)
+import @io
+
+do open_append_mode() {
+    temp handle, err = io.open("log.txt", io.WRITE_ONLY | io.APPEND)
+}
 ```
 
 ---
@@ -590,7 +718,11 @@ temp handle, err = io.open("log.txt", io.WRITE_ONLY | io.APPEND)
 Create the file if it doesn't exist.
 
 ```ez
-temp handle, err = io.open("new.txt", io.WRITE_ONLY | io.CREATE)
+import @io
+
+do open_create_file() {
+    temp handle, err = io.open("new.txt", io.WRITE_ONLY | io.CREATE)
+}
 ```
 
 ---
@@ -601,7 +733,11 @@ temp handle, err = io.open("new.txt", io.WRITE_ONLY | io.CREATE)
 Truncate the file to zero length when opened.
 
 ```ez
-temp handle, err = io.open("file.txt", io.WRITE_ONLY | io.TRUNCATE)
+import @io
+
+do open_truncate_file() {
+    temp handle, err = io.open("file.txt", io.WRITE_ONLY | io.TRUNCATE)
+}
 ```
 
 ---
@@ -612,7 +748,11 @@ temp handle, err = io.open("file.txt", io.WRITE_ONLY | io.TRUNCATE)
 Used with CREATE; error if file already exists.
 
 ```ez
-temp handle, err = io.open("new.txt", io.WRITE_ONLY | io.CREATE | io.EXCLUSIVE)
+import @io
+
+do open_exclusive() {
+    temp handle, err = io.open("new.txt", io.WRITE_ONLY | io.CREATE | io.EXCLUSIVE)
+}
 ```
 
 ---
@@ -623,7 +763,12 @@ temp handle, err = io.open("new.txt", io.WRITE_ONLY | io.CREATE | io.EXCLUSIVE)
 Seek relative to the start of the file.
 
 ```ez
-temp pos, err = io.seek(handle, 0, io.SEEK_START)  // Go to beginning
+import @io
+
+do seek_to_start() {
+    temp handle, _ = io.open("file.txt", io.READ_ONLY)
+    temp pos, err = io.seek(handle, 0, io.SEEK_START)  // Go to beginning
+}
 ```
 
 ---
@@ -634,7 +779,12 @@ temp pos, err = io.seek(handle, 0, io.SEEK_START)  // Go to beginning
 Seek relative to the current position.
 
 ```ez
-temp pos, err = io.seek(handle, 10, io.SEEK_CURRENT)  // Move 10 bytes forward
+import @io
+
+do seek_forward() {
+    temp handle, _ = io.open("file.txt", io.READ_ONLY)
+    temp pos, err = io.seek(handle, 10, io.SEEK_CURRENT)  // Move 10 bytes forward
+}
 ```
 
 ---
@@ -645,7 +795,12 @@ temp pos, err = io.seek(handle, 10, io.SEEK_CURRENT)  // Move 10 bytes forward
 Seek relative to the end of the file.
 
 ```ez
-temp pos, err = io.seek(handle, -10, io.SEEK_END)  // 10 bytes before end
+import @io
+
+do seek_from_end() {
+    temp handle, _ = io.open("file.txt", io.READ_ONLY)
+    temp pos, err = io.seek(handle, -10, io.SEEK_END)  // 10 bytes before end
+}
 ```
 
 ---
@@ -655,8 +810,12 @@ temp pos, err = io.seek(handle, -10, io.SEEK_END)  // 10 bytes before end
 File mode flags can be combined using the bitwise OR operator:
 
 ```ez
-temp mode int = io.WRITE_ONLY | io.CREATE | io.TRUNCATE
-temp handle, err = io.open("file.txt", mode)
+import @io
+
+do combine_file_flags() {
+    temp mode int = io.WRITE_ONLY | io.CREATE | io.TRUNCATE
+    temp handle, err = io.open("file.txt", mode)
+}
 ```
 
 ---
@@ -668,10 +827,14 @@ temp handle, err = io.open("file.txt", mode)
 A handle to an open file. Returned by `open()` and used with `read()`, `write()`, `seek()`, `tell()`, `flush()`, and `close()`.
 
 ```ez
-temp handle, err = io.open("data.txt")
-if err == nil {
-    temp content, _ = io.read_all(handle)
-    io.close(handle)
+import @io
+
+do use_file_handle() {
+    temp handle, err = io.open("data.txt")
+    if err == nil {
+        temp content, _ = io.read_all(handle)
+        io.close(handle)
+    }
 }
 ```
 
@@ -685,8 +848,12 @@ if err == nil {
 Opens a file and returns a file handle.
 
 ```ez
-temp handle, err = io.open("data.txt")
-temp handle, err = io.open("log.txt", io.WRITE_ONLY | io.CREATE | io.APPEND)
+import @io
+
+do open_file() {
+    temp handle, err = io.open("data.txt")
+    temp handle2, err2 = io.open("log.txt", io.WRITE_ONLY | io.CREATE | io.APPEND)
+}
 ```
 
 **Parameters:**
@@ -706,7 +873,12 @@ temp handle, err = io.open("log.txt", io.WRITE_ONLY | io.CREATE | io.APPEND)
 Reads up to n bytes from a file handle.
 
 ```ez
-temp data, err = io.read(handle, 1024)
+import @io
+
+do read_bytes_from_handle() {
+    temp handle, _ = io.open("data.txt", io.READ_ONLY)
+    temp data, err = io.read(handle, 1024)
+}
 ```
 
 **Parameters:**
@@ -725,7 +897,12 @@ temp data, err = io.read(handle, 1024)
 Reads all remaining bytes from a file handle.
 
 ```ez
-temp content, err = io.read_all(handle)
+import @io
+
+do read_entire_file() {
+    temp handle, _ = io.open("data.txt", io.READ_ONLY)
+    temp content, err = io.read_all(handle)
+}
 ```
 
 **Parameters:** `handle` - An open file handle.
@@ -742,7 +919,12 @@ temp content, err = io.read_all(handle)
 Reads up to n bytes from a file handle as a string.
 
 ```ez
-temp text, err = io.read_string(handle, 100)
+import @io
+
+do read_string_from_handle() {
+    temp handle, _ = io.open("data.txt", io.READ_ONLY)
+    temp text, err = io.read_string(handle, 100)
+}
 ```
 
 **Parameters:**
@@ -761,8 +943,13 @@ temp text, err = io.read_string(handle, 100)
 Writes data to a file handle.
 
 ```ez
-temp n, err = io.write(handle, "Hello World")
-temp n, err = io.write(handle, bytes.from_string("binary"))
+import @io, @bytes
+
+do write_to_handle() {
+    temp handle, _ = io.open("output.txt", io.WRITE_ONLY | io.CREATE)
+    temp n, err = io.write(handle, "Hello World")
+    temp n2, err2 = io.write(handle, bytes.from_string("binary"))
+}
 ```
 
 **Parameters:**
@@ -781,8 +968,13 @@ temp n, err = io.write(handle, bytes.from_string("binary"))
 Seeks to a position in the file.
 
 ```ez
-temp pos, err = io.seek(handle, 0, io.SEEK_START)  // Go to beginning
-temp pos, err = io.seek(handle, -10, io.SEEK_END)  // 10 bytes before end
+import @io
+
+do seek_in_file() {
+    temp handle, _ = io.open("data.txt", io.READ_ONLY)
+    temp pos, err = io.seek(handle, 0, io.SEEK_START)   // Go to beginning
+    temp pos2, err2 = io.seek(handle, -10, io.SEEK_END) // 10 bytes before end
+}
 ```
 
 **Parameters:**
@@ -802,7 +994,12 @@ temp pos, err = io.seek(handle, -10, io.SEEK_END)  // 10 bytes before end
 Returns the current position in the file.
 
 ```ez
-temp pos, err = io.tell(handle)
+import @io
+
+do get_file_position() {
+    temp handle, _ = io.open("data.txt", io.READ_ONLY)
+    temp pos, err = io.tell(handle)
+}
 ```
 
 **Parameters:** `handle` - An open file handle.
@@ -819,7 +1016,13 @@ temp pos, err = io.tell(handle)
 Flushes any buffered data to the file.
 
 ```ez
-temp ok, err = io.flush(handle)
+import @io
+
+do flush_file_buffer() {
+    temp handle, _ = io.open("log.txt", io.WRITE_ONLY | io.CREATE)
+    io.write(handle, "Data")
+    temp ok, err = io.flush(handle)
+}
 ```
 
 **Parameters:** `handle` - An open file handle.
@@ -836,7 +1039,13 @@ temp ok, err = io.flush(handle)
 Closes a file handle.
 
 ```ez
-temp ok, err = io.close(handle)
+import @io
+
+do close_file_handle() {
+    temp handle, _ = io.open("data.txt", io.READ_ONLY)
+    // ... use the file ...
+    temp ok, err = io.close(handle)
+}
 ```
 
 **Parameters:** `handle` - A file handle to close.
