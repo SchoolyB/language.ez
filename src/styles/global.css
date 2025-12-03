@@ -10,6 +10,19 @@
   --font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
 }
 
+/* EZ Theme Colors - Single source of truth */
+:root {
+  --ez-black: #000000;
+  --ez-white: #FFFFFF;
+  --ez-gray-bg: #f5f5f5;
+  --ez-gray-border: #e5e5e5;
+}
+
+.dark {
+  --ez-gray-bg: #1a1a1a;
+  --ez-gray-border: #333333;
+}
+
 /* Base styles */
 html {
   scroll-behavior: smooth;
@@ -497,4 +510,32 @@ code:not(pre code) {
   .example-card {
     max-width: 100%;
   }
+}
+
+/* Download page cards */
+.download-card {
+  border: 1px solid var(--ez-gray-border);
+}
+
+.download-card-header {
+  background-color: var(--ez-gray-bg);
+  border-bottom: 1px solid var(--ez-gray-border);
+}
+
+.download-option:hover {
+  background-color: var(--ez-gray-bg);
+}
+
+.download-divider > * + * {
+  border-top: 1px solid var(--ez-gray-border);
+}
+
+/* Installation section */
+.install-section {
+  border: 1px solid var(--ez-gray-border);
+}
+
+.install-section-header {
+  background-color: var(--ez-gray-bg);
+  border-bottom: 1px solid var(--ez-gray-border);
 }

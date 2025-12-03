@@ -23,8 +23,12 @@ import @bytes
 Creates a byte array from an array of integers (values must be 0-255).
 
 ```ez
-temp data [byte] = bytes.from_array({72, 101, 108, 108, 111})
-// Creates bytes for "Hello"
+import @bytes
+
+do create_from_array() {
+    temp data [byte] = bytes.from_array({72, 101, 108, 108, 111})
+    // Creates bytes for "Hello"
+}
 ```
 
 **Parameters:** `array` - An array of integers, each in the range 0-255.
@@ -41,8 +45,12 @@ temp data [byte] = bytes.from_array({72, 101, 108, 108, 111})
 Converts a UTF-8 encoded string to a byte array.
 
 ```ez
-temp data [byte] = bytes.from_string("Hello")
-// data contains {72, 101, 108, 108, 111}
+import @bytes
+
+do create_from_string() {
+    temp data [byte] = bytes.from_string("Hello")
+    // data contains {72, 101, 108, 108, 111}
+}
 ```
 
 **Parameters:** `str` - The string to convert.
@@ -59,9 +67,13 @@ temp data [byte] = bytes.from_string("Hello")
 Decodes a hexadecimal string into bytes.
 
 ```ez
-temp data [byte], err Error = bytes.from_hex("48656c6c6f")
-if err == nil {
-    // data contains bytes for "Hello"
+import @bytes
+
+do decode_hex_string() {
+    temp data [byte], err Error = bytes.from_hex("48656c6c6f")
+    if err == nil {
+        // data contains bytes for "Hello"
+    }
 }
 ```
 
@@ -79,9 +91,13 @@ if err == nil {
 Decodes a base64 encoded string into bytes.
 
 ```ez
-temp data, err = bytes.from_base64("SGVsbG8=")
-if err == nil {
-    // data contains bytes for "Hello"
+import @bytes
+
+do decode_base64_string() {
+    temp data, err = bytes.from_base64("SGVsbG8=")
+    if err == nil {
+        // data contains bytes for "Hello"
+    }
 }
 ```
 
@@ -101,8 +117,12 @@ if err == nil {
 Converts a byte array to a UTF-8 string.
 
 ```ez
-temp str string = bytes.to_string(bytes.from_array({72, 101, 108, 108, 111}))
-// str is "Hello"
+import @bytes
+
+do convert_to_string() {
+    temp str string = bytes.to_string(bytes.from_array({72, 101, 108, 108, 111}))
+    // str is "Hello"
+}
 ```
 
 **Parameters:** `data` - A byte array.
@@ -119,8 +139,12 @@ temp str string = bytes.to_string(bytes.from_array({72, 101, 108, 108, 111}))
 Converts a byte array to an array of integers.
 
 ```ez
-temp nums [int] = bytes.to_array(bytes.from_string("Hi"))
-// nums is [72, 105]
+import @bytes
+
+do convert_to_array() {
+    temp nums [int] = bytes.to_array(bytes.from_string("Hi"))
+    // nums is [72, 105]
+}
 ```
 
 **Parameters:** `data` - A byte array.
@@ -137,8 +161,12 @@ temp nums [int] = bytes.to_array(bytes.from_string("Hi"))
 Encodes bytes as a lowercase hexadecimal string.
 
 ```ez
-temp hex string = bytes.to_hex(bytes.from_string("Hello"))
-// hex is "48656c6c6f"
+import @bytes
+
+do encode_as_hex() {
+    temp hex string = bytes.to_hex(bytes.from_string("Hello"))
+    // hex is "48656c6c6f"
+}
 ```
 
 **Parameters:** `data` - A byte array.
@@ -155,8 +183,12 @@ temp hex string = bytes.to_hex(bytes.from_string("Hello"))
 Encodes bytes as an uppercase hexadecimal string.
 
 ```ez
-temp hex string = bytes.to_hex_upper(bytes.from_string("Hello"))
-// hex is "48656C6C6F"
+import @bytes
+
+do encode_as_hex_upper() {
+    temp hex string = bytes.to_hex_upper(bytes.from_string("Hello"))
+    // hex is "48656C6C6F"
+}
 ```
 
 **Parameters:** `data` - A byte array.
@@ -173,8 +205,12 @@ temp hex string = bytes.to_hex_upper(bytes.from_string("Hello"))
 Encodes bytes as a base64 string.
 
 ```ez
-temp b64 string = bytes.to_base64(bytes.from_string("Hello"))
-// b64 is "SGVsbG8="
+import @bytes
+
+do encode_as_base64() {
+    temp b64 string = bytes.to_base64(bytes.from_string("Hello"))
+    // b64 is "SGVsbG8="
+}
 ```
 
 **Parameters:** `data` - A byte array.
@@ -193,9 +229,13 @@ temp b64 string = bytes.to_base64(bytes.from_string("Hello"))
 Extracts a portion of bytes (end is exclusive, supports negative indices).
 
 ```ez
-temp data [byte] = bytes.from_string("Hello World")
-temp slice [byte] = bytes.slice(data, 0, 5)  // "Hello"
-temp last [byte] = bytes.slice(data, -5, -1) // "Worl"
+import @bytes
+
+do slice_bytes() {
+    temp data [byte] = bytes.from_string("Hello World")
+    temp slice [byte] = bytes.slice(data, 0, 5)  // "Hello"
+    temp last [byte] = bytes.slice(data, -5, -1) // "Worl"
+}
 ```
 
 **Parameters:**
@@ -215,9 +255,13 @@ temp last [byte] = bytes.slice(data, -5, -1) // "Worl"
 Concatenates two byte arrays.
 
 ```ez
-temp hello [byte] = bytes.from_string("Hello ")
-temp world [byte] = bytes.from_string("World")
-temp result [byte] = bytes.concat(hello, world)
+import @bytes
+
+do concat_bytes() {
+    temp hello [byte] = bytes.from_string("Hello ")
+    temp world [byte] = bytes.from_string("World")
+    temp result [byte] = bytes.concat(hello, world)
+}
 ```
 
 **Parameters:**
@@ -236,9 +280,13 @@ temp result [byte] = bytes.concat(hello, world)
 Joins an array of byte arrays with a separator.
 
 ```ez
-temp parts [[byte]] = {bytes.from_string("a"), bytes.from_string("b")}
-temp sep [byte] = bytes.from_string(",")
-temp result [byte] = bytes.join(parts, sep)  // "a,b"
+import @bytes
+
+do join_byte_arrays() {
+    temp parts [[byte]] = {bytes.from_string("a"), bytes.from_string("b")}
+    temp sep [byte] = bytes.from_string(",")
+    temp result [byte] = bytes.join(parts, sep)  // "a,b"
+}
 ```
 
 **Parameters:**
@@ -257,9 +305,13 @@ temp result [byte] = bytes.join(parts, sep)  // "a,b"
 Splits bytes by a separator.
 
 ```ez
-temp data [byte] = bytes.from_string("a,b,c")
-temp parts [[byte]] = bytes.split(data, bytes.from_string(","))
-// parts has 3 elements: "a", "b", "c"
+import @bytes
+
+do split_bytes() {
+    temp data [byte] = bytes.from_string("a,b,c")
+    temp parts [[byte]] = bytes.split(data, bytes.from_string(","))
+    // parts has 3 elements: "a", "b", "c"
+}
 ```
 
 **Parameters:**
@@ -278,8 +330,12 @@ temp parts [[byte]] = bytes.split(data, bytes.from_string(","))
 Checks if bytes contain a pattern.
 
 ```ez
-temp data [byte] = bytes.from_string("Hello World")
-temp found bool = bytes.contains(data, bytes.from_string("World"))  // true
+import @bytes
+
+do check_bytes_contains() {
+    temp data [byte] = bytes.from_string("Hello World")
+    temp found bool = bytes.contains(data, bytes.from_string("World"))  // true
+}
 ```
 
 **Parameters:**
@@ -298,8 +354,12 @@ temp found bool = bytes.contains(data, bytes.from_string("World"))  // true
 Finds the first index of a pattern, or -1 if not found.
 
 ```ez
-temp data [byte] = bytes.from_string("Hello World")
-temp idx int = bytes.index(data, bytes.from_string("o"))  // 4
+import @bytes
+
+do find_byte_index() {
+    temp data [byte] = bytes.from_string("Hello World")
+    temp idx int = bytes.index(data, bytes.from_string("o"))  // 4
+}
 ```
 
 **Parameters:**
@@ -318,8 +378,12 @@ temp idx int = bytes.index(data, bytes.from_string("o"))  // 4
 Finds the last index of a pattern, or -1 if not found.
 
 ```ez
-temp data [byte] = bytes.from_string("Hello World")
-temp idx int = bytes.last_index(data, bytes.from_string("o"))  // 7
+import @bytes
+
+do find_last_byte_index() {
+    temp data [byte] = bytes.from_string("Hello World")
+    temp idx int = bytes.last_index(data, bytes.from_string("o"))  // 7
+}
 ```
 
 **Parameters:**
@@ -338,8 +402,12 @@ temp idx int = bytes.last_index(data, bytes.from_string("o"))  // 7
 Counts non-overlapping occurrences of a pattern.
 
 ```ez
-temp data [byte] = bytes.from_string("ababa")
-temp n int = bytes.count(data, bytes.from_string("a"))  // 3
+import @bytes
+
+do count_byte_occurrences() {
+    temp data [byte] = bytes.from_string("ababa")
+    temp n int = bytes.count(data, bytes.from_string("a"))  // 3
+}
 ```
 
 **Parameters:**
@@ -358,8 +426,12 @@ temp n int = bytes.count(data, bytes.from_string("a"))  // 3
 Lexicographically compares two byte sequences.
 
 ```ez
-temp cmp int = bytes.compare(bytes.from_string("a"), bytes.from_string("b"))
-// cmp is -1
+import @bytes
+
+do compare_bytes() {
+    temp cmp int = bytes.compare(bytes.from_string("a"), bytes.from_string("b"))
+    // cmp is -1
+}
 ```
 
 **Parameters:**
@@ -378,8 +450,12 @@ temp cmp int = bytes.compare(bytes.from_string("a"), bytes.from_string("b"))
 Checks if two byte sequences are equal.
 
 ```ez
-temp eq bool = bytes.equals(bytes.from_string("hi"), bytes.from_string("hi"))
-// eq is true
+import @bytes
+
+do check_bytes_equal() {
+    temp eq bool = bytes.equals(bytes.from_string("hi"), bytes.from_string("hi"))
+    // eq is true
+}
 ```
 
 **Parameters:**
@@ -400,7 +476,11 @@ temp eq bool = bytes.equals(bytes.from_string("hi"), bytes.from_string("hi"))
 Checks if bytes are empty (length 0).
 
 ```ez
-temp empty bool = bytes.is_empty(bytes.from_string(""))  // true
+import @bytes
+
+do check_bytes_empty() {
+    temp empty bool = bytes.is_empty(bytes.from_string(""))  // true
+}
 ```
 
 **Parameters:** `data` - A byte array.
@@ -417,8 +497,12 @@ temp empty bool = bytes.is_empty(bytes.from_string(""))  // true
 Checks if bytes start with a prefix.
 
 ```ez
-temp data [byte] = bytes.from_string("Hello World")
-temp starts bool = bytes.starts_with(data, bytes.from_string("Hello"))  // true
+import @bytes
+
+do check_bytes_prefix() {
+    temp data [byte] = bytes.from_string("Hello World")
+    temp starts bool = bytes.starts_with(data, bytes.from_string("Hello"))  // true
+}
 ```
 
 **Parameters:**
@@ -437,8 +521,12 @@ temp starts bool = bytes.starts_with(data, bytes.from_string("Hello"))  // true
 Checks if bytes end with a suffix.
 
 ```ez
-temp data [byte] = bytes.from_string("Hello World")
-temp ends bool = bytes.ends_with(data, bytes.from_string("World"))  // true
+import @bytes
+
+do check_bytes_suffix() {
+    temp data [byte] = bytes.from_string("Hello World")
+    temp ends bool = bytes.ends_with(data, bytes.from_string("World"))  // true
+}
 ```
 
 **Parameters:**
@@ -459,8 +547,12 @@ temp ends bool = bytes.ends_with(data, bytes.from_string("World"))  // true
 Returns a reversed copy of bytes.
 
 ```ez
-temp rev [byte] = bytes.reverse(bytes.from_string("Hello"))
-// bytes.to_string(rev) is "olleH"
+import @bytes
+
+do reverse_bytes() {
+    temp rev [byte] = bytes.reverse(bytes.from_string("Hello"))
+    // bytes.to_string(rev) is "olleH"
+}
 ```
 
 **Parameters:** `data` - Byte array to reverse.
@@ -477,8 +569,12 @@ temp rev [byte] = bytes.reverse(bytes.from_string("Hello"))
 Repeats bytes N times.
 
 ```ez
-temp rep [byte] = bytes.repeat(bytes.from_string("ab"), 3)
-// bytes.to_string(rep) is "ababab"
+import @bytes
+
+do repeat_bytes() {
+    temp rep [byte] = bytes.repeat(bytes.from_string("ab"), 3)
+    // bytes.to_string(rep) is "ababab"
+}
 ```
 
 **Parameters:**
@@ -497,9 +593,13 @@ temp rep [byte] = bytes.repeat(bytes.from_string("ab"), 3)
 Replaces all occurrences of old with new.
 
 ```ez
-temp data [byte] = bytes.from_string("hello hello")
-temp result [byte] = bytes.replace(data, bytes.from_string("hello"), bytes.from_string("hi"))
-// "hi hi"
+import @bytes
+
+do replace_bytes() {
+    temp data [byte] = bytes.from_string("hello hello")
+    temp result [byte] = bytes.replace(data, bytes.from_string("hello"), bytes.from_string("hi"))
+    // "hi hi"
+}
 ```
 
 **Parameters:**
@@ -519,9 +619,13 @@ temp result [byte] = bytes.replace(data, bytes.from_string("hello"), bytes.from_
 Replaces first N occurrences of old with new.
 
 ```ez
-temp data [byte] = bytes.from_string("a a a")
-temp result [byte] = bytes.replace_n(data, bytes.from_string("a"), bytes.from_string("b"), 2)
-// "b b a"
+import @bytes
+
+do replace_bytes_n_times() {
+    temp data [byte] = bytes.from_string("a a a")
+    temp result [byte] = bytes.replace_n(data, bytes.from_string("a"), bytes.from_string("b"), 2)
+    // "b b a"
+}
 ```
 
 **Parameters:**
@@ -542,8 +646,12 @@ temp result [byte] = bytes.replace_n(data, bytes.from_string("a"), bytes.from_st
 Removes leading and trailing bytes that appear in cutset.
 
 ```ez
-temp data [byte] = bytes.from_string("  hello  ")
-temp trimmed [byte] = bytes.trim(data, bytes.from_string(" "))
+import @bytes
+
+do trim_bytes() {
+    temp data [byte] = bytes.from_string("  hello  ")
+    temp trimmed [byte] = bytes.trim(data, bytes.from_string(" "))
+}
 ```
 
 **Parameters:**
@@ -592,9 +700,13 @@ Removes trailing bytes that appear in cutset.
 Pads bytes on the left to reach specified length.
 
 ```ez
-temp data [byte] = bytes.from_string("hi")
-temp padded [byte] = bytes.pad_left(data, 5, 32)  // 32 is space
-// "   hi"
+import @bytes
+
+do pad_bytes_left() {
+    temp data [byte] = bytes.from_string("hi")
+    temp padded [byte] = bytes.pad_left(data, 5, 32)  // 32 is space
+    // "   hi"
+}
 ```
 
 **Parameters:**
@@ -614,9 +726,13 @@ temp padded [byte] = bytes.pad_left(data, 5, 32)  // 32 is space
 Pads bytes on the right to reach specified length.
 
 ```ez
-temp data [byte] = bytes.from_string("hi")
-temp padded [byte] = bytes.pad_right(data, 5, 32)
-// "hi   "
+import @bytes
+
+do pad_bytes_right() {
+    temp data [byte] = bytes.from_string("hi")
+    temp padded [byte] = bytes.pad_right(data, 5, 32)
+    // "hi   "
+}
 ```
 
 **Parameters:**
@@ -638,10 +754,14 @@ temp padded [byte] = bytes.pad_right(data, 5, 32)
 Bitwise AND of two byte sequences (must be same length).
 
 ```ez
-temp a [byte] = bytes.from_array({0xFF, 0x0F})
-temp b [byte] = bytes.from_array({0xF0, 0xFF})
-temp result, err = bytes.and(a, b)
-// result is [0xF0, 0x0F]
+import @bytes
+
+do bitwise_and() {
+    temp a [byte] = bytes.from_array({0xFF, 0x0F})
+    temp b [byte] = bytes.from_array({0xF0, 0xFF})
+    temp result, err = bytes.and(a, b)
+    // result is [0xF0, 0x0F]
+}
 ```
 
 **Parameters:**
@@ -660,10 +780,14 @@ temp result, err = bytes.and(a, b)
 Bitwise OR of two byte sequences (must be same length).
 
 ```ez
-temp a [byte] = bytes.from_array({0xF0, 0x0F})
-temp b [byte] = bytes.from_array({0x0F, 0xF0})
-temp result, err = bytes.or(a, b)
-// result is [0xFF, 0xFF]
+import @bytes
+
+do bitwise_or() {
+    temp a [byte] = bytes.from_array({0xF0, 0x0F})
+    temp b [byte] = bytes.from_array({0x0F, 0xF0})
+    temp result, err = bytes.or(a, b)
+    // result is [0xFF, 0xFF]
+}
 ```
 
 **Parameters:**
@@ -682,10 +806,14 @@ temp result, err = bytes.or(a, b)
 Bitwise XOR of two byte sequences (must be same length).
 
 ```ez
-temp a [byte] = bytes.from_array({0xFF, 0x00})
-temp b [byte] = bytes.from_array({0xF0, 0xF0})
-temp result, err = bytes.xor(a, b)
-// result is [0x0F, 0xF0]
+import @bytes
+
+do bitwise_xor() {
+    temp a [byte] = bytes.from_array({0xFF, 0x00})
+    temp b [byte] = bytes.from_array({0xF0, 0xF0})
+    temp result, err = bytes.xor(a, b)
+    // result is [0x0F, 0xF0]
+}
 ```
 
 **Parameters:**
@@ -704,9 +832,13 @@ temp result, err = bytes.xor(a, b)
 Bitwise NOT (complement) of each byte.
 
 ```ez
-temp data [byte] = bytes.from_array({0xFF, 0x00})
-temp result [byte] = bytes.not(data)
-// result is [0x00, 0xFF]
+import @bytes
+
+do bitwise_not() {
+    temp data [byte] = bytes.from_array({0xFF, 0x00})
+    temp result [byte] = bytes.not(data)
+    // result is [0x00, 0xFF]
+}
 ```
 
 **Parameters:** `data` - Byte array to complement.
@@ -725,9 +857,13 @@ temp result [byte] = bytes.not(data)
 Returns a new byte array with all positions set to value.
 
 ```ez
-temp data [byte] = bytes.from_string("Hello")
-temp filled [byte] = bytes.fill(data, 0)
-// All 5 bytes are now 0
+import @bytes
+
+do fill_bytes() {
+    temp data [byte] = bytes.from_string("Hello")
+    temp filled [byte] = bytes.fill(data, 0)
+    // All 5 bytes are now 0
+}
 ```
 
 **Parameters:**
@@ -746,8 +882,12 @@ temp filled [byte] = bytes.fill(data, 0)
 Creates a copy of bytes.
 
 ```ez
-temp original [byte] = bytes.from_string("Hello")
-temp copy [byte] = bytes.copy(original)
+import @bytes
+
+do copy_bytes() {
+    temp original [byte] = bytes.from_string("Hello")
+    temp copy [byte] = bytes.copy(original)
+}
 ```
 
 **Parameters:** `data` - Byte array to copy.
@@ -764,9 +904,13 @@ temp copy [byte] = bytes.copy(original)
 Returns a new byte array with all bytes set to zero.
 
 ```ez
-temp sensitive [byte] = bytes.from_string("password")
-temp cleared [byte] = bytes.zero(sensitive)
-// Use for securely clearing sensitive data
+import @bytes
+
+do zero_bytes() {
+    temp sensitive [byte] = bytes.from_string("password")
+    temp cleared [byte] = bytes.zero(sensitive)
+    // Use for securely clearing sensitive data
+}
 ```
 
 **Parameters:** `data` - Byte array (used for length).

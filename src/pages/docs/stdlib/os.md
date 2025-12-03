@@ -23,9 +23,13 @@ import @os
 Gets an environment variable by name.
 
 ```ez
-temp home string = os.get_env("HOME")
-if home != nil {
-    println("Home is: ", home)
+import @std, @os
+
+do get_home_dir() {
+    temp home string = os.get_env("HOME")
+    if home != nil {
+        std.println("Home is: ", home)
+    }
 }
 ```
 
@@ -41,7 +45,11 @@ if home != nil {
 Sets an environment variable (process-scoped only).
 
 ```ez
-temp ok, err = os.set_env("MY_VAR", "my_value")
+import @os
+
+do set_env_var() {
+    temp ok, err = os.set_env("MY_VAR", "my_value")
+}
 ```
 
 **Parameters:**
@@ -60,7 +68,11 @@ temp ok, err = os.set_env("MY_VAR", "my_value")
 Unsets an environment variable.
 
 ```ez
-temp ok, err = os.unset_env("MY_VAR")
+import @os
+
+do unset_env_var() {
+    temp ok, err = os.unset_env("MY_VAR")
+}
 ```
 
 **Parameters:** `name` - Name of the environment variable to unset.
@@ -77,9 +89,13 @@ temp ok, err = os.unset_env("MY_VAR")
 Returns all environment variables as an immutable map.
 
 ```ez
-temp env map[string:string] = os.env()
-for key, value in env {
-    println(key, "=", value)
+import @std, @os
+
+do print_all_env() {
+    temp env map[string:string] = os.env()
+    for key, value in env {
+        std.println(key, "=", value)
+    }
 }
 ```
 
@@ -93,9 +109,13 @@ for key, value in env {
 Returns command-line arguments as an immutable array.
 
 ```ez
-temp args [string] = os.args()
-if len(args) > 1 {
-    println("First argument: ", args[1])
+import @std, @os
+
+do get_cli_args() {
+    temp args [string] = os.args()
+    if len(args) > 1 {
+        std.println("First argument: ", args[1])
+    }
 }
 ```
 
@@ -111,10 +131,15 @@ if len(args) > 1 {
 Exits the program with the given status code.
 
 ```ez
-if errorOccurred {
-    os.exit(1)
+import @os
+
+do exit_on_error() {
+    temp errorOccurred bool = true
+    if errorOccurred {
+        os.exit(1)
+    }
+    os.exit()  // Exit with code 0
 }
-os.exit()  // Exit with code 0
 ```
 
 **Parameters:** `code` - Exit code (default: 0).
@@ -129,8 +154,12 @@ os.exit()  // Exit with code 0
 Returns the current working directory.
 
 ```ez
-temp dir, err = os.cwd()
-println("Current directory: ", dir)
+import @std, @os
+
+do get_working_dir() {
+    temp dir, err = os.cwd()
+    std.println("Current directory: ", dir)
+}
 ```
 
 **Returns:** Tuple of (current directory path, error).
@@ -145,7 +174,11 @@ println("Current directory: ", dir)
 Changes the current working directory.
 
 ```ez
-temp ok, err = os.chdir("/home/user")
+import @os
+
+do change_directory() {
+    temp ok, err = os.chdir("/home/user")
+}
 ```
 
 **Parameters:** `path` - Path to change to.
@@ -162,8 +195,12 @@ temp ok, err = os.chdir("/home/user")
 Returns the hostname of the machine.
 
 ```ez
-temp name, err = os.hostname()
-println("Running on: ", name)
+import @std, @os
+
+do get_hostname() {
+    temp name, err = os.hostname()
+    std.println("Running on: ", name)
+}
 ```
 
 **Returns:** Tuple of (hostname, error).
@@ -178,8 +215,12 @@ println("Running on: ", name)
 Returns the current user's username.
 
 ```ez
-temp user, err = os.username()
-println("Logged in as: ", user)
+import @std, @os
+
+do get_username() {
+    temp user, err = os.username()
+    std.println("Logged in as: ", user)
+}
 ```
 
 **Returns:** Tuple of (username, error).
@@ -194,7 +235,11 @@ println("Logged in as: ", user)
 Returns the current user's home directory.
 
 ```ez
-temp home, err = os.home_dir()
+import @os
+
+do get_user_home() {
+    temp home, err = os.home_dir()
+}
 ```
 
 **Returns:** Tuple of (home directory path, error).
@@ -209,8 +254,12 @@ temp home, err = os.home_dir()
 Returns the system's temporary directory.
 
 ```ez
-temp tmp string = os.temp_dir()
-// "/tmp" on Unix, or temp folder on Windows
+import @os
+
+do get_temp_dir() {
+    temp tmp string = os.temp_dir()
+    // "/tmp" on Unix, or temp folder on Windows
+}
 ```
 
 **Returns:** Path to temp directory.
@@ -223,8 +272,12 @@ temp tmp string = os.temp_dir()
 Returns the process ID of the current process.
 
 ```ez
-temp pid int = os.pid()
-println("Process ID: ", pid)
+import @std, @os
+
+do get_process_id() {
+    temp pid int = os.pid()
+    std.println("Process ID: ", pid)
+}
 ```
 
 **Returns:** Process ID as an integer.
@@ -237,7 +290,11 @@ println("Process ID: ", pid)
 Returns the parent process ID.
 
 ```ez
-temp ppid int = os.ppid()
+import @os
+
+do get_parent_pid() {
+    temp ppid int = os.ppid()
+}
 ```
 
 **Returns:** Parent process ID as an integer.
@@ -252,9 +309,13 @@ temp ppid int = os.ppid()
 Returns the operating system name as a string.
 
 ```ez
-temp platform string = os.platform()
-if platform == "darwin" {
-    println("Running on macOS")
+import @std, @os
+
+do check_platform() {
+    temp platform string = os.platform()
+    if platform == "darwin" {
+        std.println("Running on macOS")
+    }
 }
 ```
 
@@ -268,8 +329,12 @@ if platform == "darwin" {
 Returns the CPU architecture.
 
 ```ez
-temp arch string = os.arch()
-println("Architecture: ", arch)
+import @std, @os
+
+do get_architecture() {
+    temp arch string = os.arch()
+    std.println("Architecture: ", arch)
+}
 ```
 
 **Returns:** Architecture ("amd64", "arm64", "386", "arm", etc.).
@@ -282,8 +347,12 @@ println("Architecture: ", arch)
 Returns true if running on Windows.
 
 ```ez
-if os.is_windows() {
-    println("Windows detected")
+import @std, @os
+
+do detect_windows() {
+    if os.is_windows() {
+        std.println("Windows detected")
+    }
 }
 ```
 
@@ -297,8 +366,12 @@ if os.is_windows() {
 Returns true if running on Linux.
 
 ```ez
-if os.is_linux() {
-    println("Linux detected")
+import @std, @os
+
+do detect_linux() {
+    if os.is_linux() {
+        std.println("Linux detected")
+    }
 }
 ```
 
@@ -312,8 +385,12 @@ if os.is_linux() {
 Returns true if running on macOS.
 
 ```ez
-if os.is_macos() {
-    println("macOS detected")
+import @std, @os
+
+do detect_macos() {
+    if os.is_macos() {
+        std.println("macOS detected")
+    }
 }
 ```
 
@@ -327,8 +404,12 @@ if os.is_macos() {
 Returns the number of CPUs available.
 
 ```ez
-temp cpus int = os.num_cpu()
-println("Available CPUs: ", cpus)
+import @std, @os
+
+do get_cpu_count() {
+    temp cpus int = os.num_cpu()
+    std.println("Available CPUs: ", cpus)
+}
 ```
 
 **Returns:** Number of CPUs.
@@ -401,8 +482,12 @@ if os.CURRENT_OS == os.MAC_OS {
 Returns the line separator for the current platform.
 
 ```ez
-temp nl string = os.line_separator()
-temp content string = "line1" + nl + "line2"
+import @os
+
+do get_line_separator() {
+    temp nl string = os.line_separator()
+    temp content string = "line1" + nl + "line2"
+}
 ```
 
 **Returns:** "\\r\\n" on Windows, "\\n" on Unix-like systems.
@@ -415,7 +500,11 @@ temp content string = "line1" + nl + "line2"
 Returns the null device path for the current platform.
 
 ```ez
-temp nullPath string = os.dev_null()
+import @os
+
+do get_null_device() {
+    temp nullPath string = os.dev_null()
+}
 ```
 
 **Returns:** "NUL" on Windows, "/dev/null" on Unix-like systems.

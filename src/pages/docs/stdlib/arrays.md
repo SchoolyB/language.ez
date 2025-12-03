@@ -22,9 +22,13 @@ import @arrays
 Adds an element to the end of an array.
 
 ```ez
-temp arr [int] = {1, 2, 3}
-arrays.append(arr, 4)
-std.println(arr)  // {1, 2, 3, 4}
+import @arrays
+
+do append_to_array(){
+    temp arr [int] = {1, 2, 3}
+    arrays.append(arr, 4)
+    std.println(arr)  // {1, 2, 3, 4}
+}
 ```
 
 **Parameters:** `arr` - The array, `value` - Element to add.
@@ -37,10 +41,14 @@ std.println(arr)  // {1, 2, 3, 4}
 Removes and returns the last element of an array.
 
 ```ez
-temp arr [int] = {1, 2, 3}
-temp last int = arrays.pop(arr)
-std.println(last)  // 3
-std.println(arr)   // {1, 2}
+import @std, @arrays
+
+do pop_from_array(){
+    temp arr [int] = {1, 2, 3}
+    temp last int = arrays.pop(arr)
+    std.println(last)  // 3
+    std.println(arr)   // {1, 2}
+}
 ```
 
 **Parameters:** `arr` - The array.
@@ -55,10 +63,14 @@ std.println(arr)   // {1, 2}
 Removes and returns the first element of an array.
 
 ```ez
-temp arr [int] = {1, 2, 3}
-temp first int = arrays.shift(arr)
-std.println(first)  // 1
-std.println(arr)    // {2, 3}
+import @std, @arrays
+
+do main(){
+    temp arr [int] = {1, 2, 3}
+    temp first int = arrays.shift(arr)
+    std.println(first)  // 1
+    std.println(arr)    // {2, 3}
+}
 ```
 
 **Parameters:** `arr` - The array.
@@ -73,9 +85,13 @@ std.println(arr)    // {2, 3}
 Adds an element to the beginning of an array.
 
 ```ez
-temp arr [int] = {2, 3, 4}
-arrays.unshift(arr, 1)
-std.println(arr)  // {1, 2, 3, 4}
+import @std, @arrays
+
+do main(){
+    temp arr [int] = {2, 3, 4}
+    arrays.unshift(arr, 1)
+    std.println(arr)  // {1, 2, 3, 4}
+}
 ```
 
 **Parameters:** `arr` - The array, `value` - Element to add.
@@ -88,9 +104,13 @@ std.println(arr)  // {1, 2, 3, 4}
 Inserts an element at a specific index.
 
 ```ez
-temp arr [int] = {1, 2, 4}
-arrays.insert(arr, 2, 3)  // insert 3 at index 2
-std.println(arr)  // {1, 2, 3, 4}
+import @std, @arrays
+
+do main() {
+    temp arr [int] = {1, 2, 4}
+    arrays.insert(arr, 2, 3)  // insert 3 at index 2
+    std.println(arr)  // {1, 2, 3, 4}
+}
 ```
 
 **Parameters:** `arr`, `index`, `value`.
@@ -105,9 +125,13 @@ std.println(arr)  // {1, 2, 3, 4}
 Removes the element at a specific index.
 
 ```ez
-temp arr [int] = {1, 2, 3, 4}
-arrays.remove_at(arr, 1)
-std.println(arr)  // {1, 3, 4}
+import @std, @arrays
+
+do main() {
+    temp arr [int] = {1, 2, 3, 4}
+    arrays.remove_at(arr, 1)
+    std.println(arr)  // {1, 3, 4}
+}
 ```
 
 **Parameters:** `arr`, `index`.
@@ -124,9 +148,13 @@ std.println(arr)  // {1, 3, 4}
 Returns the element at a specific index.
 
 ```ez
-temp arr [int] = {10, 20, 30}
-temp val int = arrays.get(arr, 1)
-std.println(val)  // 20
+import @std, @arrays
+
+do main() {
+    temp arr [int] = {10, 20, 30}
+    temp val int = arrays.get(arr, 1)
+    std.println(val)  // 20
+}
 ```
 
 **Parameters:** `arr`, `index`.
@@ -141,9 +169,13 @@ std.println(val)  // 20
 Sets the element at a specific index.
 
 ```ez
-temp arr [int] = {1, 2, 3}
-arrays.set(arr, 1, 20)
-std.println(arr)  // {1, 20, 3}
+import @std, @arrays
+
+do main() {
+    temp arr [int] = {1, 2, 3}
+    arrays.set(arr, 1, 20)
+    std.println(arr)  // {1, 20, 3}
+}
 ```
 
 **Parameters:** `arr`, `index`, `value`.
@@ -158,9 +190,13 @@ std.println(arr)  // {1, 20, 3}
 Returns the first or last element of an array.
 
 ```ez
-temp arr [int] = {10, 20, 30}
-std.println(arrays.first(arr))  // 10
-std.println(arrays.last(arr))   // 30
+import @std, @arrays
+
+do main() {
+    temp arr [int] = {10, 20, 30}
+    std.println(arrays.first(arr))  // 10
+    std.println(arrays.last(arr))   // 30
+}
 ```
 
 **Parameters:** `arr` - The array.
@@ -175,9 +211,13 @@ std.println(arrays.last(arr))   // 30
 Checks if an array contains a value.
 
 ```ez
-temp arr [int] = {1, 2, 3, 4, 5}
-std.println(arrays.contains(arr, 3))  // true
-std.println(arrays.contains(arr, 9))  // false
+import @std, @arrays
+
+do main() {
+    temp arr [int] = {1, 2, 3, 4, 5}
+    std.println(arrays.contains(arr, 3))  // true
+    std.println(arrays.contains(arr, 9))  // false
+}
 ```
 
 **Parameters:** `arr`, `value`.
@@ -190,9 +230,13 @@ std.println(arrays.contains(arr, 9))  // false
 Returns the index of the first occurrence of a value, or -1 if not found.
 
 ```ez
-temp arr [int] = {10, 20, 30, 20}
-std.println(arrays.index_of(arr, 20))  // 1
-std.println(arrays.index_of(arr, 99))  // -1
+import @std, @arrays
+
+do main() {
+    temp arr [int] = {10, 20, 30, 20}
+    std.println(arrays.index_of(arr, 20))  // 1
+    std.println(arrays.index_of(arr, 99))  // -1
+}
 ```
 
 **Parameters:** `arr`, `value`.
@@ -207,9 +251,13 @@ std.println(arrays.index_of(arr, 99))  // -1
 Reverses an array in place.
 
 ```ez
-temp arr [int] = {1, 2, 3, 4, 5}
-arrays.reverse(arr)
-std.println(arr)  // {5, 4, 3, 2, 1}
+import @std, @arrays
+
+do main() {
+    temp arr [int] = {1, 2, 3, 4, 5}
+    arrays.reverse(arr)
+    std.println(arr)  // {5, 4, 3, 2, 1}
+}
 ```
 
 **Parameters:** `arr` - The array.
@@ -222,9 +270,13 @@ std.println(arr)  // {5, 4, 3, 2, 1}
 Returns a portion of an array.
 
 ```ez
-temp arr [int] = {1, 2, 3, 4, 5}
-temp sub [int] = arrays.slice(arr, 1, 4)
-std.println(sub)  // {2, 3, 4}
+import @std, @arrays
+
+do main() {
+    temp arr [int] = {1, 2, 3, 4, 5}
+    temp sub [int] = arrays.slice(arr, 1, 4)
+    std.println(sub)  // {2, 3, 4}
+}
 ```
 
 **Parameters:** `arr`, `start`, `end`.
@@ -239,10 +291,14 @@ std.println(sub)  // {2, 3, 4}
 Concatenates two or more arrays.
 
 ```ez
-temp a [int] = {1, 2}
-temp b [int] = {3, 4}
-temp c [int] = arrays.concat(a, b)
-std.println(c)  // {1, 2, 3, 4}
+import @std, @arrays
+
+do main() {
+    temp a [int] = {1, 2}
+    temp b [int] = {3, 4}
+    temp c [int] = arrays.concat(a, b)
+    std.println(c)  // {1, 2, 3, 4}
+}
 ```
 
 **Parameters:** Two or more arrays.
@@ -257,8 +313,12 @@ std.println(c)  // {1, 2, 3, 4}
 Creates an array with a value repeated n times.
 
 ```ez
-temp arr [int] = arrays.repeat(0, 5)
-std.println(arr)  // {0, 0, 0, 0, 0}
+import @std, @arrays
+
+do main() {
+    temp arr [int] = arrays.repeat(0, 5)
+    std.println(arr)  // {0, 0, 0, 0, 0}
+}
 ```
 
 **Parameters:** `value`, `count`.
@@ -275,8 +335,12 @@ std.println(arr)  // {0, 0, 0, 0, 0}
 Returns the sum of all elements in a numeric array.
 
 ```ez
-temp arr [int] = {1, 2, 3, 4, 5}
-std.println(arrays.sum(arr))  // 15
+import @std, @arrays
+
+do main() {
+    temp arr [int] = {1, 2, 3, 4, 5}
+    std.println(arrays.sum(arr))  // 15
+}
 ```
 
 **Parameters:** `arr` - A numeric array.
@@ -291,8 +355,12 @@ std.println(arrays.sum(arr))  // 15
 Returns the product of all elements in a numeric array.
 
 ```ez
-temp arr [int] = {1, 2, 3, 4, 5}
-std.println(arrays.product(arr))  // 120
+import @std, @arrays
+
+do main() {
+    temp arr [int] = {1, 2, 3, 4, 5}
+    std.println(arrays.product(arr))  // 120
+}
 ```
 
 **Parameters:** `arr` - A numeric array.
@@ -307,9 +375,13 @@ std.println(arrays.product(arr))  // 120
 Returns the minimum or maximum value in an array.
 
 ```ez
-temp arr [int] = {5, 2, 8, 1, 9}
-std.println(arrays.min(arr))  // 1
-std.println(arrays.max(arr))  // 9
+import @std, @arrays
+
+do main() {
+    temp arr [int] = {5, 2, 8, 1, 9}
+    std.println(arrays.min(arr))  // 1
+    std.println(arrays.max(arr))  // 9
+}
 ```
 
 **Parameters:** `arr` - A numeric array.
@@ -324,8 +396,12 @@ std.println(arrays.max(arr))  // 9
 Returns the average of a numeric array.
 
 ```ez
-temp arr [int] = {2, 4, 6, 8, 10}
-std.println(arrays.avg(arr))  // 6.0
+import @std, @arrays
+
+do main() {
+    temp arr [int] = {2, 4, 6, 8, 10}
+    std.println(arrays.avg(arr))  // 6.0
+}
 ```
 
 **Parameters:** `arr` - A numeric array.
@@ -342,12 +418,16 @@ std.println(arrays.avg(arr))  // 6.0
 Creates an array of integers in a range.
 
 ```ez
-temp arr [int] = arrays.range(0, 5)
-std.println(arr)  // {0, 1, 2, 3, 4}
+import @std, @arrays
 
-// With step
-temp odds [int] = arrays.range(1, 10, 2)
-std.println(odds)  // {1, 3, 5, 7, 9}
+do main() {
+    temp arr [int] = arrays.range(0, 5)
+    std.println(arr)  // {0, 1, 2, 3, 4}
+
+    // With step
+    temp odds [int] = arrays.range(1, 10, 2)
+    std.println(odds)  // {1, 3, 5, 7, 9}
+}
 ```
 
 **Parameters:** `start`, `end`, optional `step`.
@@ -362,11 +442,15 @@ std.println(odds)  // {1, 3, 5, 7, 9}
 Joins array elements into a string with a separator.
 
 ```ez
-temp arr [string] = {"a", "b", "c"}
-std.println(arrays.join(arr, "-"))  // "a-b-c"
+import @std, @arrays
 
-temp nums [int] = {1, 2, 3}
-std.println(arrays.join(nums, ", "))  // "1, 2, 3"
+do main() {
+    temp arr [string] = {"a", "b", "c"}
+    std.println(arrays.join(arr, "-"))  // "a-b-c"
+
+    temp nums [int] = {1, 2, 3}
+    std.println(arrays.join(nums, ", "))  // "1, 2, 3"
+}
 ```
 
 **Parameters:** `arr`, `separator`.
@@ -376,22 +460,68 @@ std.println(arrays.join(nums, ", "))  // "1, 2, 3"
 **Errors:** [E7003](/language.ez/errors/E7003) if separator is not a string.
 
 ### `zip()`
-`(arr1 [any], arr2 [any]) -> [[any, any]]`
+`(arr1 [any], arr2 [any]) -> [[any]]`
 
 Combines two arrays into an array of pairs.
 
 ```ez
-temp names [string] = {"Alice", "Bob"}
-temp ages [int] = {25, 30}
-temp pairs [[any]] = arrays.zip(names, ages)
-// {{"Alice", 25}, {"Bob", 30}}
+import @arrays
+
+do main() {
+    temp names [string] = {"Alice", "Bob"}
+    temp ages [int] = {25, 30}
+    temp pairs [[any]] = arrays.zip(names, ages)
+    // {{"Alice", 25}, {"Bob", 30}}
+}
 ```
 
 **Parameters:** Two arrays.
 
-**Returns:** An array of pairs.
+**Returns:** `[[any]]` - A 2D array of pairs.
 
 **Errors:** [E7002](/language.ez/errors/E7002) if arguments are not arrays.
+
+### `chunk()`
+`(arr [any], size int) -> [[any]]`
+
+Splits an array into chunks of the specified size.
+
+```ez
+import @arrays
+
+do main() {
+    temp nums [int] = {1, 2, 3, 4, 5, 6, 7}
+    temp chunks [[int]] = arrays.chunk(nums, 3)
+    // {{1, 2, 3}, {4, 5, 6}, {7}}
+}
+```
+
+**Parameters:** `arr` - The array to split, `size` - The chunk size.
+
+**Returns:** `[[any]]` - A 2D array of chunks.
+
+**Errors:** [E9004](/language.ez/errors/E9004) if chunk size is not greater than zero.
+
+### `flatten()`
+`(arr [[any]]) -> [any]`
+
+Flattens a 2D array into a 1D array.
+
+```ez
+import @arrays
+
+do main() {
+    temp matrix [[int]] = {{1, 2}, {3, 4}, {5, 6}}
+    temp flat [int] = arrays.flatten(matrix)
+    // {1, 2, 3, 4, 5, 6}
+}
+```
+
+**Parameters:** `arr` - A 2D array to flatten.
+
+**Returns:** `[any]` - A flattened 1D array.
+
+**Errors:** [E7002](/language.ez/errors/E7002) if argument is not a 2D array.
 
 ## Example Program
 

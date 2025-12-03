@@ -947,13 +947,23 @@
     },
     {
       "code": "E5015",
-      "slug": "postfix-requires-identifier",
-      "message": "postfix operator needs variable",
-      "usedFor": "`5++`",
-      "example": "postfix operator requires identifier",
+      "slug": "read-only-parameter",
+      "message": "cannot modify read-only parameter",
+      "usedFor": "Attempting to modify a parameter not declared with &",
+      "example": "cannot modify read-only parameter 'p'",
       "category": "runtime",
-      "howToFix": "`++` and `--` can only be used on variables: `x++` not `5++`.",
-      "relatedErrors": []
+      "howToFix": "Add `&` before the parameter name to make it mutable: `do foo(&p Person)` instead of `do foo(p Person)`.",
+      "relatedErrors": ["E5016", "E5006"]
+    },
+    {
+      "code": "E5016",
+      "slug": "immutable-to-mutable-param",
+      "message": "cannot pass immutable variable to mutable parameter",
+      "usedFor": "Passing a const variable to a parameter declared with &",
+      "example": "cannot pass immutable variable 'config' to mutable parameter '&p'",
+      "category": "runtime",
+      "howToFix": "Use a `temp` variable instead of `const`, or remove the `&` from the parameter if mutation is not needed.",
+      "relatedErrors": ["E5015", "E5006"]
     },
     {
       "code": "E6001",
@@ -1484,6 +1494,16 @@
       "category": "array",
       "howToFix": "Chunk size must be greater than zero.",
       "relatedErrors": ["E7012"]
+    },
+    {
+      "code": "E9020",
+      "slug": "unusable-as-map-key",
+      "message": "type cannot be used as map key",
+      "usedFor": "Using a non-hashable type (array, map, struct) as a map key",
+      "example": "type 'array' cannot be used as map key",
+      "category": "array",
+      "howToFix": "Map keys must be hashable types: `string`, `int`, `float`, `bool`, or `char`. Convert the value to a hashable type.",
+      "relatedErrors": ["E12001"]
     },
     {
       "code": "E10001",

@@ -1,0 +1,173 @@
+---
+layout: '../../../layouts/DocsLayout.astro'
+title: 'Built-in Functions'
+description: 'Functions built into EZ that are always available without imports.'
+---
+
+# Built-in Functions
+
+These functions are built into the language and always available — no imports needed.
+
+## Utility Functions
+
+### input()
+
+Reads a line of text from stdin.
+
+```ez
+import @std
+
+std.printf("Enter your name: ")
+temp name string = input()
+std.println("Hello, " + name)
+```
+
+### read_int()
+
+Reads an integer from stdin.
+
+```ez
+import @std
+
+std.printf("Enter a number: ")
+temp num int = read_int()
+std.println("You entered: " + string(num))
+```
+
+### len()
+
+Returns the length of a string, array, or map.
+
+```ez
+import @std
+
+temp name string = "Hello"
+std.println(len(name))  // 5
+
+temp nums [int] = {1, 2, 3}
+std.println(len(nums))  // 3
+
+temp ages map[string:int] = {"Alice": 30, "Bob": 25}
+std.println(len(ages))  // 2
+```
+
+### range()
+
+Generates a sequence of numbers for `for` loops.
+
+```ez
+import @std
+
+// range(start, end) - end is exclusive
+for i in range(0, 5) {
+    std.println(i)  // 0, 1, 2, 3, 4
+}
+
+// range(start, end, step)
+for i in range(0, 10, 2) {
+    std.println(i)  // 0, 2, 4, 6, 8
+}
+```
+
+### typeof()
+
+Returns the type of a value as a string.
+
+```ez
+import @std
+
+temp x int = 42
+std.println(typeof(x))  // "int"
+
+temp arr [string] = {"a", "b"}
+std.println(typeof(arr))  // "array"
+```
+
+### copy()
+
+Creates a deep copy of a value. Use this when you need an independent copy rather than a reference.
+
+```ez
+const Person struct {
+    name string
+    age int
+}
+
+temp a Person = Person{name: "Alice", age: 30}
+temp b Person = copy(a)
+b.age = 31
+// a.age is still 30 - b is an independent copy
+```
+
+**Deep copy behavior:**
+- Primitives return themselves
+- Nested structs are recursively copied
+- Arrays are copied with all elements
+- Maps are copied with all key-value pairs
+
+## Type Conversion Functions
+
+Convert values between types. These are essential for working with user input, formatting output, and data transformations.
+
+### int()
+
+Converts a value to an integer.
+
+```ez
+temp s string = "42"
+temp n int = int(s)  // 42
+
+temp f float = 3.9
+temp i int = int(f)  // 3 (truncates)
+```
+
+### float()
+
+Converts a value to a float.
+
+```ez
+temp n int = 42
+temp f float = float(n)  // 42.0
+
+temp s string = "3.14"
+temp pi float = float(s)  // 3.14
+```
+
+### string()
+
+Converts a value to a string.
+
+```ez
+temp n int = 42
+temp s string = string(n)  // "42"
+
+temp b bool = true
+temp bs string = string(b)  // "true"
+```
+
+### char()
+
+Converts an integer (ASCII/Unicode value) to a character.
+
+```ez
+temp x int = 65
+temp c char = char(x)  // 'A'
+
+temp newline char = char(10)  // newline character
+```
+
+## Quick Reference
+
+| Function | Description | Example |
+|----------|-------------|---------|
+| `input()` | Read line from stdin | `temp name = input()` |
+| `read_int()` | Read integer from stdin | `temp num = read_int()` |
+| `len(x)` | Length of string, array, or map | `len("hello")` → `5` |
+| `range(start, end)` | Number sequence for loops | `range(0, 5)` → `0,1,2,3,4` |
+| `range(start, end, step)` | Number sequence with step | `range(0, 10, 2)` → `0,2,4,6,8` |
+| `typeof(x)` | Type name as string | `typeof(42)` → `"int"` |
+| `copy(x)` | Deep copy of a value | `copy(myStruct)` → independent copy |
+| `int(x)` | Convert to integer | `int("42")` → `42` |
+| `float(x)` | Convert to float | `float(42)` → `42.0` |
+| `string(x)` | Convert to string | `string(42)` → `"42"` |
+| `char(x)` | Convert int to character | `char(65)` → `'A'` |

@@ -10,8 +10,9 @@ Welcome to the EZ documentation. EZ is a simple programming language designed to
 
 ## Quick Start
 
-1. [Install EZ](/language.ez/docs/getting-started) for your platform
-2. Create `hello.ez`:
+1. [Download EZ](/language.ez/downloads) for your platform
+2. [Install EZ](/language.ez/getting-started) on your system
+3. Create a file called `hello.ez`:
 
 ```ez
 import @std
@@ -21,21 +22,28 @@ do main() {
 }
 ```
 
-3. Run it:
+> **Note:** Every EZ program must have a `main()` function — this is where your program starts running.
+
+Save your file.
+
+4. Use the following command to run your program:
 
 ```bash
 ez hello.ez
 ```
 
+Output:
+
+```
+Hello, EZ!
+```
+
 ## What's Next?
 
-### [Getting Started](/language.ez/docs/getting-started)
-Install EZ and write your first program.
-
-### [Language Reference](/language.ez/docs/language/variables)
+### [Language Reference](/language.ez/docs/language)
 Learn about variables, functions, and more.
 
-### [Standard Library](/language.ez/docs/stdlib/std)
+### [Standard Library](/language.ez/docs/stdlib)
 Explore the built-in modules.
 
 ### [Examples](/language.ez/examples)
