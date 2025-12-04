@@ -966,6 +966,16 @@
       "relatedErrors": ["E5015", "E5006"]
     },
     {
+      "code": "E5017",
+      "slug": "immutable-struct",
+      "message": "cannot modify field of const struct",
+      "usedFor": "Attempting to modify a field of a struct instance that was declared as const (immutable)",
+      "example": "cannot modify field of immutable struct 'p' (declared as const)",
+      "category": "runtime",
+      "howToFix": "Use `temp` instead of `const` when declaring a struct instance that you need to modify.",
+      "relatedErrors": ["E5016", "E5006"]
+    },
+    {
       "code": "E6001",
       "slug": "circular-import",
       "message": "circular import detected",
