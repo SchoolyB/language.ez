@@ -156,6 +156,85 @@ temp c char = char(x)  // 'A'
 temp newline char = char(10)  // newline character
 ```
 
+## Error Handling
+
+### Error Type
+
+The `Error` type represents an error value that can be returned from functions.
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `message` | string | The error message |
+| `code` | string | Error code (empty for user errors, E-codes for stdlib errors) |
+
+**Checking for errors:**
+
+```ez
+temp err = validate("")
+if err != nil {
+    println("Error: ${err.message}")
+}
+```
+
+### error()
+
+Creates a user-defined error.
+
+**Syntax:**
+
+```ez
+error(message string) -> Error
+```
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `message` | string | The error message |
+
+**Returns:** An `Error` with `.message` set to the argument and `.code` set to empty string.
+
+**Single error return:**
+
+```ez
+do validate(name string) -> Error {
+    if len(name) == 0 {
+        return error("name cannot be empty")
+    }
+    return nil
+}
+
+do main() {
+    temp err = validate("")
+    if err != nil {
+        println(err.message)  // "name cannot be empty"
+    }
+}
+```
+
+**Tuple return (value + error):**
+
+```ez
+do divide(a int, b int) -> (int, Error) {
+    if b == 0 {
+        return 0, error("division by zero")
+    }
+    return a / b, nil
+}
+
+do main() {
+    temp result, err = divide(10, 0)
+    if err != nil {
+        println("Failed: ${err.message}")
+    } otherwise {
+        println("Result: ${result}")
+    }
+}
+```
+
+| Error Code | Condition |
+|------------|-----------|
+| E7001 | Wrong number of arguments |
+| E7003 | Argument is not a string |
+
 ## Quick Reference
 
 | Function | Description | Example |
@@ -171,3 +250,4 @@ temp newline char = char(10)  // newline character
 | `float(x)` | Convert to float | `float(42)` → `42.0` |
 | `string(x)` | Convert to string | `string(42)` → `"42"` |
 | `char(x)` | Convert int to character | `char(65)` → `'A'` |
+| `error(msg)` | Create user-defined error | `error("invalid input")` → `Error` |
