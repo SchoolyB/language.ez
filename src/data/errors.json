@@ -696,6 +696,46 @@
       "relatedErrors": ["E3019"]
     },
     {
+      "code": "E3021",
+      "slug": "byte-value-out-of-range",
+      "message": "byte value must be between 0 and 255",
+      "usedFor": "Assigning a value outside the byte range (0-255) to a byte variable",
+      "example": "byte value must be between 0 and 255, got 300",
+      "category": "type",
+      "howToFix": "Ensure the value assigned to a byte is within the valid range of 0 to 255.",
+      "relatedErrors": ["E3022"]
+    },
+    {
+      "code": "E3022",
+      "slug": "byte-array-element-out-of-range",
+      "message": "byte array element must be between 0 and 255",
+      "usedFor": "Array literal for byte array contains a value outside 0-255",
+      "example": "byte array element must be between 0 and 255, got 256",
+      "category": "type",
+      "howToFix": "Ensure all elements in a byte array literal are within the valid range of 0 to 255.",
+      "relatedErrors": ["E3021"]
+    },
+    {
+      "code": "E3023",
+      "slug": "const-to-mutable-param",
+      "message": "cannot pass immutable variable to mutable parameter",
+      "usedFor": "Passing a const variable to a function parameter declared with &",
+      "example": "cannot pass immutable variable 'config' to mutable parameter '&p'",
+      "category": "type",
+      "howToFix": "Use a `temp` variable instead of `const`, or remove the `&` from the parameter if mutation is not needed.",
+      "relatedErrors": ["E5006", "E5016"]
+    },
+    {
+      "code": "E3024",
+      "slug": "missing-return-statement",
+      "message": "function must return a value",
+      "usedFor": "Function declares return type but has no return statement",
+      "example": "function 'calculate' must return a value of type 'int'",
+      "category": "type",
+      "howToFix": "Add a return statement with a value matching the declared return type.",
+      "relatedErrors": ["E3012", "E3013"]
+    },
+    {
       "code": "E4001",
       "slug": "undefined-variable",
       "message": "variable not found in scope",
@@ -947,23 +987,23 @@
     },
     {
       "code": "E5015",
-      "slug": "read-only-parameter",
+      "slug": "postfix-requires-identifier",
+      "message": "postfix operator needs variable",
+      "usedFor": "Using ++ or -- on a non-variable expression",
+      "example": "postfix operator requires an identifier, got literal",
+      "category": "runtime",
+      "howToFix": "Use postfix operators (++ or --) only on variables, not on literals or expressions.",
+      "relatedErrors": ["E5006"]
+    },
+    {
+      "code": "E5016",
+      "slug": "immutable-parameter",
       "message": "cannot modify read-only parameter",
       "usedFor": "Attempting to modify a parameter not declared with &",
       "example": "cannot modify read-only parameter 'p'",
       "category": "runtime",
       "howToFix": "Add `&` before the parameter name to make it mutable: `do foo(&p Person)` instead of `do foo(p Person)`.",
-      "relatedErrors": ["E5016", "E5006"]
-    },
-    {
-      "code": "E5016",
-      "slug": "immutable-to-mutable-param",
-      "message": "cannot pass immutable variable to mutable parameter",
-      "usedFor": "Passing a const variable to a parameter declared with &",
-      "example": "cannot pass immutable variable 'config' to mutable parameter '&p'",
-      "category": "runtime",
-      "howToFix": "Use a `temp` variable instead of `const`, or remove the `&` from the parameter if mutation is not needed.",
-      "relatedErrors": ["E5015", "E5006"]
+      "relatedErrors": ["E5017", "E5006"]
     },
     {
       "code": "E5017",
@@ -974,6 +1014,16 @@
       "category": "runtime",
       "howToFix": "Use `temp` instead of `const` when declaring a struct instance that you need to modify.",
       "relatedErrors": ["E5016", "E5006"]
+    },
+    {
+      "code": "E5018",
+      "slug": "max-recursion-depth",
+      "message": "maximum recursion depth exceeded",
+      "usedFor": "Function calls itself too many times without returning",
+      "example": "maximum recursion depth exceeded (limit: 1000)",
+      "category": "runtime",
+      "howToFix": "Add a base case to your recursive function to stop the recursion, or rewrite using iteration.",
+      "relatedErrors": []
     },
     {
       "code": "E6001",
@@ -1356,6 +1406,26 @@
       "relatedErrors": ["E7028", "E7016"]
     },
     {
+      "code": "E7030",
+      "slug": "command-not-found",
+      "message": "command or executable not found",
+      "usedFor": "os.exec() or os.exec_output() cannot find the specified command",
+      "example": "os.exec(): command not found: 'nonexistent_command'",
+      "category": "stdlib",
+      "howToFix": "Verify the command exists and is in your PATH. Use the full path to the executable if needed.",
+      "relatedErrors": ["E7031"]
+    },
+    {
+      "code": "E7031",
+      "slug": "command-failed",
+      "message": "command execution failed",
+      "usedFor": "os.exec() or os.exec_output() command returned a non-zero exit code",
+      "example": "os.exec_output(): command failed with exit code 1",
+      "category": "stdlib",
+      "howToFix": "Check the command's error output for details. The command may have failed due to invalid arguments or permissions.",
+      "relatedErrors": ["E7030"]
+    },
+    {
       "code": "E7040",
       "slug": "empty-path",
       "message": "path cannot be empty",
@@ -1384,6 +1454,16 @@
       "category": "stdlib",
       "howToFix": "Use `io.read_dir()` to list directory contents. Verify the path points to a file with `io.is_file()`.",
       "relatedErrors": ["E7016", "E7018"]
+    },
+    {
+      "code": "E7043",
+      "slug": "invalid-glob-pattern",
+      "message": "invalid glob pattern syntax",
+      "usedFor": "io.glob() called with an invalid pattern",
+      "example": "io.glob(): invalid pattern syntax: unexpected '['",
+      "category": "stdlib",
+      "howToFix": "Check your glob pattern syntax. Valid patterns use `*` (any chars), `?` (single char), `**` (recursive), and `[...]` (character class).",
+      "relatedErrors": ["E7016"]
     },
     {
       "code": "E7050",
@@ -1459,10 +1539,10 @@
       "code": "E8006",
       "slug": "random-invalid-range",
       "message": "random range is invalid",
-      "usedFor": "`math.random(0)` or `math.random(10, 5)`",
-      "example": "math.random() range is invalid",
+      "usedFor": "`random.int(0)` or `random.int(10, 5)` with invalid range",
+      "example": "random.int() range is invalid: max must be greater than min",
       "category": "math",
-      "howToFix": "Ensure the minimum is less than the maximum in random range functions.",
+      "howToFix": "Ensure the minimum is less than the maximum in random range functions. For `random.int(max)`, max must be > 0.",
       "relatedErrors": []
     },
     {
@@ -1524,6 +1604,16 @@
       "category": "string",
       "howToFix": "Pass a non-negative integer as the repeat count.",
       "relatedErrors": ["E7011"]
+    },
+    {
+      "code": "E10002",
+      "slug": "sample-count-exceeds-array",
+      "message": "sample count exceeds array length",
+      "usedFor": "random.sample() called with n greater than array length",
+      "example": "random.sample(): cannot sample 10 elements from array of length 5",
+      "category": "string",
+      "howToFix": "Ensure the sample count is less than or equal to the array length. Use `len(arr)` to check the array size first.",
+      "relatedErrors": ["E7011", "E9001"]
     },
     {
       "code": "E11001",
@@ -1665,6 +1755,17 @@
       "status": "Reserved",
       "howToFix": "Update to use the recommended alternative, or suppress with `@Suppress(W2005)`.",
       "relatedErrors": []
+    },
+    {
+      "code": "W2006",
+      "slug": "byte-overflow-potential",
+      "message": "byte arithmetic may overflow",
+      "usedFor": "Arithmetic on byte values that may exceed 0-255 range",
+      "example": "byte arithmetic may overflow: result could exceed 255",
+      "category": "warnings",
+      "status": "Reserved",
+      "howToFix": "Ensure byte arithmetic results stay within 0-255 range, or use a larger integer type.",
+      "relatedErrors": ["E3021", "E3022"]
     },
     {
       "code": "W3001",

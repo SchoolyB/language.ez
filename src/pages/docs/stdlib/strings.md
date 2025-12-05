@@ -293,6 +293,128 @@ do replace_once() {
 
 **Returns:** `string` - Modified string.
 
+### `replace_n()`
+`(str string, old string, new string, n int) -> string`
+
+Replaces up to n occurrences of a substring. Use n=-1 to replace all.
+
+```ez
+import @std, @strings
+
+do replace_limited() {
+    std.println(strings.replace_n("aaa", "a", "b", 2))   // "bba"
+    std.println(strings.replace_n("aaa", "a", "b", -1))  // "bbb" (all)
+}
+```
+
+**Parameters:** `str`, `old`, `new`, `n` (number of replacements, -1 for all).
+
+**Returns:** `string` - Modified string.
+
+**Errors:** [E7003](/language.ez/errors/E7003) if string arguments are not strings, [E7004](/language.ez/errors/E7004) if n is not an integer.
+
+---
+
+## Validation
+
+### `is_numeric()`
+`(str string) -> bool`
+
+Checks if a string contains only numeric digits (0-9).
+
+```ez
+import @std, @strings
+
+do check_numeric() {
+    std.println(strings.is_numeric("12345"))    // true
+    std.println(strings.is_numeric("12a34"))    // false
+    std.println(strings.is_numeric(""))         // false
+}
+```
+
+**Parameters:** `str` - The string to check.
+
+**Returns:** `bool` - true if string contains only digits, false otherwise.
+
+**Errors:** [E7003](/language.ez/errors/E7003) if argument is not a string.
+
+---
+
+### `is_alpha()`
+`(str string) -> bool`
+
+Checks if a string contains only alphabetic characters (letters).
+
+```ez
+import @std, @strings
+
+do check_alpha() {
+    std.println(strings.is_alpha("Hello"))      // true
+    std.println(strings.is_alpha("Hello123"))   // false
+    std.println(strings.is_alpha(""))           // false
+}
+```
+
+**Parameters:** `str` - The string to check.
+
+**Returns:** `bool` - true if string contains only letters, false otherwise.
+
+**Errors:** [E7003](/language.ez/errors/E7003) if argument is not a string.
+
+---
+
+## Truncation
+
+### `truncate()`
+`(str string, length int, suffix string) -> string`
+
+Truncates a string to a maximum length, adding a suffix if truncated.
+
+```ez
+import @std, @strings
+
+do truncate_demo() {
+    std.println(strings.truncate("Hello World", 8, "..."))  // "Hello..."
+    std.println(strings.truncate("Hi", 10, "..."))          // "Hi" (not truncated)
+}
+```
+
+**Parameters:**
+- `str` - The string to truncate
+- `length` - Maximum total length (including suffix)
+- `suffix` - String to append if truncated (e.g., "...")
+
+**Returns:** `string` - Truncated string with suffix, or original if shorter than length.
+
+**Errors:** [E7003](/language.ez/errors/E7003) if str or suffix are not strings, [E7004](/language.ez/errors/E7004) if length is not an integer, [E10001](/language.ez/errors/E10001) if length is negative.
+
+---
+
+## Comparison
+
+### `compare()`
+`(a string, b string) -> int`
+
+Compares two strings lexicographically.
+
+```ez
+import @std, @strings
+
+do compare_demo() {
+    std.println(strings.compare("apple", "banana"))  // -1 (apple < banana)
+    std.println(strings.compare("banana", "apple"))  // 1  (banana > apple)
+    std.println(strings.compare("apple", "apple"))   // 0  (equal)
+}
+```
+
+**Parameters:** `a`, `b` - Two strings to compare.
+
+**Returns:** `int` - Returns -1 if a < b, 0 if a == b, 1 if a > b.
+
+**Errors:** [E7003](/language.ez/errors/E7003) if arguments are not strings.
+
+---
+
 ## Substrings
 
 ### `substring()`

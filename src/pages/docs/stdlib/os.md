@@ -301,6 +301,76 @@ do get_parent_pid() {
 
 ---
 
+## Command Execution
+
+### `exec()`
+`(command: string) -> (int, Error)`
+
+Executes a shell command and returns the exit code.
+
+```ez
+import @std, @os
+
+do run_command() {
+    // Run a command - returns exit code
+    temp exitCode, err = os.exec("echo hello")
+    if err != nil {
+        std.println("Command failed to start:", err.message)
+    } otherwise {
+        std.println("Exit code:", exitCode)  // 0
+    }
+
+    // Commands with non-zero exit codes
+    temp code, _ = os.exec("exit 42")
+    std.println("Exit code:", code)  // 42
+}
+```
+
+**Parameters:** `command` - The shell command to execute.
+
+**Returns:** Tuple of (exit code as int, error). Error is only set if the command fails to start entirely (not for non-zero exit codes).
+
+**Errors:** [E7030](/language.ez/errors/E7030) if the command fails to execute.
+
+**Note:** Uses `/bin/sh -c` on Unix and `cmd /c` on Windows.
+
+---
+
+### `exec_output()`
+`(command: string) -> (string, Error)`
+
+Executes a shell command and returns its output (stdout and stderr combined).
+
+```ez
+import @std, @os
+
+do capture_output() {
+    // Capture command output
+    temp output, err = os.exec_output("echo test_output")
+    if err == nil {
+        std.println("Output:", output)  // "test_output"
+    }
+
+    // Output is trimmed of trailing whitespace
+    temp output2, _ = os.exec_output("printf 'hello\\n\\n'")
+    std.println(output2)  // "hello" (trimmed)
+
+    // Multi-line output is preserved
+    temp lines, _ = os.exec_output("printf 'line1\\nline2'")
+    std.println(lines)  // "line1\nline2"
+}
+```
+
+**Parameters:** `command` - The shell command to execute.
+
+**Returns:** Tuple of (output as string with trailing whitespace trimmed, error).
+
+**Errors:** [E7030](/language.ez/errors/E7030) if the command fails to start, [E7031](/language.ez/errors/E7031) if the command returns a non-zero exit code (output is still returned).
+
+**Note:** Uses `/bin/sh -c` on Unix and `cmd /c` on Windows.
+
+---
+
 ## Platform Detection
 
 ### `platform()`

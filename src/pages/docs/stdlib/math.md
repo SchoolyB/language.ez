@@ -6,7 +6,7 @@ description: 'Mathematical functions and constants.'
 
 # @math
 
-The `@math` module provides mathematical functions, constants, and random number generation.
+The `@math` module provides mathematical functions and constants. For random number generation, see the [@random](/language.ez/docs/stdlib/random) module.
 
 ## Import
 
@@ -216,6 +216,33 @@ do log10_demo() {
 
 **Errors:** [E8002](/language.ez/errors/E8002) if the argument is not positive.
 
+### `log_base()`
+`(value number, base number) -> float`
+
+Returns the logarithm of a value with an arbitrary base.
+
+```ez
+import @std, @math
+
+do log_base_demo() {
+    std.println(math.log_base(8, 2))     // 3.0 (since 2^3 = 8)
+    std.println(math.log_base(1000, 10)) // 3.0 (since 10^3 = 1000)
+    std.println(math.log_base(27, 3))    // 3.0 (since 3^3 = 27)
+    std.println(math.log_base(1, 7))     // 0.0 (any log of 1 is 0)
+    std.println(math.log_base(5, 5))     // 1.0 (log_b(b) = 1)
+}
+```
+
+**Parameters:**
+- `value` - A positive number
+- `base` - A positive number != 1
+
+**Returns:** `float` - The logarithm of value with the given base.
+
+**Errors:** [E8002](/language.ez/errors/E8002) if value is not positive, or if base is not positive or equals 1.
+
+---
+
 ## Trigonometry
 
 ### `sin()` / `cos()` / `tan()`
@@ -281,51 +308,7 @@ do factorial_demo() {
 
 **Errors:** [E8004](/language.ez/errors/E8004) for negative numbers, [E8005](/language.ez/errors/E8005) for values > 20.
 
-## Random Numbers
-
-### `random()`
-`(max int) -> int` or `(min int, max int) -> int`
-
-Returns a random integer.
-
-```ez
-import @std, @math
-
-do random_int_demo() {
-    // Random int from 0 to max-1
-    std.println(math.random(100))     // 0-99
-
-    // Random int from min to max-1
-    std.println(math.random(10, 20))  // 10-19
-}
-```
-
-**Parameters:** `max` or `min, max` - Integer bounds.
-
-**Returns:** `int` - A random integer.
-
-**Errors:** [E8006](/language.ez/errors/E8006) if the range is invalid.
-
-### `random_float()`
-`() -> float` or `(min float, max float) -> float`
-
-Returns a random floating-point number.
-
-```ez
-import @std, @math
-
-do random_float_demo() {
-    // Random float from 0.0 to 1.0
-    std.println(math.random_float())
-
-    // Random float from min to max
-    std.println(math.random_float(0.0, 100.0))
-}
-```
-
-**Parameters:** None or `min, max` - Float bounds.
-
-**Returns:** `float` - A random float.
+---
 
 ## Example Program
 
@@ -347,8 +330,9 @@ do main() {
     std.println("Area:", area)
     std.println("Circumference:", circumference)
 
-    // Random dice roll
-    temp roll int = math.random(1, 7)  // 1-6
-    std.println("You rolled:", roll)
+    // Trigonometry
+    temp angle float = math.PI / 4  // 45 degrees
+    std.println("sin(45°):", math.sin(angle))
+    std.println("cos(45°):", math.cos(angle))
 }
 ```

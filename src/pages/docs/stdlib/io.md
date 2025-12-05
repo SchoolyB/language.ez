@@ -482,6 +482,88 @@ do get_mod_time() {
 
 ---
 
+## Directory Traversal
+
+### `glob()`
+`(pattern: string) -> ([string], Error)`
+
+Finds all files matching a glob pattern.
+
+```ez
+import @std, @io
+
+do find_files() {
+    // Find all .ez files in src directory
+    temp matches, err = io.glob("src/*.ez")
+    if err == nil {
+        for_each file in matches {
+            std.println(file)
+        }
+    }
+
+    // Find all Go files in subdirectories
+    temp goFiles, _ = io.glob("pkg/**/*.go")
+}
+```
+
+**Parameters:** `pattern` - A glob pattern (supports `*`, `?`, `**`, `[...]`).
+
+**Returns:** Tuple of (array of matching file paths, error).
+
+**Errors:** [E7043](/language.ez/errors/E7043) if the pattern is invalid.
+
+---
+
+### `walk()`
+`(path: string) -> ([string], Error)`
+
+Recursively walks a directory tree and returns all files (not directories).
+
+```ez
+import @std, @io
+
+do list_all_files() {
+    temp files, err = io.walk("src")
+    if err == nil {
+        std.println("Found", len(files), "files")
+        for_each file in files {
+            std.println(file)
+        }
+    }
+}
+```
+
+**Parameters:** `path` - The root directory to walk.
+
+**Returns:** Tuple of (array of all file paths recursively, error).
+
+**Errors:** [E7016](/language.ez/errors/E7016), [E7017](/language.ez/errors/E7017), [E7040](/language.ez/errors/E7040), [E7041](/language.ez/errors/E7041)
+
+---
+
+### `is_symlink()`
+`(path: string) -> bool`
+
+Checks if a path is a symbolic link.
+
+```ez
+import @std, @io
+
+do check_symlink() {
+    if io.is_symlink("my_link") {
+        std.println("It's a symlink!")
+    } otherwise {
+        std.println("Regular file or directory")
+    }
+}
+```
+
+**Parameters:** `path` - Path to check.
+
+**Returns:** `bool` - true if path is a symbolic link, false otherwise (including if path doesn't exist).
+
+---
+
 ## Path Utilities
 
 ### `path_join()`

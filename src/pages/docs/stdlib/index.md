@@ -150,19 +150,20 @@ do helper() {
 
 ## Available Modules
 
-EZ includes nine built-in modules:
+EZ includes ten built-in modules:
 
 | Module | What it's for |
 |--------|---------------|
 | [@std](/language.ez/docs/stdlib/std) | Basic input/output — printing text, getting user input |
-| [@math](/language.ez/docs/stdlib/math) | Math operations — square roots, powers, random numbers |
+| [@math](/language.ez/docs/stdlib/math) | Math operations — square roots, powers, logarithms |
+| [@random](/language.ez/docs/stdlib/random) | Random generation — numbers, choices, shuffling |
 | [@arrays](/language.ez/docs/stdlib/arrays) | Working with lists — sorting, filtering, finding items |
 | [@strings](/language.ez/docs/stdlib/strings) | Working with text — uppercase, splitting, trimming |
 | [@maps](/language.ez/docs/stdlib/maps) | Key-value storage — like a dictionary or phonebook |
 | [@time](/language.ez/docs/stdlib/time) | Dates and time — current time, formatting, delays |
 | [@bytes](/language.ez/docs/stdlib/bytes) | Binary data — encoding, decoding, byte manipulation |
 | [@io](/language.ez/docs/stdlib/io) | File system — reading, writing, paths, directories |
-| [@os](/language.ez/docs/stdlib/os) | Operating system — environment, platform detection |
+| [@os](/language.ez/docs/stdlib/os) | Operating system — environment, platform detection, commands |
 
 ## Quick Example
 
@@ -203,11 +204,12 @@ do main() {
 Pick a module and explore what it can do:
 
 - [@std](/language.ez/docs/stdlib/std) — Start here, it's the most common
-- [@math](/language.ez/docs/stdlib/math) — For calculations and random numbers
+- [@math](/language.ez/docs/stdlib/math) — For calculations and logarithms
+- [@random](/language.ez/docs/stdlib/random) — For random numbers and shuffling
 - [@arrays](/language.ez/docs/stdlib/arrays) — For working with lists of things
 - [@strings](/language.ez/docs/stdlib/strings) — For manipulating text
 - [@maps](/language.ez/docs/stdlib/maps) — For key-value data
 - [@time](/language.ez/docs/stdlib/time) — For dates, times, and delays
 - [@bytes](/language.ez/docs/stdlib/bytes) — For binary data and encoding
 - [@io](/language.ez/docs/stdlib/io) — For file and directory operations
-- [@os](/language.ez/docs/stdlib/os) — For system info and environment
+- [@os](/language.ez/docs/stdlib/os) — For system info, environment, and commands
