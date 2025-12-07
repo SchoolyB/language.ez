@@ -3,35 +3,6 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 
-// Fetch latest release info at build time
-const response = await fetch('https://api.github.com/repos/SchoolyB/EZ/releases/latest', {
-  headers: {
-    'Accept': 'application/vnd.github.v3+json',
-    'User-Agent': 'EZ-Docs-Site'
-  }
-});
-
-interface GitHubRelease {
-  tag_name: string;
-  published_at: string;
-  html_url: string;
-}
-
-let latestVersion = 'latest';
-let releaseDate = '';
-let releaseUrl = 'https://github.com/SchoolyB/EZ/releases/latest';
-
-if (response.ok) {
-  const data: GitHubRelease = await response.json();
-  latestVersion = data.tag_name;
-  releaseDate = new Date(data.published_at).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  });
-  releaseUrl = data.html_url;
-}
-
 const baseDownloadUrl = 'https://github.com/SchoolyB/EZ/releases/latest/download';
 
 const downloads = [
@@ -76,8 +47,8 @@ const downloads = [
     <div class="text-center mb-12">
       <h1 class="text-3xl sm:text-4xl font-bold mb-4">Download EZ</h1>
       <p class="text-lg opacity-60 mb-2">
-        Latest release: <a href={releaseUrl} class="text-xl font-bold opacity-100 underline hover:opacity-80" target="_blank" rel="noopener noreferrer">{latestVersion}</a>
-        {releaseDate && <span> &middot; {releaseDate}</span>}
+        Latest release: <a id="release-link" href="https://github.com/SchoolyB/EZ/releases/latest" class="text-xl font-bold opacity-100 underline hover:opacity-80" target="_blank" rel="noopener noreferrer"><span id="version-text">loading...</span></a>
+        <span id="release-date"></span>
       </p>
     </div>
 
@@ -147,4 +118,98 @@ const downloads = [
       <Footer />
     </div>
   </main>
+
+  <script>
+    const CACHE_KEY = 'ez-latest-release-cache';
+    const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
+
+    interface CachedRelease {
+      tag_name: string;
+      published_at: string;
+      html_url: string;
+      timestamp: number;
+    }
+
+    function getCachedRelease(): CachedRelease | null {
+      try {
+        const cached = localStorage.getItem(CACHE_KEY);
+        if (!cached) return null;
+        const data = JSON.parse(cached);
+        if (Date.now() - data.timestamp < CACHE_DURATION) {
+          return data;
+        }
+        return null;
+      } catch {
+        return null;
+      }
+    }
+
+    function setCachedRelease(release: { tag_name: string; published_at: string; html_url: string }): void {
+      try {
+        localStorage.setItem(CACHE_KEY, JSON.stringify({
+          ...release,
+          timestamp: Date.now()
+        }));
+      } catch {
+        // localStorage might be full or disabled
+      }
+    }
+
+    function updateUI(tagName: string, publishedAt: string, htmlUrl: string): void {
+      const versionText = document.getElementById('version-text');
+      const releaseDate = document.getElementById('release-date');
+      const releaseLink = document.getElementById('release-link') as HTMLAnchorElement | null;
+
+      if (versionText) {
+        versionText.textContent = tagName;
+      }
+      if (releaseDate && publishedAt) {
+        const formattedDate = new Date(publishedAt).toLocaleDateString('en-US', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        });
+        releaseDate.textContent = ` · ${formattedDate}`;
+      }
+      if (releaseLink && htmlUrl) {
+        releaseLink.href = htmlUrl;
+      }
+    }
+
+    async function fetchLatestRelease(): Promise<void> {
+      // Check cache first
+      const cached = getCachedRelease();
+      if (cached) {
+        updateUI(cached.tag_name, cached.published_at, cached.html_url);
+        return;
+      }
+
+      try {
+        const response = await fetch('https://api.github.com/repos/SchoolyB/EZ/releases/latest', {
+          headers: {
+            'Accept': 'application/vnd.github.v3+json',
+            'User-Agent': 'EZ-Docs-Site'
+          }
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setCachedRelease(data);
+          updateUI(data.tag_name, data.published_at, data.html_url);
+        } else {
+          const versionText = document.getElementById('version-text');
+          if (versionText) versionText.textContent = 'latest';
+        }
+      } catch {
+        const versionText = document.getElementById('version-text');
+        if (versionText) versionText.textContent = 'latest';
+      }
+    }
+
+    // Run on initial load
+    fetchLatestRelease();
+
+    // Run on Astro page navigation
+    document.addEventListener('astro:after-swap', fetchLatestRelease);
+  </script>
 </BaseLayout>
