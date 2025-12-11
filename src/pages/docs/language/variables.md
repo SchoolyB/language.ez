@@ -174,6 +174,48 @@ temp ages map = {
 temp scores map[string:int] = {"math": 95, "english": 88}
 ```
 
+## Blank Identifier
+
+The underscore `_` serves as a blank identifier for discarding unwanted values in multi-value assignments.
+
+### Basic Usage
+
+```ez
+// Discard the second return value
+temp result, _ = divide_with_remainder(10, 3)
+std.println(result)  // 3
+```
+
+### Multiple Discards
+
+```ez
+// Keep only the middle value
+temp _, middle, _ = get_three_values()
+```
+
+### Common Use Case: Ignoring Errors
+
+```ez
+do read_file(path string) -> string, string {
+    // Returns (content, error)
+    return "file content", ""
+}
+
+do main() {
+    // When you're confident there's no error:
+    temp content, _ = read_file("config.ez")
+    std.println(content)
+}
+```
+
+### Rules
+
+- `_` can appear multiple times in the same assignment
+- Values assigned to `_` are evaluated but not stored
+- `_` cannot be read from (it's write-only)
+
+---
+
 ## Variable Scope
 
 Variables are scoped to their containing block:

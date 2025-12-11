@@ -95,6 +95,102 @@ const config Config = Config{debug: true}
 
 > **Note:** The `&` mutable parameter syntax applies to user-defined functions only. Standard library functions that modify data (like `arrays.append()`) require the variable to be declared with `temp`, not `const`.
 
+## Default Parameter Values
+
+Parameters can have default values, making them optional when calling the function:
+
+```ez
+import @std
+
+do greet(name string = "World") -> string {
+    return "Hello, ${name}!"
+}
+
+do main() {
+    std.println(greet())        // Hello, World!
+    std.println(greet("Alice")) // Hello, Alice!
+}
+```
+
+### Mixed Required and Optional Parameters
+
+Required parameters must come before parameters with defaults:
+
+```ez
+import @std
+
+do create_player(name string, health int = 100, mana int = 50) -> string {
+    return "${name}: HP=${health}, MP=${mana}"
+}
+
+do main() {
+    std.println(create_player("Hero"))           // Hero: HP=100, MP=50
+    std.println(create_player("Boss", 200))      // Boss: HP=200, MP=50
+    std.println(create_player("Wizard", 80, 150)) // Wizard: HP=80, MP=150
+}
+```
+
+### All Parameters with Defaults
+
+```ez
+import @std
+
+do config(debug bool = false, verbose bool = true, level int = 1) -> string {
+    return "debug=${debug}, verbose=${verbose}, level=${level}"
+}
+
+do main() {
+    std.println(config())       // debug=false, verbose=true, level=1
+    std.println(config(true))   // debug=true, verbose=true, level=1
+}
+```
+
+### Expression Defaults
+
+Default values can be expressions:
+
+```ez
+import @std
+
+do calculate(multiplier float = 3.14 * 2.0) -> float {
+    return multiplier
+}
+
+do main() {
+    std.println(calculate())    // 6.28
+    std.println(calculate(2.0)) // 2.0
+}
+```
+
+### Grouped Parameters with Default
+
+When grouping parameters of the same type, only the last can have a default:
+
+```ez
+import @std
+
+do point(x, y int = 0) -> string {
+    return "(${x}, ${y})"
+}
+
+do main() {
+    std.println(point(5))    // (5, 0)
+    std.println(point(3, 4)) // (3, 4)
+}
+```
+
+### Default Parameter Rules
+
+- Required parameters must come before optional parameters
+- Mutable parameters (`&`) cannot have default values
+- Default values are evaluated at call time
+
+**Related Errors:**
+- [E2039](/language.ez/errors/E2039): required parameter after parameter with default
+- [E2040](/language.ez/errors/E2040): mutable parameter cannot have default value
+
+---
+
 ## Type Sharing
 
 Parameters of the same type can share a type annotation:
@@ -181,6 +277,10 @@ do main() {
 
     temp min, max = minmax(5, 2, 8)
     std.println("min:", min, "max:", max)  // min: 2 max: 8
+
+    // Use _ to discard unwanted return values
+    temp quotient, _ = divmod(10, 3)
+    std.println("quotient only:", quotient)  // 3
 }
 ```
 

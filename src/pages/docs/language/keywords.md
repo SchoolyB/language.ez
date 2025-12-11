@@ -241,6 +241,52 @@ if 2 in nums {
 }
 ```
 
+### when
+
+Starts a pattern matching block — like `switch` in other languages.
+
+```ez
+import @std
+
+temp day int = 3
+
+when day {
+    is 1 { std.println("Monday") }
+    is 2 { std.println("Tuesday") }
+    is 3 { std.println("Wednesday") }
+    default { std.println("Other day") }
+}
+```
+
+**Why "when"?** Reads naturally: "*when* day *is* 1, do this."
+
+### is
+
+Specifies a case in a `when` block.
+
+```ez
+when value {
+    is 1 { /* matches 1 */ }
+    is 2, 3, 4 { /* matches 2, 3, or 4 */ }
+    is range(5, 10) { /* matches 5-9 */ }
+    default { /* fallback */ }
+}
+```
+
+### default
+
+The fallback case in a `when` block — executes when no `is` case matches.
+
+```ez
+when status {
+    is "active" { /* handle active */ }
+    is "pending" { /* handle pending */ }
+    default { /* handle all other cases */ }
+}
+```
+
+**Note:** `default` is required unless using `@(strict)` with an enum that has all cases covered.
+
 ## Types
 
 ### Primitive Types
@@ -401,6 +447,9 @@ temp hasError bool = false
 | `for_each` | `for...of`, `for...in`, `foreach` | Iterate collection |
 | `as_long_as` | `while` | Conditional loop |
 | `loop` | `while(true)`, `loop` | Infinite loop |
+| `when` | `switch`, `match` | Pattern matching |
+| `is` | `case` | Pattern case |
+| `default` | `default`, `_` | Fallback case |
 
 <script>
   function initKeywordFilter() {

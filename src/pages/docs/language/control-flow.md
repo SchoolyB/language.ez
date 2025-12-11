@@ -283,6 +283,179 @@ for i in range(0, 3) {
 }
 ```
 
+## Pattern Matching
+
+### when / is
+
+The `when/is` statement provides pattern matching, similar to switch/case in other languages. It's cleaner than long `if/or/otherwise` chains when matching against specific values.
+
+```ez
+import @std
+
+temp x int = 2
+
+when x {
+    is 1 { std.println("one") }
+    is 2 { std.println("two") }
+    is 3 { std.println("three") }
+    default { std.println("other") }
+}
+// Output: two
+```
+
+### Multiple Values Per Case
+
+Match against several values in a single case:
+
+```ez
+import @std
+
+temp day int = 6
+
+when day {
+    is 1, 2, 3, 4, 5 { std.println("weekday") }
+    is 6, 7 { std.println("weekend") }
+    default { std.println("invalid") }
+}
+// Output: weekend
+```
+
+### Range Matching
+
+Use `range()` to match value ranges:
+
+```ez
+import @std
+
+temp score int = 85
+
+when score {
+    is range(0, 60) { std.println("F") }
+    is range(60, 70) { std.println("D") }
+    is range(70, 80) { std.println("C") }
+    is range(80, 90) { std.println("B") }
+    is range(90, 101) { std.println("A") }
+    default { std.println("Invalid") }
+}
+// Output: B
+```
+
+### String Matching
+
+```ez
+import @std
+
+temp color string = "green"
+
+when color {
+    is "red" { std.println("stop") }
+    is "yellow" { std.println("caution") }
+    is "green" { std.println("go") }
+    default { std.println("unknown") }
+}
+// Output: go
+```
+
+### Enum Matching
+
+```ez
+import @std
+
+const Status enum {
+    PENDING,
+    ACTIVE,
+    DONE
+}
+
+temp status = Status.ACTIVE
+
+when status {
+    is Status.PENDING { std.println("waiting") }
+    is Status.ACTIVE { std.println("working") }
+    is Status.DONE { std.println("finished") }
+    default { std.println("unknown") }
+}
+// Output: working
+```
+
+### Strict Enum Matching
+
+The `@(strict)` attribute enforces exhaustive case coverage for enums — all enum values must be handled, and no `default` case is allowed:
+
+```ez
+import @std
+
+const Status enum {
+    PENDING,
+    ACTIVE,
+    DONE
+}
+
+temp s = Status.DONE
+
+@(strict)
+when s {
+    is Status.PENDING { std.println("pending") }
+    is Status.ACTIVE { std.println("active") }
+    is Status.DONE { std.println("done") }
+}
+// All enum values must be covered - no default allowed
+```
+
+### Nested When Statements
+
+```ez
+import @std
+
+temp category int = 1
+temp subcategory int = 2
+
+when category {
+    is 1 {
+        when subcategory {
+            is 1 { std.println("1-1") }
+            is 2 { std.println("1-2") }
+            default { std.println("1-other") }
+        }
+    }
+    is 2 {
+        std.println("category-2")
+    }
+    default {
+        std.println("other-category")
+    }
+}
+// Output: 1-2
+```
+
+### Valid When Conditions
+
+`when` works with:
+
+- Integer types: `int`, `i8`, `i16`, `i32`, `i64`, `i128`
+- Unsigned integers: `uint`, `u8`, `u16`, `u32`, `u64`, `u128`
+- Characters: `char`
+- Strings: `string`
+- Enum values
+- Function calls returning allowed types
+
+### Invalid When Conditions
+
+These will cause compile errors:
+
+- **Type names** — use a variable instead
+- **Boolean values or expressions** — use `if/otherwise`
+- **`nil` values** — use `if/otherwise` to check for nil
+- **Arrays or maps** — not supported as when conditions
+
+**Related Errors:**
+- [E2041](/language.ez/errors/E2041): when statement requires a default case
+- [E2042](/language.ez/errors/E2042): strict when statement cannot have a default case
+- [E2043](/language.ez/errors/E2043): duplicate case value in when statement
+- [E2048](/language.ez/errors/E2048): when condition cannot be a boolean
+
+---
+
 ## Membership Operators
 
 ### in / !in

@@ -64,6 +64,35 @@ ez version
 
 ---
 
+## Updating EZ
+
+EZ includes a built-in update command to keep your installation current.
+
+### Check for Updates
+
+When you run any `ez` command, it will notify you if a new version is available:
+
+```
+Note: EZ v0.19.0 available (you have v0.18.0). Run `ez update` to upgrade.
+```
+
+### Update to Latest Version
+
+```bash
+# macOS / Linux (requires sudo for system-wide install)
+sudo ez update
+
+# Windows (run as Administrator)
+ez update
+```
+
+This will:
+1. Check for the latest version
+2. Download the appropriate binary for your platform
+3. Replace the current installation
+
+---
+
 <div class="mt-8 text-center">
   <p class="text-base opacity-50 mb-3">Next Step</p>
   <a href="/language.ez/docs" class="inline-flex items-center gap-3 text-2xl font-bold hover:opacity-70 transition-opacity">

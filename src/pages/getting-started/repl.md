@@ -204,6 +204,40 @@ ez> int(17.0 / 5.0)
 3
 ```
 
+## Line Editor
+
+The REPL features a full interactive line editor for comfortable editing.
+
+### Arrow Key Navigation
+
+- **Left/Right arrows** — Move cursor within the current line
+- **Up/Down arrows** — Browse through command history
+- **Home/End** — Jump to beginning/end of line
+
+### Editing Shortcuts
+
+| Shortcut | Action |
+|----------|--------|
+| `Backspace` | Delete character before cursor |
+| `Delete` | Delete character at cursor |
+| `Ctrl+C` | Cancel current line |
+| `Ctrl+D` | Exit REPL |
+| `Ctrl+L` | Clear screen |
+
+### Command History
+
+The REPL automatically saves your command history, allowing you to recall and re-execute previous commands:
+
+```
+ez> temp x = 10
+ez> temp y = 20
+ez> println(x + y)
+30
+ez> [press up arrow to recall "println(x + y)"]
+```
+
+---
+
 ## Tips
 
 - **Use tab completion** — Press Tab to auto-complete variable and function names

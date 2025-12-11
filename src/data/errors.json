@@ -496,6 +496,186 @@
       "relatedErrors": ["E2011"]
     },
     {
+      "code": "E2033",
+      "slug": "reserved-param-name",
+      "message": "parameter name is reserved keyword or builtin",
+      "usedFor": "Using a reserved keyword or builtin name as a function parameter",
+      "example": "parameter name 'int' is reserved",
+      "category": "parse",
+      "howToFix": "Choose a different parameter name that is not a reserved keyword or builtin.",
+      "relatedErrors": ["E2020", "E2034", "E2035"]
+    },
+    {
+      "code": "E2034",
+      "slug": "invalid-struct-field",
+      "message": "struct field name is reserved keyword or builtin",
+      "usedFor": "Using a reserved keyword or builtin name as a struct field",
+      "example": "struct field name 'const' is reserved",
+      "category": "parse",
+      "howToFix": "Choose a different field name that is not a reserved keyword or builtin.",
+      "relatedErrors": ["E2033", "E2035"]
+    },
+    {
+      "code": "E2035",
+      "slug": "invalid-enum-value",
+      "message": "enum value name is reserved keyword or builtin",
+      "usedFor": "Using a reserved keyword or builtin name as an enum value",
+      "example": "enum value name 'true' is reserved",
+      "category": "parse",
+      "howToFix": "Choose a different enum value name that is not a reserved keyword or builtin.",
+      "relatedErrors": ["E2033", "E2034"]
+    },
+    {
+      "code": "E2036",
+      "slug": "import-inside-block",
+      "message": "import must be at file level",
+      "usedFor": "Import statement inside a function or block",
+      "example": "import statement must be at file level, not inside a function",
+      "category": "parse",
+      "howToFix": "Move the import statement to the top of the file, outside of any function or block.",
+      "relatedErrors": ["E2009", "E2010"]
+    },
+    {
+      "code": "E2037",
+      "slug": "reserved-struct-name",
+      "message": "struct name is reserved",
+      "usedFor": "Using a reserved keyword or builtin type as a struct name",
+      "example": "struct name 'int' is reserved",
+      "category": "parse",
+      "howToFix": "Choose a different struct name that is not a reserved keyword or builtin type.",
+      "relatedErrors": ["E2022", "E2038"]
+    },
+    {
+      "code": "E2038",
+      "slug": "reserved-enum-name",
+      "message": "enum name is reserved",
+      "usedFor": "Using a reserved keyword or builtin type as an enum name",
+      "example": "enum name 'bool' is reserved",
+      "category": "parse",
+      "howToFix": "Choose a different enum name that is not a reserved keyword or builtin type.",
+      "relatedErrors": ["E2022", "E2037"]
+    },
+    {
+      "code": "E2039",
+      "slug": "required-after-default",
+      "message": "required parameter after parameter with default",
+      "usedFor": "Declaring a required parameter after an optional parameter with a default value",
+      "example": "required parameter 'y' cannot come after parameter 'x' which has a default value",
+      "category": "parse",
+      "howToFix": "Move required parameters before parameters with default values. Required parameters must come first.",
+      "relatedErrors": ["E2040"]
+    },
+    {
+      "code": "E2040",
+      "slug": "mutable-with-default",
+      "message": "mutable parameter cannot have default value",
+      "usedFor": "Declaring a mutable (&) parameter with a default value",
+      "example": "mutable parameter '&p' cannot have a default value",
+      "category": "parse",
+      "howToFix": "Remove either the `&` modifier or the default value. Mutable parameters cannot have defaults.",
+      "relatedErrors": ["E2039"]
+    },
+    {
+      "code": "E2041",
+      "slug": "when-missing-default",
+      "message": "when statement requires a default case",
+      "usedFor": "When statement without a default case (unless using @(strict) with enum)",
+      "example": "when statement requires a default case",
+      "category": "parse",
+      "howToFix": "Add a `default { }` case to handle values not covered by `is` cases, or use `@(strict)` with an enum.",
+      "relatedErrors": ["E2042", "E2043"]
+    },
+    {
+      "code": "E2042",
+      "slug": "when-strict-has-default",
+      "message": "strict when statement cannot have a default case",
+      "usedFor": "@(strict) when statement that includes a default case",
+      "example": "strict when statement cannot have a default case",
+      "category": "parse",
+      "howToFix": "Remove the `default` case. Strict when statements must cover all enum values explicitly.",
+      "relatedErrors": ["E2041", "E2046"]
+    },
+    {
+      "code": "E2043",
+      "slug": "when-duplicate-case",
+      "message": "duplicate case value in when statement",
+      "usedFor": "Same value appears in multiple `is` cases",
+      "example": "duplicate case value '1' in when statement",
+      "category": "parse",
+      "howToFix": "Remove the duplicate case value. Each value can only appear once in a when statement.",
+      "relatedErrors": ["E2041"]
+    },
+    {
+      "code": "E2044",
+      "slug": "when-float-not-allowed",
+      "message": "float type not allowed in when statement",
+      "usedFor": "Using a float value as a when condition",
+      "example": "float type not allowed in when statement",
+      "category": "parse",
+      "howToFix": "Use `if/or/otherwise` for float comparisons instead of `when`. Floats are not exact and shouldn't be used for pattern matching.",
+      "relatedErrors": ["E2048"]
+    },
+    {
+      "code": "E2045",
+      "slug": "when-strict-non-enum",
+      "message": "strict attribute only allowed on enum when statements",
+      "usedFor": "@(strict) attribute on a when statement that doesn't match an enum",
+      "example": "@(strict) can only be used with enum when statements",
+      "category": "parse",
+      "howToFix": "Remove the `@(strict)` attribute. It can only be used when the when condition is an enum value.",
+      "relatedErrors": ["E2042", "E2046"]
+    },
+    {
+      "code": "E2046",
+      "slug": "when-strict-missing-case",
+      "message": "strict when statement missing enum case",
+      "usedFor": "@(strict) when statement that doesn't cover all enum values",
+      "example": "strict when statement missing case for 'Status.PENDING'",
+      "category": "parse",
+      "howToFix": "Add an `is` case for each enum value. Strict when statements must be exhaustive.",
+      "relatedErrors": ["E2042", "E2045"]
+    },
+    {
+      "code": "E2047",
+      "slug": "when-type-as-condition",
+      "message": "when condition must be a value, not a type name",
+      "usedFor": "Using a type name instead of a variable as when condition",
+      "example": "when condition must be a value, not a type name 'int'",
+      "category": "parse",
+      "howToFix": "Use a variable or expression that evaluates to a value, not a type name.",
+      "relatedErrors": ["E2048", "E2049"]
+    },
+    {
+      "code": "E2048",
+      "slug": "when-bool-condition",
+      "message": "when condition cannot be a boolean. Use if/or/otherwise instead",
+      "usedFor": "Using a boolean value or expression as when condition",
+      "example": "when condition cannot be a boolean. Use if/or/otherwise instead",
+      "category": "parse",
+      "howToFix": "Use `if/or/otherwise` for boolean conditions. The `when` statement is for pattern matching on discrete values.",
+      "relatedErrors": ["E2044", "E2049"]
+    },
+    {
+      "code": "E2049",
+      "slug": "when-nil-condition",
+      "message": "when condition cannot be nil. Use if/otherwise to check for nil",
+      "usedFor": "Using nil as when condition",
+      "example": "when condition cannot be nil. Use if/otherwise to check for nil",
+      "category": "parse",
+      "howToFix": "Use `if value == nil { } otherwise { }` to check for nil values.",
+      "relatedErrors": ["E2047", "E2050"]
+    },
+    {
+      "code": "E2050",
+      "slug": "when-collection-condition",
+      "message": "when condition cannot be an array or map",
+      "usedFor": "Using an array or map as when condition",
+      "example": "when condition cannot be an array or map",
+      "category": "parse",
+      "howToFix": "Arrays and maps cannot be used as when conditions. Use `if/or/otherwise` for collection comparisons.",
+      "relatedErrors": ["E2047", "E2048", "E2049"]
+    },
+    {
       "code": "E3001",
       "slug": "type-mismatch",
       "message": "types do not match",
@@ -734,6 +914,56 @@
       "category": "type",
       "howToFix": "Add a return statement with a value matching the declared return type.",
       "relatedErrors": ["E3012", "E3013"]
+    },
+    {
+      "code": "E3025",
+      "slug": "byte-value-out-of-range",
+      "message": "byte value must be between 0 and 255",
+      "usedFor": "Assigning a value outside the byte range (0-255) to a byte variable",
+      "example": "byte value must be between 0 and 255, got 300",
+      "category": "type",
+      "howToFix": "Ensure the value assigned to a byte is within the valid range of 0 to 255.",
+      "relatedErrors": ["E3026"]
+    },
+    {
+      "code": "E3026",
+      "slug": "byte-array-element-out-of-range",
+      "message": "byte array element must be between 0 and 255",
+      "usedFor": "Array literal for byte array contains a value outside 0-255",
+      "example": "byte array element must be between 0 and 255, got 256",
+      "category": "type",
+      "howToFix": "Ensure all elements in a byte array literal are within the valid range of 0 to 255.",
+      "relatedErrors": ["E3025"]
+    },
+    {
+      "code": "E3027",
+      "slug": "const-to-mutable-param",
+      "message": "cannot pass immutable variable to mutable parameter",
+      "usedFor": "Passing a const variable to a function parameter declared with &",
+      "example": "cannot pass immutable variable 'config' to mutable parameter '&p'",
+      "category": "type",
+      "howToFix": "Use a `temp` variable instead of `const`, or remove the `&` from the parameter if mutation is not needed.",
+      "relatedErrors": ["E5006", "E5016"]
+    },
+    {
+      "code": "E3028",
+      "slug": "enum-mixed-types",
+      "message": "enum members must all have the same type",
+      "usedFor": "Enum declaration with members of different types",
+      "example": "enum members must all have the same type",
+      "category": "type",
+      "howToFix": "Ensure all enum members have the same underlying type (all ints or all strings).",
+      "relatedErrors": ["E2026"]
+    },
+    {
+      "code": "E3029",
+      "slug": "float-enum-map-key",
+      "message": "float-based enum cannot be used as map key",
+      "usedFor": "Using a float-based enum as a map key",
+      "example": "float-based enum cannot be used as map key",
+      "category": "type",
+      "howToFix": "Use an int or string-based enum for map keys. Float-based enums cannot be used as map keys due to precision issues.",
+      "relatedErrors": ["E12001"]
     },
     {
       "code": "E4001",
@@ -1546,6 +1776,16 @@
       "relatedErrors": []
     },
     {
+      "code": "E8007",
+      "slug": "map-range-div-zero",
+      "message": "map_range requires in_min != in_max",
+      "usedFor": "math.map_range() called with equal in_min and in_max values",
+      "example": "math.map_range() requires in_min != in_max to avoid division by zero",
+      "category": "math",
+      "howToFix": "Ensure in_min and in_max are different values to avoid division by zero.",
+      "relatedErrors": ["E5001"]
+    },
+    {
       "code": "E9001",
       "slug": "array-is-empty",
       "message": "operation requires non-empty array",
@@ -1654,6 +1894,26 @@
       "category": "map",
       "howToFix": "Check if the key exists using `maps.has(m, key)` before accessing.",
       "relatedErrors": ["E5003"]
+    },
+    {
+      "code": "E12004",
+      "slug": "map-invalid-pair",
+      "message": "map entry must be a [key, value] pair",
+      "usedFor": "Invalid format when creating a map from entries",
+      "example": "map entry must be a [key, value] pair",
+      "category": "map",
+      "howToFix": "Ensure each map entry is a two-element array containing [key, value].",
+      "relatedErrors": ["E12001"]
+    },
+    {
+      "code": "E12005",
+      "slug": "map-value-not-hashable",
+      "message": "map value is not hashable and cannot become a key",
+      "usedFor": "Using maps.invert() when values are not hashable types",
+      "example": "map value is not hashable and cannot become a key",
+      "category": "map",
+      "howToFix": "Map keys must be hashable (string, int, float, bool, char). Values like arrays, maps, or structs cannot become keys.",
+      "relatedErrors": ["E12001"]
     },
     {
       "code": "W1001",
