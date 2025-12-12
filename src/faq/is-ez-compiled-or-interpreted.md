@@ -27,9 +27,11 @@ This means:
 The goal is to one day add compilation. This would let you:
 
 ```bash
-ez build myprogram.ez -o myprogram    # Compile to binary
-./myprogram                            # Run standalone
+ez compile myprogram.ez -o myprogram    # Compile to binary (planned)
+./myprogram                              # Run standalone
 ```
+
+> **Note:** This syntax is hypothetical — compilation is not yet implemented.
 
 Benefits of compilation:
 - **Single binary distribution** — Give someone one file, it just works

@@ -158,7 +158,18 @@ import @math
 math.PI                   // 3.14159...
 math.sqrt(16.0)           // 4.0
 math.pow(2.0, 8.0)        // 256.0
-math.random(1, 100)       // Random int 1-99
+```
+
+### @random
+
+Random number generation:
+
+```ez
+import @random
+
+random.int(1, 100)        // Random int 1-99
+random.float()            // Random float 0.0-1.0
+random.choice(arr)        // Random element from array
 ```
 
 ### @arrays

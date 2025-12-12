@@ -6,7 +6,7 @@ description: 'Enumerated types in EZ.'
 
 # Enums
 
-Enums (enumerations) define a type with a fixed set of named values. EZ supports integer, float, and string enums with optional auto-increment behavior.
+Enums (enumerations) define a type with a fixed set of named values. EZ supports integer, float, and string enums.
 
 ## Basic Integer Enums
 
@@ -32,13 +32,13 @@ do main() {
 
 ## Enum Type Attributes
 
-Use `@()` attributes to control enum behavior:
+Use `@enum(type)` to specify the enum's underlying type.
 
 ### Integer Enums
 
 ```ez
-// Explicit integer type (default behavior)
-@(int)
+// Explicit integer type (same as default)
+@enum(int)
 const Priority enum {
     LOW       // 0
     MEDIUM    // 1
@@ -46,49 +46,12 @@ const Priority enum {
 }
 ```
 
-### Integer Enums with Skip
+### Float Enums
 
-Use `skip` to increment by a value other than 1:
-
-```ez
-@(int, skip, 10)
-const ErrorCode enum {
-    SUCCESS    // 0
-    WARNING    // 10
-    ERROR      // 20
-    CRITICAL   // 30
-}
-
-do main() {
-    std.println(ErrorCode.SUCCESS)   // 0
-    std.println(ErrorCode.WARNING)   // 10
-    std.println(ErrorCode.ERROR)     // 20
-    std.println(ErrorCode.CRITICAL)  // 30
-}
-```
-
-### Manual Value Overrides
-
-Override specific values while keeping auto-increment:
-
-The `skip` value tells EZ how much to increment between values (default is 1). This is useful for error codes, HTTP statuses, or any sequence with gaps:
+Float enums require explicit values for all members:
 
 ```ez
-@(int, skip, 10)
-const HttpStatus enum {
-    OK = 200
-    CREATED         // 210 (200 + 10)
-    BAD_REQUEST = 400
-    UNAUTHORIZED    // 410 (400 + 10)
-    NOT_FOUND = 404
-    SERVER_ERROR    // 414 (404 + 10)
-}
-```
-
-## Float Enums
-
-```ez
-@(float)
+@enum(float)
 const Grade enum {
     A = 4.0
     B = 3.0
@@ -97,25 +60,18 @@ const Grade enum {
     F = 0.0
 }
 
-@(float, skip, 0.5)
-const Precision enum {
-    LOW = 0.0
-    MEDIUM     // 0.5
-    HIGH       // 1.0
-}
-
 do main() {
     temp grade float = Grade.A
     std.println("GPA:", grade)  // 4.0
 }
 ```
 
-## String Enums
+### String Enums
 
 String enums require explicit values for all members:
 
 ```ez
-@(string)
+@enum(string)
 const Color enum {
     RED = "red"
     GREEN = "green"
@@ -123,7 +79,7 @@ const Color enum {
     YELLOW = "yellow"
 }
 
-@(string)
+@enum(string)
 const Direction enum {
     NORTH = "N"
     SOUTH = "S"
@@ -139,6 +95,95 @@ do main() {
     if dir == Direction.NORTH {
         std.println("Going north!")
     }
+}
+```
+
+## Flag Enums
+
+Use `@flags` for bitwise flag enums with power-of-2 values:
+
+```ez
+@flags
+const Permissions enum {
+    READ      // 1
+    WRITE     // 2
+    EXECUTE   // 4
+    DELETE    // 8
+}
+
+do main() {
+    // Combine flags with bitwise OR
+    temp userPerms int = Permissions.READ || Permissions.WRITE
+    std.println("User permissions:", userPerms)  // 3
+
+    // Check individual flags with bitwise AND
+    if (userPerms && Permissions.READ) != 0 {
+        std.println("User can read")
+    }
+
+    if (userPerms && Permissions.DELETE) == 0 {
+        std.println("User cannot delete")
+    }
+}
+```
+
+### Flag Enum Values
+
+`@flags` automatically assigns power-of-2 values:
+
+```ez
+@flags
+const FileMode enum {
+    NONE       // 0 (special case: first flag is 0)
+    READ       // 1
+    WRITE      // 2
+    APPEND     // 4
+    CREATE     // 8
+    TRUNCATE   // 16
+}
+```
+
+This is equivalent to manually assigning:
+
+```ez
+const FileMode enum {
+    NONE = 0
+    READ = 1
+    WRITE = 2
+    APPEND = 4
+    CREATE = 8
+    TRUNCATE = 16
+}
+```
+
+## Manual Value Assignment
+
+You can assign explicit values to any enum member:
+
+```ez
+const HttpStatus enum {
+    OK = 200
+    CREATED = 201
+    BAD_REQUEST = 400
+    UNAUTHORIZED = 401
+    NOT_FOUND = 404
+    SERVER_ERROR = 500
+}
+
+do main() {
+    temp status int = HttpStatus.NOT_FOUND
+    std.println("Status code:", status)  // 404
+}
+```
+
+For integer enums without explicit values, auto-increment continues from the last assigned value:
+
+```ez
+const ErrorCode enum {
+    SUCCESS = 0
+    WARNING = 100
+    ERROR           // 101
+    CRITICAL        // 102
 }
 ```
 
@@ -169,6 +214,31 @@ if status == Status.PENDING {
 } or status == Status.DONE {
     std.println("Completed!")
 }
+```
+
+### With when/is Statements
+
+```ez
+temp status int = Status.ACTIVE
+
+when status {
+    is Status.PENDING { std.println("Waiting...") }
+    is Status.ACTIVE { std.println("In progress...") }
+    is Status.DONE { std.println("Completed!") }
+    default { std.println("Unknown status") }
+}
+```
+
+Use `@strict` to ensure all enum cases are handled:
+
+```ez
+@strict
+when status {
+    is Status.PENDING { std.println("Waiting...") }
+    is Status.ACTIVE { std.println("In progress...") }
+    is Status.DONE { std.println("Completed!") }
+}
+// No default needed - compiler ensures all cases are covered
 ```
 
 ### In Arrays
@@ -209,14 +279,11 @@ const LogLevel enum {
 }
 
 do log(level int, message string) {
-    if level == LogLevel.ERROR {
-        std.println("[ERROR]", message)
-    } or level == LogLevel.WARNING {
-        std.println("[WARN]", message)
-    } or level == LogLevel.INFO {
-        std.println("[INFO]", message)
-    } otherwise {
-        std.println("[DEBUG]", message)
+    when level {
+        is LogLevel.ERROR { std.println("[ERROR]", message) }
+        is LogLevel.WARNING { std.println("[WARN]", message) }
+        is LogLevel.INFO { std.println("[INFO]", message) }
+        default { std.println("[DEBUG]", message) }
     }
 }
 
@@ -231,7 +298,6 @@ do main() {
 Use `int()` to explicitly convert enum values:
 
 ```ez
-@(int, skip, 10)
 const Priority enum {
     LOW
     MEDIUM
@@ -243,11 +309,11 @@ do main() {
     temp p int = Priority.HIGH
     temp value int = int(Priority.HIGH)
 
-    std.println("Priority.HIGH =", value)  // 20
+    std.println("Priority.HIGH =", value)  // 2
 
     // Use in arithmetic
     temp adjusted int = int(Priority.MEDIUM) + 5
-    std.println("Adjusted:", adjusted)  // 15
+    std.println("Adjusted:", adjusted)  // 6
 }
 ```
 
@@ -261,12 +327,22 @@ Enum type attributes only accept primitive types:
 
 Arrays, structs, and other complex types cannot be used as enum types.
 
+## Attribute Summary
+
+| Attribute | Description | Example |
+|-----------|-------------|---------|
+| (none) | Integer enum, values 0, 1, 2... | `const Status enum { ... }` |
+| `@enum(int)` | Explicit integer enum | `@enum(int) const Status enum { ... }` |
+| `@enum(float)` | Float enum (requires explicit values) | `@enum(float) const Grade enum { A = 4.0 ... }` |
+| `@enum(string)` | String enum (requires explicit values) | `@enum(string) const Color enum { RED = "red" ... }` |
+| `@flags` | Bitwise flags with power-of-2 values | `@flags const Perms enum { READ, WRITE ... }` |
+
 ## Example Program
 
 ```ez
 import @std
 
-@(string)
+@enum(string)
 const TaskStatus enum {
     TODO = "todo"
     IN_PROGRESS = "in-progress"
@@ -274,9 +350,8 @@ const TaskStatus enum {
     DONE = "done"
 }
 
-@(int, skip, 1)
 const Priority enum {
-    LOW = 1
+    LOW
     MEDIUM
     HIGH
     URGENT
@@ -289,14 +364,11 @@ const Task struct {
 }
 
 do priorityLabel(p int) -> string {
-    if p == Priority.URGENT {
-        return "URGENT"
-    } or p == Priority.HIGH {
-        return "High"
-    } or p == Priority.MEDIUM {
-        return "Medium"
-    } otherwise {
-        return "Low"
+    when p {
+        is Priority.URGENT { return "URGENT" }
+        is Priority.HIGH { return "High" }
+        is Priority.MEDIUM { return "Medium" }
+        default { return "Low" }
     }
 }
 

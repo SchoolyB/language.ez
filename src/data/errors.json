@@ -579,17 +579,17 @@
       "code": "E2041",
       "slug": "when-missing-default",
       "message": "when statement requires a default case",
-      "usedFor": "When statement without a default case (unless using @(strict) with enum)",
+      "usedFor": "When statement without a default case (unless using @strict with enum)",
       "example": "when statement requires a default case",
       "category": "parse",
-      "howToFix": "Add a `default { }` case to handle values not covered by `is` cases, or use `@(strict)` with an enum.",
+      "howToFix": "Add a `default { }` case to handle values not covered by `is` cases, or use `@strict` with an enum.",
       "relatedErrors": ["E2042", "E2043"]
     },
     {
       "code": "E2042",
       "slug": "when-strict-has-default",
       "message": "strict when statement cannot have a default case",
-      "usedFor": "@(strict) when statement that includes a default case",
+      "usedFor": "@strict when statement that includes a default case",
       "example": "strict when statement cannot have a default case",
       "category": "parse",
       "howToFix": "Remove the `default` case. Strict when statements must cover all enum values explicitly.",
@@ -619,17 +619,17 @@
       "code": "E2045",
       "slug": "when-strict-non-enum",
       "message": "strict attribute only allowed on enum when statements",
-      "usedFor": "@(strict) attribute on a when statement that doesn't match an enum",
-      "example": "@(strict) can only be used with enum when statements",
+      "usedFor": "@strict attribute on a when statement that doesn't match an enum",
+      "example": "@strict can only be used with enum when statements",
       "category": "parse",
-      "howToFix": "Remove the `@(strict)` attribute. It can only be used when the when condition is an enum value.",
+      "howToFix": "Remove the `@strict` attribute. It can only be used when the when condition is an enum value.",
       "relatedErrors": ["E2042", "E2046"]
     },
     {
       "code": "E2046",
       "slug": "when-strict-missing-case",
       "message": "strict when statement missing enum case",
-      "usedFor": "@(strict) when statement that doesn't cover all enum values",
+      "usedFor": "@strict when statement that doesn't cover all enum values",
       "example": "strict when statement missing case for 'Status.PENDING'",
       "category": "parse",
       "howToFix": "Add an `is` case for each enum value. Strict when statements must be exhaustive.",
@@ -674,6 +674,26 @@
       "category": "parse",
       "howToFix": "Arrays and maps cannot be used as when conditions. Use `if/or/otherwise` for collection comparisons.",
       "relatedErrors": ["E2047", "E2048", "E2049"]
+    },
+    {
+      "code": "E2051",
+      "slug": "suppress-invalid-target",
+      "message": "@suppress can only be applied to function declarations",
+      "usedFor": "Using @suppress attribute on non-function declarations",
+      "example": "@suppress can only be applied to function declarations",
+      "category": "parse",
+      "howToFix": "Move the @suppress attribute to a function declaration. It cannot be used on variables, structs, or other declarations.",
+      "relatedErrors": ["E2052"]
+    },
+    {
+      "code": "E2052",
+      "slug": "suppress-invalid-code",
+      "message": "warning code cannot be suppressed",
+      "usedFor": "Using @suppress with an invalid or unknown warning code",
+      "example": "warning code 'W9999' cannot be suppressed",
+      "category": "parse",
+      "howToFix": "Use a valid warning code with @suppress. Valid codes are W1001-W4001.",
+      "relatedErrors": ["E2051"]
     },
     {
       "code": "E3001",
@@ -1254,6 +1274,26 @@
       "category": "runtime",
       "howToFix": "Add a base case to your recursive function to stop the recursion, or rewrite using iteration.",
       "relatedErrors": []
+    },
+    {
+      "code": "E5019",
+      "slug": "range-step-not-integer",
+      "message": "range step must be integer",
+      "usedFor": "Using a non-integer value as the step argument in range()",
+      "example": "range step must be an integer, got FLOAT",
+      "category": "runtime",
+      "howToFix": "Use an integer value for the step argument in range(). Convert to int if needed.",
+      "relatedErrors": ["E5013", "E5014", "E5020"]
+    },
+    {
+      "code": "E5020",
+      "slug": "range-in-operand-not-integer",
+      "message": "value checked against range must be integer",
+      "usedFor": "Using `in range()` with a non-integer value",
+      "example": "cannot check if float is in range: value must be integer",
+      "category": "runtime",
+      "howToFix": "Convert the value to an integer before checking if it's in a range, or use comparison operators instead.",
+      "relatedErrors": ["E5013", "E5014", "E5019"]
     },
     {
       "code": "E6001",
@@ -1847,13 +1887,33 @@
     },
     {
       "code": "E10002",
-      "slug": "sample-count-exceeds-array",
-      "message": "sample count exceeds array length",
-      "usedFor": "random.sample() called with n greater than array length",
-      "example": "random.sample(): cannot sample 10 elements from array of length 5",
+      "slug": "empty-array-selection",
+      "message": "cannot select from empty array",
+      "usedFor": "random.choice() or random.sample() called on an empty array",
+      "example": "random.choice(): cannot select from empty array",
       "category": "string",
-      "howToFix": "Ensure the sample count is less than or equal to the array length. Use `len(arr)` to check the array size first.",
-      "relatedErrors": ["E7011", "E9001"]
+      "howToFix": "Ensure the array has at least one element before selecting. Use `len(arr) > 0` to check first.",
+      "relatedErrors": ["E9001", "E10003"]
+    },
+    {
+      "code": "E10003",
+      "slug": "string-index-out-of-bounds",
+      "message": "string index out of bounds",
+      "usedFor": "Accessing a character at an invalid index in a string",
+      "example": "string index out of bounds: index 10 on string of length 5",
+      "category": "string",
+      "howToFix": "Ensure the index is within the valid range (0 to len(str)-1). Check string length before indexing.",
+      "relatedErrors": ["E5003", "E10004"]
+    },
+    {
+      "code": "E10004",
+      "slug": "string-empty-index",
+      "message": "cannot index empty string",
+      "usedFor": "Attempting to index an empty string",
+      "example": "cannot index empty string",
+      "category": "string",
+      "howToFix": "Ensure the string is not empty before indexing. Use `len(str) > 0` to check first.",
+      "relatedErrors": ["E5004", "E10003"]
     },
     {
       "code": "E11001",

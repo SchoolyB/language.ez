@@ -285,7 +285,7 @@ when status {
 }
 ```
 
-**Note:** `default` is required unless using `@(strict)` with an enum that has all cases covered.
+**Note:** `default` is required unless using `@strict` with an enum that has all cases covered.
 
 ## Types
 

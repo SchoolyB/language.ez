@@ -380,7 +380,7 @@ when status {
 
 ### Strict Enum Matching
 
-The `@(strict)` attribute enforces exhaustive case coverage for enums — all enum values must be handled, and no `default` case is allowed:
+The `@strict` attribute enforces exhaustive case coverage for enums — all enum values must be handled, and no `default` case is allowed:
 
 ```ez
 import @std
@@ -393,7 +393,7 @@ const Status enum {
 
 temp s = Status.DONE
 
-@(strict)
+@strict
 when s {
     is Status.PENDING { std.println("pending") }
     is Status.ACTIVE { std.println("active") }
@@ -483,6 +483,38 @@ if code in validCodes && code != 100 {
     std.println("Valid non-100 code")
 }
 ```
+
+### Range Checks with in
+
+You can also use `range()` with `in` to check if a value falls within a numeric range:
+
+```ez
+import @std
+
+temp age int = 25
+
+// Check if value is in range (end is exclusive)
+if age in range(18, 65) {
+    std.println("Working age")
+}
+
+// Equivalent to: if age >= 18 && age < 65
+
+temp score int = 85
+
+if score in range(90, 101) {
+    std.println("A grade")
+} or score in range(80, 90) {
+    std.println("B grade")
+} or score in range(70, 80) {
+    std.println("C grade")
+} otherwise {
+    std.println("Below C")
+}
+// Output: B grade
+```
+
+> **Note:** The range end is exclusive, just like in `for` loops. `range(0, 10)` includes 0-9.
 
 ## Example Program
 

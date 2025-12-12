@@ -12,6 +12,8 @@ These functions are built into the language and always available — no imports 
 
 ### input()
 
+`() -> string`
+
 Reads a line of text from stdin.
 
 ```ez
@@ -24,17 +26,26 @@ std.println("Hello, " + name)
 
 ### read_int()
 
-Reads an integer from stdin.
+`() -> (int, Error)`
+
+Reads an integer from stdin. Returns a tuple of the parsed integer and an error (if the input cannot be parsed).
 
 ```ez
 import @std
 
 std.printf("Enter a number: ")
-temp num int = read_int()
-std.println("You entered: " + string(num))
+temp num, err = read_int()
+
+if err != nil {
+    std.println("Invalid input: " + err.message)
+} otherwise {
+    std.println("You entered: " + string(num))
+}
 ```
 
 ### len()
+
+`(value) -> int`
 
 Returns the length of a string, array, or map.
 
@@ -71,6 +82,8 @@ for i in range(0, 10, 2) {
 
 ### typeof()
 
+`(value) -> string`
+
 Returns the type of a value as a string.
 
 ```ez
@@ -84,6 +97,8 @@ std.println(typeof(arr))  // "array"
 ```
 
 ### copy()
+
+`(value) -> value`
 
 Creates a deep copy of a value. Use this when you need an independent copy rather than a reference.
 
@@ -105,11 +120,40 @@ b.age = 31
 - Arrays are copied with all elements
 - Maps are copied with all key-value pairs
 
+### new()
+
+`(StructType) -> StructType`
+
+Creates a new instance of a struct with all fields set to their zero values.
+
+```ez
+const Person struct {
+    name string
+    age int
+    active bool
+}
+
+temp p Person = new(Person)
+// p.name = ""
+// p.age = 0
+// p.active = false
+```
+
+**Zero values by type:**
+- `string` → `""`
+- `int`, `float` → `0`
+- `bool` → `false`
+- `char` → `'\0'`
+- Arrays → empty array
+- Maps → empty map
+
 ## Type Conversion Functions
 
 Convert values between types. These are essential for working with user input, formatting output, and data transformations.
 
 ### int()
+
+`(value) -> int`
 
 Converts a value to an integer.
 
@@ -123,6 +167,8 @@ temp i int = int(f)  // 3 (truncates)
 
 ### float()
 
+`(value) -> float`
+
 Converts a value to a float.
 
 ```ez
@@ -134,6 +180,8 @@ temp pi float = float(s)  // 3.14
 ```
 
 ### string()
+
+`(value) -> string`
 
 Converts a value to a string.
 
@@ -147,6 +195,8 @@ temp bs string = string(b)  // "true"
 
 ### char()
 
+`(int) -> char`
+
 Converts an integer (ASCII/Unicode value) to a character.
 
 ```ez
@@ -155,6 +205,25 @@ temp c char = char(x)  // 'A'
 
 temp newline char = char(10)  // newline character
 ```
+
+### byte()
+
+`(int) -> byte`
+
+Converts an integer to a byte (constrained to 0-255).
+
+```ez
+temp n int = 65
+temp b byte = byte(n)  // 65
+
+temp max byte = byte(255)  // 255
+temp wrapped byte = byte(256)  // Error: value out of range
+```
+
+**Behavior:**
+- Values 0-255 convert directly
+- Values outside 0-255 range produce an error
+- Useful when working with the `@bytes` module
 
 ## Error Handling
 
@@ -178,19 +247,9 @@ if err != nil {
 
 ### error()
 
-Creates a user-defined error.
+`(string) -> Error`
 
-**Syntax:**
-
-```ez
-error(message string) -> Error
-```
-
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `message` | string | The error message |
-
-**Returns:** An `Error` with `.message` set to the argument and `.code` set to empty string.
+Creates a user-defined error. Returns an `Error` with `.message` set to the argument and `.code` set to empty string.
 
 **Single error return:**
 
@@ -240,14 +299,16 @@ do main() {
 | Function | Description | Example |
 |----------|-------------|---------|
 | `input()` | Read line from stdin | `temp name = input()` |
-| `read_int()` | Read integer from stdin | `temp num = read_int()` |
+| `read_int()` | Read integer from stdin | `temp num, err = read_int()` |
 | `len(x)` | Length of string, array, or map | `len("hello")` → `5` |
 | `range(start, end)` | Number sequence for loops | `range(0, 5)` → `0,1,2,3,4` |
 | `range(start, end, step)` | Number sequence with step | `range(0, 10, 2)` → `0,2,4,6,8` |
 | `typeof(x)` | Type name as string | `typeof(42)` → `"int"` |
 | `copy(x)` | Deep copy of a value | `copy(myStruct)` → independent copy |
+| `new(Type)` | Create zero-initialized struct | `new(Person)` → struct with zero values |
 | `int(x)` | Convert to integer | `int("42")` → `42` |
 | `float(x)` | Convert to float | `float(42)` → `42.0` |
 | `string(x)` | Convert to string | `string(42)` → `"42"` |
 | `char(x)` | Convert int to character | `char(65)` → `'A'` |
+| `byte(x)` | Convert int to byte (0-255) | `byte(65)` → `65` |
 | `error(msg)` | Create user-defined error | `error("invalid input")` → `Error` |
