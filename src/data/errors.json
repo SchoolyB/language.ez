@@ -1296,6 +1296,26 @@
       "relatedErrors": ["E5013", "E5014", "E5019"]
     },
     {
+      "code": "E5021",
+      "slug": "panic",
+      "message": "explicit panic called",
+      "usedFor": "Program explicitly called `panic()` to terminate execution",
+      "example": "[PANIC] something went wrong",
+      "category": "runtime",
+      "howToFix": "Investigate the panic message to understand why the program terminated. Fix the underlying condition that caused the panic.",
+      "relatedErrors": ["E5022"]
+    },
+    {
+      "code": "E5022",
+      "slug": "assertion-failed",
+      "message": "assertion condition was false",
+      "usedFor": "An `assert()` check failed because the condition evaluated to false",
+      "example": "[ASSERT] x must be positive",
+      "category": "runtime",
+      "howToFix": "Check that the asserted condition holds true. Review the values being tested and fix the logic that caused the assertion to fail.",
+      "relatedErrors": ["E5021"]
+    },
+    {
       "code": "E6001",
       "slug": "circular-import",
       "message": "circular import detected",
@@ -1696,6 +1716,26 @@
       "relatedErrors": ["E7030"]
     },
     {
+      "code": "E7032",
+      "slug": "sleep-negative",
+      "message": "sleep duration cannot be negative",
+      "usedFor": "Passing a negative value to `sleep_seconds()`, `sleep_milliseconds()`, or `sleep_nanoseconds()`",
+      "example": "sleep_seconds(): duration cannot be negative",
+      "category": "stdlib",
+      "howToFix": "Pass a non-negative value as the sleep duration. Use 0 if you don't want to sleep.",
+      "relatedErrors": ["E7011"]
+    },
+    {
+      "code": "E7033",
+      "slug": "conversion-overflow",
+      "message": "float-to-int conversion overflow",
+      "usedFor": "Converting a float to int when the value is too large, NaN, or Infinity",
+      "example": "int(): float value too large for int64",
+      "category": "stdlib",
+      "howToFix": "Ensure the float value is within the valid int64 range before converting. Check for NaN/Infinity values first.",
+      "relatedErrors": ["E7004", "E7005"]
+    },
+    {
       "code": "E7040",
       "slug": "empty-path",
       "message": "path cannot be empty",
@@ -1864,6 +1904,16 @@
       "category": "array",
       "howToFix": "Chunk size must be greater than zero.",
       "relatedErrors": ["E7012"]
+    },
+    {
+      "code": "E9005",
+      "slug": "range-invalid-bounds",
+      "message": "range start must be less than or equal to end",
+      "usedFor": "Using `range(start, end)` where start > end",
+      "example": "range(10, 5): start must be <= end",
+      "category": "array",
+      "howToFix": "Ensure the start value is less than or equal to the end value. Swap the arguments if needed.",
+      "relatedErrors": ["E5019", "E5020"]
     },
     {
       "code": "E9020",

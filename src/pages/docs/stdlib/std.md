@@ -47,6 +47,87 @@ std.println("Hello, " + name)
 
 **Returns:** Nothing.
 
+### `eprintln()`
+`(values ...any) -> void`
+
+Prints one or more values to stderr, followed by a newline.
+
+```ez
+std.eprintln("Error:", "something failed")
+std.eprintln("Warning: invalid input")
+```
+
+**Parameters:** Any number of values of any type.
+
+**Returns:** Nothing.
+
+### `eprintf()`
+`(values ...any) -> void`
+
+Prints one or more values to stderr without a trailing newline.
+
+```ez
+std.eprintf("Error: ")
+std.eprintln("connection failed")
+```
+
+**Parameters:** Any number of values of any type.
+
+**Returns:** Nothing.
+
+### `sleep_seconds()`
+`(int) -> void`
+
+Pauses execution for the specified number of seconds.
+
+```ez
+std.println("Starting...")
+std.sleep_seconds(2)
+std.println("Done!")  // Printed 2 seconds later
+```
+
+**Parameters:** Number of seconds to sleep (must be non-negative).
+
+**Returns:** Nothing.
+
+| Error Code | Condition |
+|------------|-----------|
+| E7032 | Duration is negative |
+
+### `sleep_milliseconds()`
+`(int) -> void`
+
+Pauses execution for the specified number of milliseconds.
+
+```ez
+std.sleep_milliseconds(500)  // Sleep for half a second
+```
+
+**Parameters:** Number of milliseconds to sleep (must be non-negative).
+
+**Returns:** Nothing.
+
+| Error Code | Condition |
+|------------|-----------|
+| E7032 | Duration is negative |
+
+### `sleep_nanoseconds()`
+`(int) -> void`
+
+Pauses execution for the specified number of nanoseconds.
+
+```ez
+std.sleep_nanoseconds(1000000)  // Sleep for 1 millisecond
+```
+
+**Parameters:** Number of nanoseconds to sleep (must be non-negative).
+
+**Returns:** Nothing.
+
+| Error Code | Condition |
+|------------|-----------|
+| E7032 | Duration is negative |
+
 ## Example Program
 
 ```ez
@@ -61,5 +142,13 @@ do main() {
     std.printf("Enter your name: ")
     temp name string = input()
     std.println("Hello, " + name + "!")
+
+    // Print to stderr
+    std.eprintln("Warning:", "this is a warning message")
+
+    // Sleep functions
+    std.println("Waiting 1 second...")
+    std.sleep_seconds(1)
+    std.println("Done!")
 }
 ```

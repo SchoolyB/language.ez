@@ -8,6 +8,92 @@ description: 'Functions built into EZ that are always available without imports.
 
 These functions are built into the language and always available — no imports needed.
 
+## Program Control
+
+### exit()
+
+`(int) -> void`
+
+Exits the program with the specified status code.
+
+```ez
+// Exit with success
+exit(EXIT_SUCCESS)
+
+// Exit with failure
+exit(EXIT_FAILURE)
+
+// Exit with custom code
+exit(42)
+```
+
+**Parameters:** An integer status code (0 for success, non-zero for failure).
+
+**Returns:** Does not return (terminates the program).
+
+### EXIT_SUCCESS
+
+`int` constant with value `0`
+
+Represents a successful program exit.
+
+```ez
+exit(EXIT_SUCCESS)  // Exit with code 0
+```
+
+### EXIT_FAILURE
+
+`int` constant with value `1`
+
+Represents a failed program exit.
+
+```ez
+exit(EXIT_FAILURE)  // Exit with code 1
+```
+
+### panic()
+
+`(string) -> void`
+
+Terminates the program immediately with a panic message. The message is prefixed with `[PANIC]`.
+
+```ez
+panic("something went wrong")
+// Output: [PANIC] something went wrong
+```
+
+**Parameters:** A string message describing why the program is panicking.
+
+**Returns:** Does not return (terminates the program).
+
+| Error Code | Condition |
+|------------|-----------|
+| E5021 | Panic called |
+
+### assert()
+
+`(bool, string) -> void`
+
+Checks that a condition is true. If the condition is false, terminates the program with an assertion failure message prefixed with `[ASSERT]`.
+
+```ez
+temp x int = 5
+assert(x > 0, "x must be positive")  // Passes
+
+temp y int = -1
+assert(y > 0, "y must be positive")  // Fails: [ASSERT] y must be positive
+```
+
+**Parameters:**
+- `condition`: A boolean expression to check
+- `message`: A string message to display if the assertion fails
+
+**Returns:** Nothing if the condition is true; terminates the program if false.
+
+| Error Code | Condition |
+|------------|-----------|
+| E5022 | Assertion failed |
+
 ## Utility Functions
 
 ### input()
@@ -298,6 +384,11 @@ do main() {
 
 | Function | Description | Example |
 |----------|-------------|---------|
+| `exit(code)` | Exit program with status code | `exit(EXIT_SUCCESS)` |
+| `EXIT_SUCCESS` | Constant `0` | `exit(EXIT_SUCCESS)` |
+| `EXIT_FAILURE` | Constant `1` | `exit(EXIT_FAILURE)` |
+| `panic(msg)` | Terminate with panic message | `panic("error")` |
+| `assert(cond, msg)` | Assert condition is true | `assert(x > 0, "must be positive")` |
 | `input()` | Read line from stdin | `temp name = input()` |
 | `read_int()` | Read integer from stdin | `temp num, err = read_int()` |
 | `len(x)` | Length of string, array, or map | `len("hello")` → `5` |
