@@ -40,6 +40,74 @@ temp empty string = ""
 temp sentence string = "Hello, World!"
 ```
 
+#### Regular Strings
+
+Regular strings use double quotes and support escape sequences and string interpolation:
+
+```ez
+temp greeting string = "Hello\nWorld"     // Contains newline
+temp path string = "C:\\Users\\Alice"     // Escaped backslashes
+temp message string = "Hello, ${name}!"   // String interpolation
+```
+
+**Escape Sequences:**
+
+| Sequence | Meaning |
+|----------|---------|
+| `\n` | Newline |
+| `\t` | Tab |
+| `\\` | Backslash |
+| `\"` | Double quote |
+| `\r` | Carriage return |
+
+#### Raw Strings
+
+Raw strings use backticks and preserve content exactly as written:
+
+```ez
+temp json string = `{"name": "Alice", "age": 30}`
+temp regex string = `\d+\.\d+`
+temp path string = `C:\Users\Alice\Documents`
+```
+
+**Key differences from regular strings:**
+
+| Feature | Regular String `"..."` | Raw String `` `...` `` |
+|---------|------------------------|------------------------|
+| Escape sequences | Processed (`\n` = newline) | Literal (`\n` = backslash-n) |
+| String interpolation | Supported (`${var}`) | Not supported (literal text) |
+| Newlines | Not allowed | Allowed (multiline) |
+| Quotes inside | Must escape (`\"`) | No escaping needed |
+
+**Multiline raw strings:**
+
+```ez
+temp poem string = `Roses are red,
+Violets are blue,
+EZ is great,
+And so are you.`
+```
+
+**When to use raw strings:**
+
+- JSON content (no need to escape quotes)
+- File paths (especially on Windows)
+- Regular expressions
+- Multiline text blocks
+- Any content with many special characters
+
+```ez
+// JSON is much cleaner with raw strings
+temp config string = `{
+    "server": "localhost",
+    "port": 8080,
+    "debug": true
+}`
+
+// Compare to regular strings (requires escaping)
+temp config2 string = "{\"server\": \"localhost\", \"port\": 8080}"
+```
+
 ### char
 
 Single characters:

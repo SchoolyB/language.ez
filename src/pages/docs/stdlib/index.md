@@ -150,7 +150,7 @@ do helper() {
 
 ## Available Modules
 
-EZ includes ten built-in modules:
+EZ includes eleven built-in modules:
 
 | Module | What it's for |
 |--------|---------------|
@@ -164,6 +164,7 @@ EZ includes ten built-in modules:
 | [@bytes](/language.ez/docs/stdlib/bytes) | Binary data — encoding, decoding, byte manipulation |
 | [@io](/language.ez/docs/stdlib/io) | File system — reading, writing, paths, directories |
 | [@os](/language.ez/docs/stdlib/os) | Operating system — environment, platform detection, commands |
+| [@json](/language.ez/docs/stdlib/json) | JSON parsing — encoding, decoding, validation |
 
 ## Quick Example
 
@@ -213,3 +214,4 @@ Pick a module and explore what it can do:
 - [@bytes](/language.ez/docs/stdlib/bytes) — For binary data and encoding
 - [@io](/language.ez/docs/stdlib/io) — For file and directory operations
 - [@os](/language.ez/docs/stdlib/os) — For system info, environment, and commands
+- [@json](/language.ez/docs/stdlib/json) — For JSON encoding, decoding, and validation
