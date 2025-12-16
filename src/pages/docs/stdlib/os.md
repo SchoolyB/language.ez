@@ -84,7 +84,7 @@ do unset_env_var() {
 ---
 
 ### `env()`
-`() -> map[string]string`
+`() -> [string:string]`
 
 Returns all environment variables as an immutable map.
 
@@ -104,7 +104,7 @@ do print_all_env() {
 ---
 
 ### `args()`
-`() -> string[]`
+`() -> [string]`
 
 Returns command-line arguments as an immutable array.
 

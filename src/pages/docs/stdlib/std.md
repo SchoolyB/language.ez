@@ -18,7 +18,7 @@ import @std
 ## Functions
 
 ### `println()`
-`(values ...any) -> void`
+`(values ...type) -> void`
 
 Prints one or more values to stdout, followed by a newline.
 
@@ -33,7 +33,7 @@ std.println("x =", x, "y =", y)
 **Returns:** Nothing.
 
 ### `printf()`
-`(values ...any) -> void`
+`(values ...type) -> void`
 
 Prints one or more values to stdout without a trailing newline.
 
@@ -48,7 +48,7 @@ std.println("Hello, " + name)
 **Returns:** Nothing.
 
 ### `eprintln()`
-`(values ...any) -> void`
+`(values ...type) -> void`
 
 Prints one or more values to stderr, followed by a newline.
 
@@ -62,7 +62,7 @@ std.eprintln("Warning: invalid input")
 **Returns:** Nothing.
 
 ### `eprintf()`
-`(values ...any) -> void`
+`(values ...type) -> void`
 
 Prints one or more values to stderr without a trailing newline.
 

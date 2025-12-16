@@ -34,7 +34,7 @@ temp ages map = {
 ## Basic Operations
 
 ### `get()`
-`(m map, key any) -> any`
+`(m map, key key) -> value`
 
 Retrieves a value by key.
 
@@ -55,7 +55,7 @@ do get_from_map() {
 **Errors:** [E12003](/language.ez/errors/E12003) if the key is not found.
 
 ### `set()`
-`(m map, key any, value any) -> void`
+`(m map, key key, value value) -> void`
 
 Sets a value for a key (adds or updates).
 
@@ -76,7 +76,7 @@ do set_in_map() {
 **Errors:** [E12002](/language.ez/errors/E12002) if the map is immutable (const).
 
 ### `has()`
-`(m map, key any) -> bool`
+`(m map, key key) -> bool`
 
 Checks if a key exists in the map.
 
@@ -95,7 +95,7 @@ do check_key_exists() {
 **Returns:** `bool` - true if key exists.
 
 ### `delete()`
-`(m map, key any) -> void`
+`(m map, key key) -> void`
 
 Removes a key-value pair from the map.
 
@@ -116,7 +116,7 @@ do delete_from_map() {
 ## Inspection
 
 ### `keys()`
-`(m map) -> [any]`
+`(m map) -> [key]`
 
 Returns an array of all keys in the map.
 
@@ -132,12 +132,12 @@ do get_map_keys() {
 
 **Parameters:** `m` - The map.
 
-**Returns:** `[any]` - Array of keys.
+**Returns:** `[key]` - Array of keys.
 
 **Errors:** [E7007](/language.ez/errors/E7007) if the argument is not a map.
 
 ### `values()`
-`(m map) -> [any]`
+`(m map) -> [key]`
 
 Returns an array of all values in the map.
 
@@ -153,7 +153,7 @@ do get_map_values() {
 
 **Parameters:** `m` - The map.
 
-**Returns:** `[any]` - Array of values.
+**Returns:** `[key]` - Array of values.
 
 ### `size()`
 `(m map) -> int`
@@ -237,7 +237,7 @@ do clear_map() {
 ## Safe Access
 
 ### `get_or()`
-`(m map, key any, default any) -> any`
+`(m map, key key, default value) -> value`
 
 Gets a value by key, returning a default if the key doesn't exist.
 
@@ -256,7 +256,7 @@ do get_with_default() {
 **Returns:** The value or the default.
 
 ### `try_get()`
-`(m map, key any) -> (any, bool)`
+`(m map, key key) -> (value, bool)`
 
 Attempts to get a value, returning both the value and a success boolean.
 

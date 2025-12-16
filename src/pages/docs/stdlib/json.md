@@ -17,7 +17,7 @@ import @json
 ## Encoding
 
 ### `encode()`
-`(value any) -> (string, error)`
+`(value type) -> (string, error)`
 
 Serializes an EZ value to a JSON string.
 
@@ -25,10 +25,9 @@ Serializes an EZ value to a JSON string.
 import @std, @json
 
 do encode_demo() {
-    temp data map[string:any] = {
+    temp data map[string:string] = {
         "name": "Alice",
-        "age": 30,
-        "active": true
+        "role": "admin"
     }
 
     temp json_str string, err error = json.encode(data)
@@ -37,11 +36,11 @@ do encode_demo() {
         return
     }
 
-    std.println(json_str)  // {"active":true,"age":30,"name":"Alice"}
+    std.println(json_str)  // {"name":"Alice","role":"admin"}
 }
 ```
 
-**Parameters:** `value` - Any EZ value (string, int, float, bool, nil, array, map, struct).
+**Parameters:** `value` - An EZ value (string, int, float, bool, nil, array, map, struct).
 
 **Returns:** A tuple of `(string, error)` - The JSON string and nil on success, or nil and an error on failure.
 
@@ -57,18 +56,24 @@ do encode_demo() {
 ---
 
 ### `pretty()`
-`(value any, indent string) -> (string, error)`
+`(value type, indent string) -> (string, error)`
 
 Serializes an EZ value to a formatted JSON string with custom indentation.
 
 ```ez
 import @std, @json
 
+const User struct {
+    name string
+    email string
+    roles [string]
+}
+
 do pretty_demo() {
-    temp user map[string:any] = {
-        "name": "Alice",
-        "email": "alice@example.com",
-        "roles": {"admin", "user"}
+    temp user User = User{
+        name: "Alice",
+        email: "alice@example.com",
+        roles: {"admin", "user"}
     }
 
     temp pretty_json string, err error = json.pretty(user, "    ")
@@ -90,7 +95,7 @@ do pretty_demo() {
 ```
 
 **Parameters:**
-- `value` - Any EZ value to serialize
+- `value` - An EZ value to serialize
 - `indent` - The string to use for indentation (e.g., `"    "` for 4 spaces, `"\t"` for tabs)
 
 **Returns:** A tuple of `(string, error)` - The formatted JSON string and nil on success, or nil and an error on failure.
@@ -104,7 +109,7 @@ do pretty_demo() {
 ## Decoding
 
 ### `decode()` (Dynamic)
-`(text string) -> (any, error)`
+`(text string) -> (type, error)`
 
 Parses a JSON string into dynamic EZ types.
 
@@ -114,7 +119,7 @@ import @std, @json
 do decode_demo() {
     temp json_str string = `{"name": "Alice", "age": 30, "active": true}`
 
-    temp data any, err error = json.decode(json_str)
+    temp data, err error = json.decode(json_str)
     if err != nil {
         std.println("Error:", err.message)
         return
@@ -126,12 +131,12 @@ do decode_demo() {
 
 **Parameters:** `text` - A valid JSON string.
 
-**Returns:** A tuple of `(any, error)` - The parsed value and nil on success, or nil and an error on failure.
+**Returns:** A tuple of `(value, error)` - The parsed value and nil on success, or nil and an error on failure.
 
 **Type Mapping:**
 | JSON Type | EZ Type |
 |-----------|---------|
-| object | `map[string:any]` |
+| object | `map` |
 | array | `array` |
 | number (integer) | `int` |
 | number (decimal) | `float` |

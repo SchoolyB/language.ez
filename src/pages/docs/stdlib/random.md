@@ -149,7 +149,7 @@ do random_char_demo() {
 ## Collection Functions
 
 ### `choice()`
-`(arr [any]) -> any`
+`(arr [type]) -> type`
 
 Returns a random element from an array.
 
@@ -176,7 +176,7 @@ do pick_random() {
 ---
 
 ### `shuffle()`
-`(arr [any]) -> [any]`
+`(arr [type]) -> [type]`
 
 Returns a new array with elements in random order. The original array is not modified.
 
@@ -201,7 +201,7 @@ do shuffle_demo() {
 ---
 
 ### `sample()`
-`(arr [any], n int) -> [any]`
+`(arr [type], n int) -> [type]`
 
 Returns a new array containing n unique random elements from the source array.
 

@@ -18,7 +18,7 @@ import @bytes
 ## Creation Functions
 
 ### `from_array()`
-`(array: int[]) -> byte[]`
+`(array: [int]) -> [byte]`
 
 Creates a byte array from an array of integers (values must be 0-255).
 
@@ -40,7 +40,7 @@ do create_from_array() {
 ---
 
 ### `from_string()`
-`(str: string) -> byte[]`
+`(str: string) -> [byte]`
 
 Converts a UTF-8 encoded string to a byte array.
 
@@ -62,7 +62,7 @@ do create_from_string() {
 ---
 
 ### `from_hex()`
-`(hexStr: string) -> (byte[], Error)`
+`(hexStr: string) -> ([byte], Error)`
 
 Decodes a hexadecimal string into bytes.
 
@@ -86,7 +86,7 @@ do decode_hex_string() {
 ---
 
 ### `from_base64()`
-`(b64Str: string) -> (byte[], Error)`
+`(b64Str: string) -> ([byte], Error)`
 
 Decodes a base64 encoded string into bytes.
 
@@ -112,7 +112,7 @@ do decode_base64_string() {
 ## Conversion Functions
 
 ### `to_string()`
-`(data: byte[]) -> string`
+`(data: [byte]) -> string`
 
 Converts a byte array to a UTF-8 string.
 
@@ -134,7 +134,7 @@ do convert_to_string() {
 ---
 
 ### `to_array()`
-`(data: byte[]) -> int[]`
+`(data: [byte]) -> [int]`
 
 Converts a byte array to an array of integers.
 
@@ -156,7 +156,7 @@ do convert_to_array() {
 ---
 
 ### `to_hex()`
-`(data: byte[]) -> string`
+`(data: [byte]) -> string`
 
 Encodes bytes as a lowercase hexadecimal string.
 
@@ -178,7 +178,7 @@ do encode_as_hex() {
 ---
 
 ### `to_hex_upper()`
-`(data: byte[]) -> string`
+`(data: [byte]) -> string`
 
 Encodes bytes as an uppercase hexadecimal string.
 
@@ -200,7 +200,7 @@ do encode_as_hex_upper() {
 ---
 
 ### `to_base64()`
-`(data: byte[]) -> string`
+`(data: [byte]) -> string`
 
 Encodes bytes as a base64 string.
 
@@ -224,7 +224,7 @@ do encode_as_base64() {
 ## Operations
 
 ### `slice()`
-`(data: byte[], start: int, end: int) -> byte[]`
+`(data: [byte], start: int, end: int) -> [byte]`
 
 Extracts a portion of bytes (end is exclusive, supports negative indices).
 
@@ -250,7 +250,7 @@ do slice_bytes() {
 ---
 
 ### `concat()`
-`(a: byte[], b: byte[]) -> byte[]`
+`(a: [byte], b: [byte]) -> [byte]`
 
 Concatenates two byte arrays.
 
@@ -275,7 +275,7 @@ do concat_bytes() {
 ---
 
 ### `join()`
-`(arrays: byte[][], separator: byte[]) -> byte[]`
+`(arrays: [[byte]], separator: [byte]) -> [byte]`
 
 Joins an array of byte arrays with a separator.
 
@@ -300,7 +300,7 @@ do join_byte_arrays() {
 ---
 
 ### `split()`
-`(data: byte[], separator: byte[]) -> byte[][]`
+`(data: [byte], separator: [byte]) -> [[byte]]`
 
 Splits bytes by a separator.
 
@@ -325,7 +325,7 @@ do split_bytes() {
 ---
 
 ### `contains()`
-`(data: byte[], pattern: byte[]) -> bool`
+`(data: [byte], pattern: [byte]) -> bool`
 
 Checks if bytes contain a pattern.
 
@@ -349,7 +349,7 @@ do check_bytes_contains() {
 ---
 
 ### `index()`
-`(data: byte[], pattern: byte[]) -> int`
+`(data: [byte], pattern: [byte]) -> int`
 
 Finds the first index of a pattern, or -1 if not found.
 
@@ -373,7 +373,7 @@ do find_byte_index() {
 ---
 
 ### `last_index()`
-`(data: byte[], pattern: byte[]) -> int`
+`(data: [byte], pattern: [byte]) -> int`
 
 Finds the last index of a pattern, or -1 if not found.
 
@@ -397,7 +397,7 @@ do find_last_byte_index() {
 ---
 
 ### `count()`
-`(data: byte[], pattern: byte[]) -> int`
+`(data: [byte], pattern: [byte]) -> int`
 
 Counts non-overlapping occurrences of a pattern.
 
@@ -421,7 +421,7 @@ do count_byte_occurrences() {
 ---
 
 ### `compare()`
-`(a: byte[], b: byte[]) -> int`
+`(a: [byte], b: [byte]) -> int`
 
 Lexicographically compares two byte sequences.
 
@@ -445,7 +445,7 @@ do compare_bytes() {
 ---
 
 ### `equals()`
-`(a: byte[], b: byte[]) -> bool`
+`(a: [byte], b: [byte]) -> bool`
 
 Checks if two byte sequences are equal.
 
@@ -471,7 +471,7 @@ do check_bytes_equal() {
 ## Inspection Functions
 
 ### `is_empty()`
-`(data: byte[]) -> bool`
+`(data: [byte]) -> bool`
 
 Checks if bytes are empty (length 0).
 
@@ -492,7 +492,7 @@ do check_bytes_empty() {
 ---
 
 ### `starts_with()`
-`(data: byte[], prefix: byte[]) -> bool`
+`(data: [byte], prefix: [byte]) -> bool`
 
 Checks if bytes start with a prefix.
 
@@ -516,7 +516,7 @@ do check_bytes_prefix() {
 ---
 
 ### `ends_with()`
-`(data: byte[], suffix: byte[]) -> bool`
+`(data: [byte], suffix: [byte]) -> bool`
 
 Checks if bytes end with a suffix.
 
@@ -542,7 +542,7 @@ do check_bytes_suffix() {
 ## Manipulation Functions
 
 ### `reverse()`
-`(data: byte[]) -> byte[]`
+`(data: [byte]) -> [byte]`
 
 Returns a reversed copy of bytes.
 
@@ -564,7 +564,7 @@ do reverse_bytes() {
 ---
 
 ### `repeat()`
-`(data: byte[], count: int) -> byte[]`
+`(data: [byte], count: int) -> [byte]`
 
 Repeats bytes N times.
 
@@ -588,7 +588,7 @@ do repeat_bytes() {
 ---
 
 ### `replace()`
-`(data: byte[], old: byte[], new: byte[]) -> byte[]`
+`(data: [byte], old: [byte], new: [byte]) -> [byte]`
 
 Replaces all occurrences of old with new.
 
@@ -614,7 +614,7 @@ do replace_bytes() {
 ---
 
 ### `replace_n()`
-`(data: byte[], old: byte[], new: byte[], n: int) -> byte[]`
+`(data: [byte], old: [byte], new: [byte], n: int) -> [byte]`
 
 Replaces first N occurrences of old with new.
 
@@ -641,7 +641,7 @@ do replace_bytes_n_times() {
 ---
 
 ### `trim()`
-`(data: byte[], cutset: byte[]) -> byte[]`
+`(data: [byte], cutset: [byte]) -> [byte]`
 
 Removes leading and trailing bytes that appear in cutset.
 
@@ -665,7 +665,7 @@ do trim_bytes() {
 ---
 
 ### `trim_left()`
-`(data: byte[], cutset: byte[]) -> byte[]`
+`(data: [byte], cutset: [byte]) -> [byte]`
 
 Removes leading bytes that appear in cutset.
 
@@ -680,7 +680,7 @@ Removes leading bytes that appear in cutset.
 ---
 
 ### `trim_right()`
-`(data: byte[], cutset: byte[]) -> byte[]`
+`(data: [byte], cutset: [byte]) -> [byte]`
 
 Removes trailing bytes that appear in cutset.
 
@@ -695,7 +695,7 @@ Removes trailing bytes that appear in cutset.
 ---
 
 ### `pad_left()`
-`(data: byte[], length: int, padByte: int) -> byte[]`
+`(data: [byte], length: int, padByte: int) -> [byte]`
 
 Pads bytes on the left to reach specified length.
 
@@ -721,7 +721,7 @@ do pad_bytes_left() {
 ---
 
 ### `pad_right()`
-`(data: byte[], length: int, padByte: int) -> byte[]`
+`(data: [byte], length: int, padByte: int) -> [byte]`
 
 Pads bytes on the right to reach specified length.
 
@@ -749,7 +749,7 @@ do pad_bytes_right() {
 ## Bitwise Operations
 
 ### `and()`
-`(a: byte[], b: byte[]) -> (byte[], Error)`
+`(a: [byte], b: [byte]) -> ([byte], Error)`
 
 Bitwise AND of two byte sequences (must be same length).
 
@@ -775,7 +775,7 @@ do bitwise_and() {
 ---
 
 ### `or()`
-`(a: byte[], b: byte[]) -> (byte[], Error)`
+`(a: [byte], b: [byte]) -> ([byte], Error)`
 
 Bitwise OR of two byte sequences (must be same length).
 
@@ -801,7 +801,7 @@ do bitwise_or() {
 ---
 
 ### `xor()`
-`(a: byte[], b: byte[]) -> (byte[], Error)`
+`(a: [byte], b: [byte]) -> ([byte], Error)`
 
 Bitwise XOR of two byte sequences (must be same length).
 
@@ -827,7 +827,7 @@ do bitwise_xor() {
 ---
 
 ### `not()`
-`(data: byte[]) -> byte[]`
+`(data: [byte]) -> [byte]`
 
 Bitwise NOT (complement) of each byte.
 
@@ -852,7 +852,7 @@ do bitwise_not() {
 ## Utility Functions
 
 ### `fill()`
-`(data: byte[], value: int) -> byte[]`
+`(data: [byte], value: int) -> [byte]`
 
 Returns a new byte array with all positions set to value.
 
@@ -877,7 +877,7 @@ do fill_bytes() {
 ---
 
 ### `copy()`
-`(data: byte[]) -> byte[]`
+`(data: [byte]) -> [byte]`
 
 Creates a copy of bytes.
 
@@ -899,7 +899,7 @@ do copy_bytes() {
 ---
 
 ### `zero()`
-`(data: byte[]) -> byte[]`
+`(data: [byte]) -> [byte]`
 
 Returns a new byte array with all bytes set to zero.
 

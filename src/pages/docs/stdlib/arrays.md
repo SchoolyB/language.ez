@@ -17,7 +17,7 @@ import @arrays
 ## Adding and Removing Elements
 
 ### `append()`
-`(arr [any], value any) -> void`
+`(arr [type], value type) -> void`
 
 Adds an element to the end of an array.
 
@@ -36,7 +36,7 @@ do append_to_array(){
 **Returns:** Nothing (mutates array in place).
 
 ### `pop()`
-`(arr [any]) -> any`
+`(arr [type]) -> type`
 
 Removes and returns the last element of an array.
 
@@ -58,7 +58,7 @@ do pop_from_array(){
 **Errors:** [E9001](/language.ez/errors/E9001) if the array is empty.
 
 ### `shift()`
-`(arr [any]) -> any`
+`(arr [type]) -> type`
 
 Removes and returns the first element of an array.
 
@@ -80,7 +80,7 @@ do main(){
 **Errors:** [E9001](/language.ez/errors/E9001) if the array is empty.
 
 ### `unshift()`
-`(arr [any], value any) -> void`
+`(arr [type], value type) -> void`
 
 Adds an element to the beginning of an array.
 
@@ -99,7 +99,7 @@ do main(){
 **Returns:** Nothing (mutates array in place).
 
 ### `insert()`
-`(arr [any], index int, value any) -> void`
+`(arr [type], index int, value type) -> void`
 
 Inserts an element at a specific index.
 
@@ -120,7 +120,7 @@ do main() {
 **Errors:** [E5003](/language.ez/errors/E5003) if the index is out of bounds.
 
 ### `remove_at()`
-`(arr [any], index int) -> void`
+`(arr [type], index int) -> void`
 
 Removes the element at a specific index.
 
@@ -143,7 +143,7 @@ do main() {
 ## Accessing Elements
 
 ### `get()`
-`(arr [any], index int) -> any`
+`(arr [type], index int) -> type`
 
 Returns the element at a specific index.
 
@@ -164,7 +164,7 @@ do main() {
 **Errors:** [E5003](/language.ez/errors/E5003) if the index is out of bounds.
 
 ### `set()`
-`(arr [any], index int, value any) -> void`
+`(arr [type], index int, value type) -> void`
 
 Sets the element at a specific index.
 
@@ -185,7 +185,7 @@ do main() {
 **Errors:** [E5003](/language.ez/errors/E5003) if the index is out of bounds.
 
 ### `first()` / `last()`
-`(arr [any]) -> any`
+`(arr [type]) -> type`
 
 Returns the first or last element of an array.
 
@@ -206,7 +206,7 @@ do main() {
 ## Searching
 
 ### `contains()`
-`(arr [any], value any) -> bool`
+`(arr [type], value type) -> bool`
 
 Checks if an array contains a value.
 
@@ -225,7 +225,7 @@ do main() {
 **Returns:** `bool` - true if found.
 
 ### `index_of()`
-`(arr [any], value any) -> int`
+`(arr [type], value type) -> int`
 
 Returns the index of the first occurrence of a value, or -1 if not found.
 
@@ -246,7 +246,7 @@ do main() {
 ## Transforming
 
 ### `reverse()`
-`(arr [any]) -> void`
+`(arr [type]) -> void`
 
 Reverses an array in place.
 
@@ -265,7 +265,7 @@ do main() {
 **Returns:** Nothing (mutates array in place).
 
 ### `slice()`
-`(arr [any], start int, end int) -> [any]`
+`(arr [type], start int, end int) -> [type]`
 
 Returns a portion of an array.
 
@@ -286,7 +286,7 @@ do main() {
 **Errors:** [E7004](/language.ez/errors/E7004) if indices are not integers.
 
 ### `concat()`
-`(arr1 [any], arr2 [any]) -> [any]`
+`(arr1 [type], arr2 [type]) -> [type]`
 
 Concatenates two or more arrays.
 
@@ -308,7 +308,7 @@ do main() {
 **Errors:** [E7002](/language.ez/errors/E7002) if arguments are not arrays.
 
 ### `repeat()`
-`(value any, count int) -> [any]`
+`(value type, count int) -> [type]`
 
 Creates an array with a value repeated n times.
 
@@ -437,7 +437,7 @@ do main() {
 **Errors:** [E9003](/language.ez/errors/E9003) if step is zero.
 
 ### `join()`
-`(arr [any], separator string) -> string`
+`(arr [type], separator string) -> string`
 
 Joins array elements into a string with a separator.
 
@@ -460,7 +460,7 @@ do main() {
 **Errors:** [E7003](/language.ez/errors/E7003) if separator is not a string.
 
 ### `zip()`
-`(arr1 [any], arr2 [any]) -> [[any]]`
+`(arr1 [type], arr2 [type]) -> [[type]]`
 
 Combines two arrays into an array of pairs.
 
@@ -470,19 +470,19 @@ import @arrays
 do main() {
     temp names [string] = {"Alice", "Bob"}
     temp ages [int] = {25, 30}
-    temp pairs [[any]] = arrays.zip(names, ages)
+    temp pairs [[type]] = arrays.zip(names, ages)
     // {{"Alice", 25}, {"Bob", 30}}
 }
 ```
 
 **Parameters:** Two arrays.
 
-**Returns:** `[[any]]` - A 2D array of pairs.
+**Returns:** `[[type]]` - A 2D array of pairs.
 
 **Errors:** [E7002](/language.ez/errors/E7002) if arguments are not arrays.
 
 ### `chunk()`
-`(arr [any], size int) -> [[any]]`
+`(arr [type], size int) -> [[type]]`
 
 Splits an array into chunks of the specified size.
 
@@ -498,12 +498,12 @@ do main() {
 
 **Parameters:** `arr` - The array to split, `size` - The chunk size.
 
-**Returns:** `[[any]]` - A 2D array of chunks.
+**Returns:** `[[type]]` - A 2D array of chunks.
 
 **Errors:** [E9004](/language.ez/errors/E9004) if chunk size is not greater than zero.
 
 ### `flatten()`
-`(arr [[any]]) -> [any]`
+`(arr [[type]]) -> [type]`
 
 Flattens a 2D array into a 1D array.
 
@@ -519,7 +519,7 @@ do main() {
 
 **Parameters:** `arr` - A 2D array to flatten.
 
-**Returns:** `[any]` - A flattened 1D array.
+**Returns:** `[type]` - A flattened 1D array.
 
 **Errors:** [E7002](/language.ez/errors/E7002) if argument is not a 2D array.
 

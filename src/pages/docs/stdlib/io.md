@@ -42,7 +42,7 @@ do read_text_file() {
 ---
 
 ### `read_bytes()`
-`(path: string) -> (byte[], Error)`
+`(path: string) -> ([byte], Error)`
 
 Reads the entire contents of a file as a byte array.
 
@@ -63,7 +63,7 @@ do read_binary_file() {
 ---
 
 ### `read_lines()`
-`(path: string) -> (string[], Error)`
+`(path: string) -> ([string], Error)`
 
 Reads a file and returns its content as an array of lines.
 
@@ -114,7 +114,7 @@ do write_text_file() {
 ---
 
 ### `write_bytes()`
-`(path: string, data: byte[], [perms: int]) -> (bool, Error)`
+`(path: string, data: [byte], [perms: int]) -> (bool, Error)`
 
 Writes bytes to a file atomically (creates or overwrites).
 
@@ -414,7 +414,7 @@ do make_nested_dirs() {
 ---
 
 ### `read_dir()`
-`(path: string) -> (string[], Error)`
+`(path: string) -> ([string], Error)`
 
 Lists the contents of a directory.
 
@@ -950,7 +950,7 @@ do open_file() {
 ---
 
 ### `read()`
-`(handle: FileHandle, n: int) -> (byte[], Error)`
+`(handle: FileHandle, n: int) -> ([byte], Error)`
 
 Reads up to n bytes from a file handle.
 
@@ -974,7 +974,7 @@ do read_bytes_from_handle() {
 ---
 
 ### `read_all()`
-`(handle: FileHandle) -> (byte[], Error)`
+`(handle: FileHandle) -> ([byte], Error)`
 
 Reads all remaining bytes from a file handle.
 
@@ -1020,7 +1020,7 @@ do read_string_from_handle() {
 ---
 
 ### `write()`
-`(handle: FileHandle, data: string|byte[]) -> (int, Error)`
+`(handle: FileHandle, data: string|[byte]) -> (int, Error)`
 
 Writes data to a file handle.
 
