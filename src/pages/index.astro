@@ -41,6 +41,7 @@ const base = import.meta.env.BASE_URL;
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
               <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
             </svg>
+            <span id="download-count" class="text-sm opacity-70"></span>
           </a>
         </div>
         <div class="mt-8">
@@ -187,11 +188,33 @@ const base = import.meta.env.BASE_URL;
           });
       }
 
+      function initDownloadCount() {
+        const countEl = document.getElementById('download-count');
+        if (!countEl) return;
+
+        fetch('https://api.github.com/repos/SchoolyB/EZ/releases')
+          .then(res => res.json())
+          .then(releases => {
+            let total = 0;
+            for (const release of releases) {
+              for (const asset of release.assets || []) {
+                total += asset.download_count || 0;
+              }
+            }
+            if (total > 0) {
+              countEl.textContent = `(${total.toLocaleString()})`;
+            }
+          })
+          .catch(() => {});
+      }
+
       initEzTabs();
       initVersionBadge();
+      initDownloadCount();
       document.addEventListener('astro:after-swap', () => {
         initEzTabs();
         initVersionBadge();
+        initDownloadCount();
       });
     </script>
 

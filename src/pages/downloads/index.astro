@@ -50,6 +50,7 @@ const downloads = [
         Latest release: <a id="release-link" href="https://github.com/SchoolyB/EZ/releases/latest" class="text-xl font-bold opacity-100 underline hover:opacity-80" target="_blank" rel="noopener noreferrer"><span id="version-text">loading...</span></a>
         <span id="release-date"></span>
       </p>
+      <p id="total-downloads" class="text-2xl font-bold mt-4"></p>
     </div>
 
     <!-- Download Cards -->
@@ -130,6 +131,13 @@ const downloads = [
       timestamp: number;
     }
 
+    interface CachedDownloads {
+      total: number;
+      timestamp: number;
+    }
+
+    const DOWNLOADS_CACHE_KEY = 'ez-total-downloads-cache';
+
     function getCachedRelease(): CachedRelease | null {
       try {
         const cached = localStorage.getItem(CACHE_KEY);
@@ -206,10 +214,77 @@ const downloads = [
       }
     }
 
+    function getCachedDownloads(): CachedDownloads | null {
+      try {
+        const cached = localStorage.getItem(DOWNLOADS_CACHE_KEY);
+        if (!cached) return null;
+        const data = JSON.parse(cached);
+        if (Date.now() - data.timestamp < CACHE_DURATION) {
+          return data;
+        }
+        return null;
+      } catch {
+        return null;
+      }
+    }
+
+    function setCachedDownloads(total: number): void {
+      try {
+        localStorage.setItem(DOWNLOADS_CACHE_KEY, JSON.stringify({
+          total,
+          timestamp: Date.now()
+        }));
+      } catch {
+        // localStorage might be full or disabled
+      }
+    }
+
+    function updateDownloadsUI(total: number): void {
+      const el = document.getElementById('total-downloads');
+      if (el) {
+        el.textContent = `${total.toLocaleString()} total downloads`;
+      }
+    }
+
+    async function fetchTotalDownloads(): Promise<void> {
+      const cached = getCachedDownloads();
+      if (cached) {
+        updateDownloadsUI(cached.total);
+        return;
+      }
+
+      try {
+        const response = await fetch('https://api.github.com/repos/SchoolyB/EZ/releases', {
+          headers: {
+            'Accept': 'application/vnd.github.v3+json',
+            'User-Agent': 'EZ-Docs-Site'
+          }
+        });
+
+        if (response.ok) {
+          const releases = await response.json();
+          let total = 0;
+          for (const release of releases) {
+            for (const asset of release.assets || []) {
+              total += asset.download_count || 0;
+            }
+          }
+          setCachedDownloads(total);
+          updateDownloadsUI(total);
+        }
+      } catch {
+        // Silently fail - downloads count is not critical
+      }
+    }
+
     // Run on initial load
     fetchLatestRelease();
+    fetchTotalDownloads();
 
     // Run on Astro page navigation
-    document.addEventListener('astro:after-swap', fetchLatestRelease);
+    document.addEventListener('astro:after-swap', () => {
+      fetchLatestRelease();
+      fetchTotalDownloads();
+    });
   </script>
 </BaseLayout>
