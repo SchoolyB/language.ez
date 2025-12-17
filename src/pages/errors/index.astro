@@ -22,7 +22,10 @@ const totalErrors = errorsData.errors.length;
 <BaseLayout title="Error Reference - EZ" description="Complete reference of all EZ error and warning codes.">
   <Header />
 
-  <main class="flex-1 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+  <main class="flex-1 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="lg:grid lg:grid-cols-[1fr_200px] lg:gap-8">
+    <!-- Main Content -->
+    <div class="min-w-0">
     <div class="flex items-center justify-between mb-4">
       <h1 class="text-3xl font-bold text-black dark:text-white">Error Reference</h1>
       <button
@@ -61,28 +64,28 @@ const totalErrors = errorsData.errors.length;
     <!-- Error Categories -->
     <div id="categories" class="space-y-6">
       {errorsByCategory.map(category => (
-        <div class="border border-[#e5e5e5] dark:border-[#333333] rounded-lg overflow-hidden">
+        <div id={`category-${category.id}`} class="scroll-mt-24 border border-[#e5e5e5] dark:border-[#333333] rounded-lg overflow-hidden"  data-category-section={category.id}>
           <div class="px-4 py-4 bg-[#f5f5f5] dark:bg-[#1a1a1a]">
             <div class="flex items-center justify-between mb-2">
-              <h2 class="text-lg font-semibold text-black dark:text-white">
+              <h2 class="text-xl font-semibold text-black dark:text-white">
                 {category.name}
-                <span class="font-mono text-sm opacity-60 ml-2">({category.range})</span>
+                <span class="font-mono text-base opacity-60 ml-2">({category.range})</span>
               </h2>
-              <span class="text-sm opacity-60 text-black dark:text-white">{category.count} codes</span>
+              <span class="text-base opacity-60 text-black dark:text-white">{category.count} codes</span>
             </div>
-            <p class="text-sm opacity-70 mb-4 text-black dark:text-white">{category.description}</p>
+            <p class="text-base opacity-70 mb-4 text-black dark:text-white">{category.description}</p>
             <div class="flex flex-wrap gap-2">
               {category.errors.slice(0, 8).map(error => (
                 <a
                   href={`${base}errors/${error.code}`}
-                  class="text-xs px-2.5 py-1.5 bg-white dark:bg-black rounded border border-[#e5e5e5] dark:border-[#333333] hover:border-black dark:hover:border-white transition-colors font-mono text-black dark:text-white"
+                  class="text-sm px-3 py-2 bg-white dark:bg-black rounded border border-[#e5e5e5] dark:border-[#333333] hover:border-black dark:hover:border-white transition-colors font-mono text-black dark:text-white"
                 >
                   {error.code}
                 </a>
               ))}
               {category.errors.length > 8 && (
                 <button
-                  class="show-all-btn text-xs px-2.5 py-1.5 opacity-50 hover:opacity-100 transition-opacity text-black dark:text-white"
+                  class="show-all-btn text-sm px-3 py-2 opacity-50 hover:opacity-100 transition-opacity text-black dark:text-white"
                   data-category={category.id}
                 >
                   +{category.errors.length - 8} more
@@ -95,7 +98,7 @@ const totalErrors = errorsData.errors.length;
                 {category.errors.slice(8).map(error => (
                   <a
                     href={`${base}errors/${error.code}`}
-                    class="text-xs px-2.5 py-1.5 bg-white dark:bg-black rounded border border-[#e5e5e5] dark:border-[#333333] hover:border-black dark:hover:border-white transition-colors font-mono text-black dark:text-white"
+                    class="text-sm px-3 py-2 bg-white dark:bg-black rounded border border-[#e5e5e5] dark:border-[#333333] hover:border-black dark:hover:border-white transition-colors font-mono text-black dark:text-white"
                   >
                     {error.code}
                   </a>
@@ -121,7 +124,7 @@ const totalErrors = errorsData.errors.length;
       </div>
       <div id="errors-table-container" class="hidden border border-[#e5e5e5] dark:border-[#333333] rounded-lg overflow-hidden">
         <div class="overflow-x-auto">
-          <table class="w-full text-sm">
+          <table class="w-full text-base">
             <thead>
               <tr class="bg-[#f5f5f5] dark:bg-[#1a1a1a] border-b border-[#e5e5e5] dark:border-[#333333]">
                 <th class="px-4 py-3 text-left font-semibold text-black dark:text-white">Code</th>
@@ -164,10 +167,39 @@ const totalErrors = errorsData.errors.length;
         </div>
       </div>
     </div>
+    </div>
+
+      <!-- Right Sidebar TOC -->
+      <aside class="hidden lg:block">
+        <nav class="sticky top-24 max-h-[calc(100vh-6rem)] overflow-y-auto">
+          <h2 class="text-sm font-semibold mb-3 opacity-50 uppercase tracking-wider text-black dark:text-white">Categories</h2>
+          <ul class="space-y-1.5">
+            {errorsByCategory.map(category => (
+              <li>
+                <a
+                  href={`#category-${category.id}`}
+                  class="error-toc-link text-base opacity-60 hover:opacity-100 transition-opacity block py-1 text-black dark:text-white"
+                  data-category={category.id}
+                >
+                  {category.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </aside>
+    </div>
   </main>
 
   <Footer />
 </BaseLayout>
+
+<style>
+  .error-toc-link.active {
+    opacity: 1;
+    font-weight: 500;
+  }
+</style>
 
 <script>
   // Elements
@@ -335,4 +367,40 @@ const totalErrors = errorsData.errors.length;
       noResults?.classList.add('hidden');
     }
   });
+
+  // TOC Scroll Spy
+  function initScrollSpy() {
+    const tocLinks = document.querySelectorAll('.error-toc-link');
+    const categorySections = document.querySelectorAll('[data-category-section]');
+
+    if (categorySections.length === 0 || tocLinks.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const category = (entry.target as HTMLElement).dataset.categorySection;
+            tocLinks.forEach((link) => link.classList.remove('active'));
+            const activeLink = document.querySelector(`.error-toc-link[data-category="${category}"]`);
+            if (activeLink) {
+              activeLink.classList.add('active');
+            }
+          }
+        });
+      },
+      {
+        rootMargin: '-100px 0px -70% 0px',
+        threshold: 0
+      }
+    );
+
+    categorySections.forEach((section) => observer.observe(section));
+
+    // Set first link as active by default
+    if (tocLinks.length > 0) {
+      tocLinks[0].classList.add('active');
+    }
+  }
+
+  initScrollSpy();
 </script>

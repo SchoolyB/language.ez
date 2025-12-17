@@ -120,19 +120,19 @@ const slugify = (str: string) => str.toLowerCase().replace(/\s+/g, '-');
       <!-- Right Sidebar TOC -->
       <aside class="hidden lg:block">
         <nav class="sticky top-24 max-h-[calc(100vh-6rem)] overflow-y-auto">
-          <h2 class="text-sm font-semibold mb-4 opacity-50 uppercase tracking-wider">On This Page</h2>
-          <ul class="space-y-3">
+          <h2 class="text-sm font-semibold mb-3 opacity-50 uppercase tracking-wider">On This Page</h2>
+          <ul class="space-y-4">
             {categories.map(category => (
               <li>
-                <a href={`#${slugify(category)}`} class="text-sm font-medium opacity-70 hover:opacity-100 transition-opacity">
+                <a href={`#${slugify(category)}`} class="text-lg font-semibold opacity-50 hover:opacity-100 transition-opacity uppercase tracking-wider">
                   {category}
                 </a>
-                <ul class="mt-1 ml-3 space-y-1">
+                <ul class="mt-2 ml-3 space-y-1.5">
                   {examples.filter(e => e.category === category).map(example => (
                     <li>
                       <a
                         href={`#${slugify(example.title)}`}
-                        class="example-toc-link text-sm opacity-50 hover:opacity-100 transition-opacity block py-0.5"
+                        class="example-toc-link text-base opacity-60 hover:opacity-100 transition-opacity block py-1"
                         data-title={example.title.toLowerCase()}
                       >
                         {example.title}

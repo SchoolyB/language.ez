@@ -36,7 +36,7 @@ const faqs = faqFiles.map(faq => ({
             style="background-color: var(--ez-gray-bg);"
             data-faq-toggle={faq.id}
           >
-            <h2 class="text-xl font-semibold">{faq.question}</h2>
+            <h2 class="text-2xl font-semibold">{faq.question}</h2>
             <svg
               class="faq-chevron w-5 h-5 transition-transform duration-200"
               data-faq-chevron={faq.id}
@@ -77,14 +77,8 @@ const faqs = faqFiles.map(faq => ({
   }
 
   .faq-answer {
+    font-size: 1.25rem;
     line-height: 1.7;
-    font-style: italic;
-  }
-
-  .faq-answer h2,
-  .faq-answer code,
-  .faq-answer pre {
-    font-style: normal;
   }
 
   .faq-answer h2 {

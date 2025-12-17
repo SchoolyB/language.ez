@@ -12,9 +12,26 @@ import Footer from '../../components/Footer.astro';
       <!-- Main Content -->
       <main class="min-w-0">
         <h1 class="text-3xl font-bold mb-2">Changelog</h1>
-        <p class="opacity-60 mb-8">
+        <p class="opacity-60 mb-4">
           Release history for the EZ programming language. See what's new in each version.
         </p>
+
+        <!-- Legend -->
+        <div class="flex items-center gap-4 text-sm opacity-60 mb-8">
+          <span class="flex items-center gap-1.5">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 16 16" fill="currentColor">
+              <path d="M11.93 8.5a4.002 4.002 0 0 1-7.86 0H.75a.75.75 0 0 1 0-1.5h3.32a4.002 4.002 0 0 1 7.86 0h3.32a.75.75 0 0 1 0 1.5Zm-1.43-.75a2.5 2.5 0 1 0-5 0 2.5 2.5 0 0 0 5 0Z"/>
+            </svg>
+            <span>Commit</span>
+          </span>
+          <span class="flex items-center gap-1.5">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 16 16" fill="currentColor">
+              <path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"/>
+              <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Z"/>
+            </svg>
+            <span>Issue / PR</span>
+          </span>
+        </div>
 
         <!-- Loading State -->
         <div id="loading-state" class="text-center py-12 opacity-60">
@@ -33,7 +50,7 @@ import Footer from '../../components/Footer.astro';
       <!-- Right Sidebar TOC -->
       <aside class="hidden lg:block">
         <nav class="sticky top-24 max-h-[calc(100vh-6rem)] overflow-y-auto">
-          <h2 class="text-sm font-semibold mb-4 opacity-50 uppercase tracking-wider">Versions</h2>
+          <h2 class="text-sm font-semibold mb-3 opacity-50 uppercase tracking-wider">Versions</h2>
           <ul id="versions-list" class="space-y-1"></ul>
         </nav>
       </aside>
@@ -65,14 +82,63 @@ import Footer from '../../components/Footer.astro';
     overflow-x: auto;
   }
 
+  .release-content a {
+    color: #2563eb;
+    text-decoration: underline;
+    text-decoration-color: rgba(37, 99, 235, 0.5);
+    transition: text-decoration-color 0.15s;
+  }
+
+  .release-content a:hover {
+    text-decoration-color: #2563eb;
+  }
+
+  .dark .release-content a {
+    color: #60a5fa;
+    text-decoration-color: rgba(96, 165, 250, 0.5);
+  }
+
+  .dark .release-content a:hover {
+    text-decoration-color: #60a5fa;
+  }
+
+  /* Commit links - add commit icon */
+  .release-content a[href*="/commit/"]::before {
+    content: "";
+    display: inline-block;
+    width: 0.875em;
+    height: 0.875em;
+    margin-right: 0.2em;
+    vertical-align: -0.1em;
+    background-color: currentColor;
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='currentColor'%3E%3Cpath d='M11.93 8.5a4.002 4.002 0 0 1-7.86 0H.75a.75.75 0 0 1 0-1.5h3.32a4.002 4.002 0 0 1 7.86 0h3.32a.75.75 0 0 1 0 1.5Zm-1.43-.75a2.5 2.5 0 1 0-5 0 2.5 2.5 0 0 0 5 0Z'/%3E%3C/svg%3E");
+    mask-size: contain;
+    mask-repeat: no-repeat;
+  }
+
+  /* Issue/PR links - add icon */
+  .release-content a[href*="/issues/"]::before,
+  .release-content a[href*="/pull/"]::before {
+    content: "";
+    display: inline-block;
+    width: 0.875em;
+    height: 0.875em;
+    margin-right: 0.2em;
+    vertical-align: -0.1em;
+    background-color: currentColor;
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='currentColor'%3E%3Cpath d='M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z'/%3E%3Cpath d='M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Z'/%3E%3C/svg%3E");
+    mask-size: contain;
+    mask-repeat: no-repeat;
+  }
+
   .version-group-header {
     display: flex;
     align-items: center;
     gap: 0.25rem;
     cursor: pointer;
-    padding: 0.375rem 0;
+    padding: 0.5rem 0;
     font-weight: 500;
-    font-size: 0.875rem;
+    font-size: 1.125rem;
     opacity: 0.8;
     transition: opacity 0.15s;
   }
@@ -127,9 +193,29 @@ import Footer from '../../components/Footer.astro';
     });
   }
 
+  // EZ stdlib module names that GitHub might interpret as user mentions
+  const EZ_MODULES = ['std', 'math', 'random', 'arrays', 'strings', 'maps', 'time', 'bytes', 'io', 'os', 'json', 'strict'];
+
+  function stripGitHubMentionLinks(html: string): string {
+    // Replace GitHub user mention links with code-formatted text
+    // Pattern: <a href="https://github.com/username">@username</a>
+    return html.replace(
+      /<a\s+href="https:\/\/github\.com\/([^"]+)"[^>]*>@(\1)<\/a>/gi,
+      (match, username) => {
+        // Check if this matches an EZ module name
+        if (EZ_MODULES.includes(username.toLowerCase())) {
+          return `<code>@${username}</code>`;
+        }
+        // Keep other mentions as-is (they might be intentional)
+        return match;
+      }
+    );
+  }
+
   function parseMarkdown(content: string): string {
     if (!content) return '<p>No release notes available.</p>';
-    return marked.parse(content) as string;
+    const html = marked.parse(content) as string;
+    return stripGitHubMentionLinks(html);
   }
 
   function getVersionGroup(tagName: string): string {
@@ -231,9 +317,8 @@ import Footer from '../../components/Footer.astro';
             ${formatDate(release.published_at)}
           </time>
         </header>
-        <div class="release-content prose prose-sm dark:prose-invert max-w-none px-6 py-5
-                    prose-headings:font-semibold prose-headings:text-black dark:prose-headings:text-white
-                    prose-a:text-black dark:prose-a:text-white prose-a:underline">
+        <div class="release-content prose prose-lg dark:prose-invert max-w-none px-6 py-5
+                    prose-headings:font-semibold prose-headings:text-black dark:prose-headings:text-white">
           ${parseMarkdown(release.body)}
         </div>
       </article>
@@ -261,7 +346,7 @@ import Footer from '../../components/Footer.astro';
               <li>
                 <a
                   href="#${release.tag_name}"
-                  class="version-link text-sm opacity-60 hover:opacity-100 transition-opacity block py-1 flex items-center gap-2"
+                  class="version-link text-base opacity-60 hover:opacity-100 transition-opacity block py-1.5 flex items-center gap-2"
                   data-version="${release.tag_name}"
                 >
                   <span>${release.tag_name}</span>

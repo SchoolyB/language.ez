@@ -3,8 +3,6 @@ question: "Is EZ compiled or interpreted?"
 order: 2
 ---
 
-# Is EZ compiled or interpreted?
-
 **Right now:** Interpreted.
 
 **The goal:** Compiled (v2.0).

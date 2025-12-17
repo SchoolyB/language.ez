@@ -60,16 +60,16 @@ const currentPath = Astro.url.pathname;
   <nav class="sticky top-20 space-y-8 pr-4 pb-8 max-h-[calc(100vh-5rem)] overflow-y-auto">
     {navigation.map((section) => (
       <div>
-        <h3 class="font-semibold text-sm opacity-50 uppercase tracking-wider mb-3 text-black dark:text-white">
+        <h3 class="font-semibold text-lg opacity-50 uppercase tracking-wider mb-3 text-black dark:text-white">
           {section.title}
         </h3>
-        <ul class="space-y-1">
+        <ul class="space-y-1.5">
           {section.items.map((item) => (
             <li>
               <a
                 href={item.href}
                 class:list={[
-                  'block px-3 py-1.5 rounded-lg text-sm transition-all',
+                  'block px-3 py-1.5 rounded-lg text-base transition-all',
                   currentPath === item.href
                     ? 'bg-black dark:bg-white text-white dark:text-black font-medium'
                     : 'opacity-60 hover:opacity-100 hover:bg-[#f5f5f5] dark:hover:bg-[#1a1a1a] text-black dark:text-white',

@@ -3,8 +3,6 @@ question: "Why doesn't EZ have OOP?"
 order: 4
 ---
 
-# Why doesn't EZ have OOP?
-
 EZ is intentionally anti-OOP. No classes. No inheritance. No `this` or `self`. This is a deliberate design choice, not a limitation.
 
 ## The Short Answer

@@ -3,8 +3,6 @@ question: "Why does EZ use unique keywords?"
 order: 3
 ---
 
-# Why does EZ use unique keywords?
-
 EZ uses keywords like `do`, `temp`, `as_long_as`, and `or`/`otherwise` instead of the traditional `func`, `let`, `while`, and `else if`/`else`. This is intentional.
 
 ## The Short Answer

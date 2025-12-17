@@ -3,8 +3,6 @@ question: "Why doesn't EZ have a package manager?"
 order: 5
 ---
 
-# Why doesn't EZ have a package manager?
-
 EZ has no package manager. No `ez install`. No `ez add`. No dependency hell. This is permanent and by design.
 
 ## The Short Answer

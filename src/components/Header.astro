@@ -36,7 +36,7 @@ function isActive(item: typeof navItems[0]) {
           <a
             href={item.href}
             class:list={[
-              'text-sm font-medium transition-opacity text-black dark:text-white',
+              'text-[0.938rem] font-medium transition-opacity text-black dark:text-white',
               isActive(item)
                 ? 'opacity-100 underline underline-offset-4'
                 : 'opacity-60 hover:opacity-100'
@@ -100,7 +100,7 @@ function isActive(item: typeof navItems[0]) {
           <a
             href={item.href}
             class:list={[
-              'px-3 py-2 rounded-lg text-sm font-medium transition-colors text-black dark:text-white',
+              'px-3 py-2 rounded-lg text-[0.938rem] font-medium transition-colors text-black dark:text-white',
               isActive(item)
                 ? 'bg-[#f5f5f5] dark:bg-[#1a1a1a]'
                 : 'opacity-60 hover:opacity-100 hover:bg-[#f5f5f5] dark:hover:bg-[#1a1a1a]'
