@@ -31,26 +31,6 @@ exit(42)
 
 **Returns:** Does not return (terminates the program).
 
-### EXIT_SUCCESS
-
-`int` constant with value `0`
-
-Represents a successful program exit.
-
-```ez
-exit(EXIT_SUCCESS)  // Exit with code 0
-```
-
-### EXIT_FAILURE
-
-`int` constant with value `1`
-
-Represents a failed program exit.
-
-```ez
-exit(EXIT_FAILURE)  // Exit with code 1
-```
-
 ### panic()
 
 `(string) -> void`
@@ -93,6 +73,28 @@ assert(y > 0, "y must be positive")  // Fails: [ASSERT] y must be positive
 | Error Code | Condition |
 |------------|-----------|
 | E5022 | Assertion failed |
+
+## Constants
+
+### EXIT_SUCCESS
+
+`int` constant with value `0`
+
+Represents a successful program exit.
+
+```ez
+exit(EXIT_SUCCESS)  // Exit with code 0
+```
+
+### EXIT_FAILURE
+
+`int` constant with value `1`
+
+Represents a failed program exit.
+
+```ez
+exit(EXIT_FAILURE)  // Exit with code 1
+```
 
 ## Utility Functions
 
@@ -282,6 +284,53 @@ temp p Person = new(Person)
 
 Convert values between types. These are essential for working with user input, formatting output, and data transformations.
 
+### cast()
+
+`(value, type) -> value`
+
+Converts a value to the specified type. Unlike other conversion functions, `cast()` accepts any valid EZ type as its second argument, including sized integers and array types.
+
+```ez
+// Single value conversion
+temp x = cast(42, u8)        // int -> u8
+temp y = cast(3.14, int)     // float -> int
+temp z = cast(65, char)      // int -> char
+
+// Array element-wise conversion
+temp bytes [byte] = {65, 66, 67}
+temp u8_arr = cast(bytes, [u8])  // [byte] -> [u8]
+
+temp nums [int] = {1, 2, 3}
+temp strs = cast(nums, [string])  // ["1", "2", "3"]
+```
+
+**Parameters:**
+- `value` — The value or array to convert
+- `type` — Target type (e.g., `u8`, `int`, `string`, `[u8]`)
+
+**Returns:** The converted value in the target type.
+
+| Target Type | Accepted Source Types |
+|-------------|----------------------|
+| `int` | int, float, string, char, byte |
+| `float` | float, int, string, byte, char |
+| `string` | any (uses string representation) |
+| `char` | char, int, float, byte, string (len=1) |
+| `byte` | byte, int, float, char, string |
+| `i8/i16/i32/i64/i128/i256` | int, float, string, byte, char |
+| `u8/u16/u32/u64/u128/u256` | int, float, string, byte, char |
+| `f32/f64` | float, int, string, byte, char |
+| `bool` | bool, int (0=false, else=true), string ("true"/"false") |
+
+**Error handling:** Invalid conversions produce errors with details:
+
+```ez
+temp result = cast([-1, 2, 3], [u8])
+// Error: "cast failed at index 0: value -1 out of u8 range (0 to 255)"
+```
+
+**Note:** `cast()` is technically a language keyword because the type argument is validated at check-time (before execution). See also: [cast in Keywords](/language.ez/docs/language/keywords#cast).
+
 ### int()
 
 `(value) -> int`
@@ -427,11 +476,11 @@ do main() {
 
 ## Quick Reference
 
+### Functions
+
 | Function | Description | Example |
 |----------|-------------|---------|
 | `exit(code)` | Exit program with status code | `exit(EXIT_SUCCESS)` |
-| `EXIT_SUCCESS` | Constant `0` | `exit(EXIT_SUCCESS)` |
-| `EXIT_FAILURE` | Constant `1` | `exit(EXIT_FAILURE)` |
 | `panic(msg)` | Terminate with panic message | `panic("error")` |
 | `assert(cond, msg)` | Assert condition is true | `assert(x > 0, "must be positive")` |
 | `input()` | Read line from stdin | `temp name = input()` |
@@ -443,9 +492,17 @@ do main() {
 | `copy(x)` | Explicit deep copy of a value | `copy(myStruct)` → independent copy |
 | `ref(x)` | Create reference for shared data | `ref(myStruct)` → shared reference |
 | `new(Type)` | Create zero-initialized struct | `new(Person)` → struct with zero values |
+| `cast(x, type)` | Convert to any type | `cast(42, u8)` → `42` as u8 |
 | `int(x)` | Convert to integer | `int("42")` → `42` |
 | `float(x)` | Convert to float | `float(42)` → `42.0` |
 | `string(x)` | Convert to string | `string(42)` → `"42"` |
 | `char(x)` | Convert int to character | `char(65)` → `'A'` |
 | `byte(x)` | Convert int to byte (0-255) | `byte(65)` → `65` |
 | `error(msg)` | Create user-defined error | `error("invalid input")` → `Error` |
+
+### Constants
+
+| Constant | Value | Description |
+|----------|-------|-------------|
+| `EXIT_SUCCESS` | `0` | Successful program exit |
+| `EXIT_FAILURE` | `1` | Failed program exit |

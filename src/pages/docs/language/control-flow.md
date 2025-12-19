@@ -380,7 +380,7 @@ when status {
 
 ### Strict Enum Matching
 
-The `@strict` attribute enforces exhaustive case coverage for enums — all enum values must be handled, and no `default` case is allowed:
+The `#strict` attribute enforces exhaustive case coverage for enums — all enum values must be handled, and no `default` case is allowed:
 
 ```ez
 import @std
@@ -393,7 +393,7 @@ const Status enum {
 
 temp s = Status.DONE
 
-@strict
+#strict
 when s {
     is Status.PENDING { std.println("pending") }
     is Status.ACTIVE { std.println("active") }

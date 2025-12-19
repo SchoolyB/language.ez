@@ -285,7 +285,61 @@ when status {
 }
 ```
 
-**Note:** `default` is required unless using `@strict` with an enum that has all cases covered.
+**Note:** `default` is required unless using `#strict` with an enum that has all cases covered.
+
+## Type Conversion
+
+### cast
+
+Converts values between types. Works with single values and arrays.
+
+```ez
+// Single value conversion
+temp x = cast(42, u8)        // int -> u8
+temp y = cast(3.14, int)     // float -> int
+temp z = cast(65, char)      // int -> char
+
+// Array element-wise conversion
+temp bytes [byte] = {65, 66, 67}
+temp u8_arr = cast(bytes, [u8])  // [byte] -> [u8]
+```
+
+**Why "cast"?** Explicitly converts (casts) a value from one type to another.
+
+**Note:** Although `cast()` uses function-like syntax, it is a language keyword, not a regular function. The second argument must be a valid EZ type, which the interpreter validates at check-time (before execution). This is why `cast()` is documented here rather than solely in built-in functions — though it also appears there for discoverability. See also: [cast() in Built-in Functions](/language.ez/docs/stdlib/builtins#cast).
+
+#### Supported Conversions
+
+| Target Type | Accepted Source Types |
+|-------------|----------------------|
+| `int` | int, float, string, char, byte |
+| `float` | float, int, string, byte, char |
+| `string` | any (uses string representation) |
+| `char` | char, int, float, byte, string (len=1) |
+| `byte` | byte, int, float, char, string |
+| `i8/i16/i32/i64/i128/i256` | int, float, string, byte, char |
+| `u8/u16/u32/u64/u128/u256` | int, float, string, byte, char |
+| `f32/f64` | float, int, string, byte, char |
+| `bool` | bool, int (0=false, else=true), string ("true"/"false") |
+
+#### Array Conversions
+
+For arrays, `cast()` applies the conversion to each element:
+
+```ez
+temp nums [int] = {1, 2, 3}
+temp strs = cast(nums, [string])  // ["1", "2", "3"]
+```
+
+#### Error Handling
+
+Invalid conversions produce errors:
+
+```ez
+// Range error with index info
+temp result = cast([-1, 2, 3], [u8])
+// Error: "cast failed at index 0: value -1 out of u8 range (0 to 255)"
+```
 
 ## Types
 
@@ -450,6 +504,9 @@ temp hasError bool = false
 | `when` | `switch`, `match` | Pattern matching |
 | `is` | `case` | Pattern case |
 | `default` | `default`, `_` | Fallback case |
+| `cast` | type casts, `as` | Type conversion |
+
+For attributes (`#enum`, `#flags`, `#strict`, `#suppress`), see [Attributes](/language.ez/docs/language/attributes).
 
 <script>
   function initKeywordFilter() {

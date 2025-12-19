@@ -32,13 +32,13 @@ do main() {
 
 ## Enum Type Attributes
 
-Use `@enum(type)` to specify the enum's underlying type.
+Use `#enum(type)` to specify the enum's underlying type.
 
 ### Integer Enums
 
 ```ez
 // Explicit integer type (same as default)
-@enum(int)
+#enum(int)
 const Priority enum {
     LOW       // 0
     MEDIUM    // 1
@@ -51,7 +51,7 @@ const Priority enum {
 Float enums require explicit values for all members:
 
 ```ez
-@enum(float)
+#enum(float)
 const Grade enum {
     A = 4.0
     B = 3.0
@@ -71,7 +71,7 @@ do main() {
 String enums require explicit values for all members:
 
 ```ez
-@enum(string)
+#enum(string)
 const Color enum {
     RED = "red"
     GREEN = "green"
@@ -79,7 +79,7 @@ const Color enum {
     YELLOW = "yellow"
 }
 
-@enum(string)
+#enum(string)
 const Direction enum {
     NORTH = "N"
     SOUTH = "S"
@@ -100,10 +100,10 @@ do main() {
 
 ## Flag Enums
 
-Use `@flags` for bitwise flag enums with power-of-2 values:
+Use `#flags` for bitwise flag enums with power-of-2 values:
 
 ```ez
-@flags
+#flags
 const Permissions enum {
     READ      // 1
     WRITE     // 2
@@ -129,10 +129,10 @@ do main() {
 
 ### Flag Enum Values
 
-`@flags` automatically assigns power-of-2 values:
+`#flags` automatically assigns power-of-2 values:
 
 ```ez
-@flags
+#flags
 const FileMode enum {
     NONE       // 0 (special case: first flag is 0)
     READ       // 1
@@ -229,10 +229,10 @@ when status {
 }
 ```
 
-Use `@strict` to ensure all enum cases are handled:
+Use `#strict` to ensure all enum cases are handled:
 
 ```ez
-@strict
+#strict
 when status {
     is Status.PENDING { std.println("Waiting...") }
     is Status.ACTIVE { std.println("In progress...") }
@@ -332,17 +332,17 @@ Arrays, structs, and other complex types cannot be used as enum types.
 | Attribute | Description | Example |
 |-----------|-------------|---------|
 | (none) | Integer enum, values 0, 1, 2... | `const Status enum { ... }` |
-| `@enum(int)` | Explicit integer enum | `@enum(int) const Status enum { ... }` |
-| `@enum(float)` | Float enum (requires explicit values) | `@enum(float) const Grade enum { A = 4.0 ... }` |
-| `@enum(string)` | String enum (requires explicit values) | `@enum(string) const Color enum { RED = "red" ... }` |
-| `@flags` | Bitwise flags with power-of-2 values | `@flags const Perms enum { READ, WRITE ... }` |
+| `#enum(int)` | Explicit integer enum | `#enum(int) const Status enum { ... }` |
+| `#enum(float)` | Float enum (requires explicit values) | `#enum(float) const Grade enum { A = 4.0 ... }` |
+| `#enum(string)` | String enum (requires explicit values) | `#enum(string) const Color enum { RED = "red" ... }` |
+| `#flags` | Bitwise flags with power-of-2 values | `#flags const Perms enum { READ, WRITE ... }` |
 
 ## Example Program
 
 ```ez
 import @std
 
-@enum(string)
+#enum(string)
 const TaskStatus enum {
     TODO = "todo"
     IN_PROGRESS = "in-progress"

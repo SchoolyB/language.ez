@@ -810,9 +810,9 @@
       "slug": "when-missing-default",
       "message": "when statement requires a default case",
       "category": "parse",
-      "usedFor": "When statement without a default case (unless using @strict with enum)",
+      "usedFor": "When statement without a default case (unless using #strict with enum)",
       "example": "when statement requires a default case",
-      "howToFix": "Add a `default { }` case to handle values not covered by `is` cases, or use `@strict` with an enum.",
+      "howToFix": "Add a `default { }` case to handle values not covered by `is` cases, or use `#strict` with an enum.",
       "relatedErrors": [
         "E2042",
         "E2043"
@@ -823,7 +823,7 @@
       "slug": "when-strict-has-default",
       "message": "strict when statement cannot have a default case",
       "category": "parse",
-      "usedFor": "@strict when statement that includes a default case",
+      "usedFor": "#strict when statement that includes a default case",
       "example": "strict when statement cannot have a default case",
       "howToFix": "Remove the `default` case. Strict when statements must cover all enum values explicitly.",
       "relatedErrors": [
@@ -860,9 +860,9 @@
       "slug": "when-strict-non-enum",
       "message": "strict attribute only allowed on enum when statements",
       "category": "parse",
-      "usedFor": "@strict attribute on a when statement that doesn't match an enum",
-      "example": "@strict can only be used with enum when statements",
-      "howToFix": "Remove the `@strict` attribute. It can only be used when the when condition is an enum value.",
+      "usedFor": "#strict attribute on a when statement that doesn't match an enum",
+      "example": "#strict can only be used with enum when statements",
+      "howToFix": "Remove the `#strict` attribute. It can only be used when the when condition is an enum value.",
       "relatedErrors": [
         "E2042",
         "E2046"
@@ -873,7 +873,7 @@
       "slug": "when-strict-missing-case",
       "message": "strict when statement missing enum case",
       "category": "parse",
-      "usedFor": "@strict when statement that doesn't cover all enum values",
+      "usedFor": "#strict when statement that doesn't cover all enum values",
       "example": "strict when statement missing case for 'Status.PENDING'",
       "howToFix": "Add an `is` case for each enum value. Strict when statements must be exhaustive.",
       "relatedErrors": [
@@ -937,11 +937,11 @@
     {
       "code": "E2051",
       "slug": "suppress-invalid-target",
-      "message": "@suppress can only be applied to function declarations",
+      "message": "#suppress can only be applied to function declarations or file level",
       "category": "parse",
-      "usedFor": "Using @suppress attribute on non-function declarations",
-      "example": "@suppress can only be applied to function declarations",
-      "howToFix": "Move the @suppress attribute to a function declaration. It cannot be used on variables, structs, or other declarations.",
+      "usedFor": "Using #suppress attribute on non-function declarations (except file-level #suppress(ALL))",
+      "example": "#suppress can only be applied to function declarations or at file level with ALL",
+      "howToFix": "Move the #suppress attribute to a function declaration, or use #suppress(ALL) at the top of the file to suppress all warnings in that file.",
       "relatedErrors": [
         "E2052"
       ]
@@ -951,9 +951,9 @@
       "slug": "suppress-invalid-code",
       "message": "warning code cannot be suppressed",
       "category": "parse",
-      "usedFor": "Using @suppress with an invalid or unknown warning code",
+      "usedFor": "Using #suppress with an invalid or unknown warning code",
       "example": "warning code 'W9999' cannot be suppressed",
-      "howToFix": "Use a valid warning code with @suppress. Valid codes are W1001-W4001.",
+      "howToFix": "Use a valid warning code with #suppress. Valid codes are W1001-W4001, or use ALL to suppress all warnings.",
       "relatedErrors": [
         "E2051"
       ]
@@ -2747,7 +2747,7 @@
       "category": "warnings",
       "usedFor": "Variable declared but never referenced",
       "example": "variable 'x' is declared but never used",
-      "howToFix": "Use the variable, remove it, or suppress with `@Suppress(W1001)`.",
+      "howToFix": "Use the variable, remove it, or suppress with `#suppress(W1001)`.",
       "relatedErrors": [
         "W1002",
         "W1003",
@@ -2761,7 +2761,7 @@
       "category": "warnings",
       "usedFor": "Import statement for unused module",
       "example": "module 'math' is imported but never used",
-      "howToFix": "Use the imported module, remove the import, or suppress with `@Suppress(W1002)`.",
+      "howToFix": "Use the imported module or remove the import.",
       "relatedErrors": [
         "W1001",
         "W1003",
@@ -2775,7 +2775,7 @@
       "category": "warnings",
       "usedFor": "Function defined but never invoked",
       "example": "function 'helper' is declared but never called",
-      "howToFix": "Call the function, remove it, or suppress with `@Suppress(W1003)`.",
+      "howToFix": "Call the function or remove it.",
       "relatedErrors": [
         "W1001",
         "W1002",
@@ -2789,7 +2789,7 @@
       "category": "warnings",
       "usedFor": "Function parameter never referenced in body",
       "example": "parameter 'x' is declared but never used",
-      "howToFix": "Use the parameter, prefix with `_` to indicate intentionally unused, or suppress with `@Suppress(W1004)`.",
+      "howToFix": "Use the parameter, prefix with `_` to indicate intentionally unused, or suppress with `#suppress(W1004)`.",
       "relatedErrors": [
         "W1001",
         "W1002",
@@ -2803,11 +2803,11 @@
       "category": "warnings",
       "usedFor": "Code after return/break/continue",
       "example": "unreachable code after return/break/continue",
-      "howToFix": "Remove the unreachable code or restructure your control flow. Suppress with `@Suppress(W2001)`.",
+      "howToFix": "Remove the unreachable code or restructure your control flow. Suppress with `#suppress(W2001)`.",
       "relatedErrors": [
         "W2003"
       ],
-      "suppressible": "@suppress(W2001) or @suppress(unreachable_code)"
+      "suppressible": "Suppress with #suppress(W2001) at function declaration site OR #suppress(ALL) at top of file"
     },
     {
       "code": "W2002",
@@ -2816,7 +2816,7 @@
       "category": "warnings",
       "usedFor": "Inner scope variable with same name as outer",
       "example": "variable 'x' shadows variable in outer scope",
-      "howToFix": "Rename the inner variable to avoid confusion, or suppress with `@Suppress(W2002)`.",
+      "howToFix": "Rename the inner variable to avoid confusion, or suppress with `#suppress(W2002)`.",
       "relatedErrors": [
         "W1001"
       ]
@@ -2828,12 +2828,12 @@
       "category": "warnings",
       "usedFor": "Function with return type but no return",
       "example": "Function 'foo' declares return type(s) but has no return statement",
-      "howToFix": "Ensure all code paths return a value, or suppress with `@Suppress(W2003)`.",
+      "howToFix": "Ensure all code paths return a value, or suppress with `#suppress(W2003)`.",
       "relatedErrors": [
         "E3012",
         "W2001"
       ],
-      "suppressible": "@suppress(W2003) or @suppress(missing_return)"
+      "suppressible": "Suppress with #suppress(W2003) at function declaration site OR #suppress(ALL) at top of file"
     },
     {
       "code": "W2004",
@@ -2842,7 +2842,7 @@
       "category": "warnings",
       "usedFor": "Automatic type coercion",
       "example": "implicit conversion from int to float",
-      "howToFix": "Use explicit type conversion to make the intent clear, or suppress with `@Suppress(W2004)`.",
+      "howToFix": "Use explicit type conversion to make the intent clear, or suppress with `#suppress(W2004)`.",
       "relatedErrors": [
         "E3001"
       ]
@@ -2854,7 +2854,7 @@
       "category": "warnings",
       "usedFor": "Use of deprecated syntax or function",
       "example": "feature 'xyz' is deprecated, use 'abc' instead",
-      "howToFix": "Update to use the recommended alternative, or suppress with `@Suppress(W2005)`.",
+      "howToFix": "Update to use the recommended alternative, or suppress with `#suppress(W2005)`.",
       "relatedErrors": []
     },
     {
@@ -2887,7 +2887,7 @@
       "category": "warnings",
       "usedFor": "Empty body in if/for/while/function",
       "example": "if statement has empty body",
-      "howToFix": "Add code to the block, add a comment explaining why it's empty, or suppress with `@Suppress(W3001)`.",
+      "howToFix": "Add code to the block, add a comment explaining why it's empty, or suppress with `#suppress(W3001)`.",
       "relatedErrors": []
     },
     {
@@ -2897,7 +2897,7 @@
       "category": "warnings",
       "usedFor": "Constant condition in if/while",
       "example": "condition 'true' is always true",
-      "howToFix": "Simplify your condition or remove the check entirely. Suppress with `@Suppress(W3002)`.",
+      "howToFix": "Simplify your condition or remove the check entirely. Suppress with `#suppress(W3002)`.",
       "relatedErrors": [
         "W2001"
       ]
@@ -2909,11 +2909,11 @@
       "category": "warnings",
       "usedFor": "Declaring a fixed-size array but providing fewer elements than the declared size",
       "example": "array declared with size 10 but only 3 elements provided",
-      "howToFix": "Initialize all elements of a fixed-size array, or suppress with `@Suppress(W3003)`.",
+      "howToFix": "Initialize all elements of a fixed-size array, or suppress with `#suppress(W3003)`.",
       "relatedErrors": [
         "E2032"
       ],
-      "suppressible": "@suppress(W3003) or @suppress(array_size_mismatch)"
+      "suppressible": "Suppress with #suppress(W3003) at function declaration site OR #suppress(ALL) at top of file"
     },
     {
       "code": "W4001",
@@ -2922,7 +2922,7 @@
       "category": "warnings",
       "usedFor": "Warning when module declaration name differs from directory name",
       "example": "module name 'foo' does not match directory name 'bar'",
-      "howToFix": "Rename the module to match the directory name, or rename the directory. Suppress with `@Suppress(W4001)`.",
+      "howToFix": "Rename the module to match the directory name, or rename the directory.",
       "relatedErrors": [
         "E6005",
         "E6006"

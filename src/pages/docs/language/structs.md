@@ -231,6 +231,82 @@ const defaults Config = Config{debug: false, timeout: 30}
 
 > **Important:** When a struct instance is declared with `const`, all of its fields are protected from modification. This includes nested struct fields. Attempting to modify any field on a `const` struct will produce a compile-time error.
 
+## Struct Field Tags for JSON
+
+Struct fields can have tags that control how they are serialized to and deserialized from JSON. Tags use backtick syntax similar to Go.
+
+### Basic Syntax
+
+```ez
+const User struct {
+    name string `json:"name"`
+    email string `json:"email_address"`
+    age int `json:"age"`
+}
+```
+
+When this struct is serialized to JSON, the field names in the output will use the tag values instead of the original field names.
+
+### Available Tag Options
+
+| Tag | Description |
+|-----|-------------|
+| `json:"name"` | Use custom field name in JSON |
+| `json:"-"` | Exclude field from JSON entirely |
+| `json:"name,omitempty"` | Omit field if it has a zero value |
+| `json:"name,string"` | Encode numeric value as a string |
+
+### Examples
+
+#### Custom Field Names
+
+```ez
+const Person struct {
+    firstName string `json:"first_name"`
+    lastName string `json:"last_name"`
+}
+
+temp p Person = Person{firstName: "Alice", lastName: "Smith"}
+// JSON output: {"first_name": "Alice", "last_name": "Smith"}
+```
+
+#### Excluding Fields
+
+```ez
+const Config struct {
+    host string `json:"host"`
+    password string `json:"-"`  // Never included in JSON
+}
+
+temp c Config = Config{host: "localhost", password: "secret123"}
+// JSON output: {"host": "localhost"}
+```
+
+#### Omit Empty Values
+
+```ez
+const Item struct {
+    name string `json:"name"`
+    description string `json:"description,omitempty"`
+}
+
+temp item Item = Item{name: "Widget", description: ""}
+// JSON output: {"name": "Widget"}
+// (description omitted because it's empty)
+```
+
+#### Encoding Numbers as Strings
+
+```ez
+const Product struct {
+    id int `json:"id,string"`
+    price float `json:"price,string"`
+}
+
+temp p Product = Product{id: 12345, price: 29.99}
+// JSON output: {"id": "12345", "price": "29.99"}
+```
+
 ## Example Program
 
 ```ez
