@@ -12,7 +12,7 @@ EZ is a statically-typed language with strong typing. Types are checked at compi
 
 ### int
 
-Integer numbers (whole numbers):
+Integer numbers (whole numbers) with arbitrary precision (no fixed limit):
 
 ```ez
 temp age int = 25
@@ -172,7 +172,7 @@ Only positive values (and zero):
 | `u64` | 64 bits | 0 to 18.4 quintillion |
 | `u128` | 128 bits | Very large range |
 | `u256` | 256 bits | Extremely large range |
-| `uint` | Platform-dependent | 0 to platform max |
+| `uint` | Arbitrary precision | No fixed limit |
 
 ```ez
 temp byte u8 = 255
