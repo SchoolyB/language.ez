@@ -348,6 +348,93 @@ do main() {
 }
 ```
 
+## Guaranteed Cleanup with `ensure`
+
+The `ensure` keyword guarantees a function call runs when the current function exits, regardless of how it exits (normal return, early return, or reaching end of function). This prevents resource leaks by ensuring cleanup code always runs.
+
+### Problem: Resource Leaks
+
+```ez
+import @io, @db
+
+do process_data() {
+    temp store, _ = db.open("mydb.ezdb")
+    temp file, _ = io.open("data.txt", "r")
+
+    if something_bad {
+        return  // store and file never closed!
+    }
+
+    // If we forget cleanup or return early, resources leak
+
+    db.close(store)
+    io.close(file)
+}
+```
+
+### Solution: `ensure`
+
+```ez
+import @io, @db
+
+do process_data() {
+    temp store, _ = db.open("mydb.ezdb")
+    ensure db.close(store)
+
+    temp file, _ = io.open("data.txt", "r")
+    ensure io.close(file)
+
+    if something_bad {
+        return  // Both close calls still run!
+    }
+
+    // Even if error here, cleanup happens
+}
+```
+
+### Execution Order (LIFO)
+
+Multiple `ensure` statements run in reverse order (Last-In, First-Out):
+
+```ez
+import @std
+
+do cleanup1() { std.println("cleanup 1") }
+do cleanup2() { std.println("cleanup 2") }
+do cleanup3() { std.println("cleanup 3") }
+
+do example() {
+    ensure cleanup1()  // runs 3rd
+    ensure cleanup2()  // runs 2nd
+    ensure cleanup3()  // runs 1st
+}
+
+do main() {
+    example()
+    // Output:
+    // cleanup 3
+    // cleanup 2
+    // cleanup 1
+}
+```
+
+This LIFO order matches how resources are typically acquired and released - resources acquired first should be released last.
+
+### Rules
+
+- `ensure` statements trigger on:
+  - Normal return
+  - Early return
+  - Reaching end of function
+- Only function calls are allowed after `ensure`:
+  ```ez
+  ensure db.close(store)     // OK
+  ensure cleanup()           // OK
+  // ensure { block }        // Not supported
+  ```
+
+---
+
 ## Early Returns
 
 Use `return` to exit a function early:
