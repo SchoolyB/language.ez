@@ -116,6 +116,25 @@ for i in range(10, 0, -2) {
 > This matches the behavior of most modern languages and makes array iteration natural:
 > `for i in range(0, len(arr))`.
 
+### Ignoring the Loop Variable
+
+Use `_` (blank identifier) when you don't need the loop variable:
+
+```ez
+import @std
+
+// Execute something 5 times without using the index
+for _ in range(5) {
+    std.println("Hello!")
+}
+
+// Useful when you only care about the count, not the value
+temp count int = 0
+for _ in range(0, 100) {
+    count += do_something()
+}
+```
+
 ## For-Each Loops
 
 ### for_each
@@ -151,6 +170,23 @@ for_each person in people {
 
 > **Note:** Use `for_each` when iterating directly over collections.
 > Use `for` with `range()` when you need the index.
+
+### Ignoring Values in for_each
+
+Use `_` when you only need to iterate but don't use the values:
+
+```ez
+import @std
+
+temp items [int] = {1, 2, 3, 4, 5}
+
+// Count items without using the values
+temp count int = 0
+for_each _ in items {
+    count++
+}
+std.println("Count:", count)  // 5
+```
 
 ## While Loops
 
